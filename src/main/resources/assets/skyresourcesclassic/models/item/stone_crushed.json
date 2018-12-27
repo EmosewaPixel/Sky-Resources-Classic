@@ -1,6 +1,6 @@
 {
   "parent":"item/generated",
   "textures": {
-    "layer0":"skyresourcesclassic:items/stone_crushed"
+    "layer0":"skyresourcesclassic:item/stone_crushed"
   }
 }

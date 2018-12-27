@@ -39,7 +39,7 @@ public class TileBeeAttractor extends TileGenericPower implements ITickable, IFl
     }
 
     @Override
-    public void update() {
+    public void tick() {
         if (!world.isRemote) {
 
             if (tank.getFluidAmount() >= fluidUsage && tank.getFluid().getFluid().getName().equals("seed.oil")
@@ -184,21 +184,21 @@ public class TileBeeAttractor extends TileGenericPower implements ITickable, IFl
     }
 
     @Override
-    public NBTTagCompound writeToNBT(NBTTagCompound compound) {
-        compound = super.writeToNBT(compound);
+    public NBTTagCompound write(NBTTagCompound compound) {
+        compound = super.write(compound);
 
-        compound.setInteger("Ticks", ticks);
-        tank.writeToNBT(compound);
+        compound.setInt("Ticks", ticks);
+        tank.write(compound);
 
         return compound;
     }
 
     @Override
-    public void readFromNBT(NBTTagCompound compound) {
-        super.readFromNBT(compound);
+    public void read(NBTTagCompound compound) {
+        super.read(compound);
 
-        ticks = compound.getInteger("Ticks");
-        tank.readFromNBT(compound);
+        ticks = compound.getInt("Ticks");
+        tank.read(compound);
     }
 
     public FluidTank getTank() {

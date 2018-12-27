@@ -2,14 +2,14 @@ package com.skyresourcesclassic.alchemy.render;
 
 import com.skyresourcesclassic.RandomHelper;
 import com.skyresourcesclassic.alchemy.tile.CrucibleTile;
-import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
+import net.minecraft.client.renderer.tileentity.TileEntityRenderer;
 import net.minecraftforge.fluids.FluidStack;
 import org.lwjgl.opengl.GL11;
 
-public class CrucibleTESR extends TileEntitySpecialRenderer<CrucibleTile> {
+public class CrucibleTESR extends TileEntityRenderer<CrucibleTile> {
 
     @Override
-    public void render(CrucibleTile te, double x, double y, double z, float partialTicks, int destroyStage, float alpha) {
+    public void render(CrucibleTile te, double x, double y, double z, float partialTicks, int destroyStage) {
         GL11.glPushMatrix();
         GL11.glTranslatef((float) x + 0.5f, (float) y + 1.50f, (float) z + 0.5f);
         GL11.glRotatef(180f, 1, 0, 0);

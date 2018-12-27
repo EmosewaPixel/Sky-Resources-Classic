@@ -52,9 +52,9 @@ public class GuiBeeAttractor extends GuiContainer {
 
     @Override
     protected void drawGuiContainerForegroundLayer(int mouseX, int mouseY) {
-        String s = tile.getDisplayName().getUnformattedText();
+        String s = tile.getDisplayName().getUnformattedComponentText();
         this.fontRenderer.drawString(s, 88 - this.fontRenderer.getStringWidth(s) / 2, 6, 4210752);
-        this.fontRenderer.drawString(this.playerInv.getDisplayName().getUnformattedText(), 3, 96, 4210752);
+        this.fontRenderer.drawString(this.playerInv.getDisplayName().getUnformattedComponentText(), 3, 96, 4210752);
 
         if (GuiHelper.isMouseInRect(142 + guiLeft, 30 + guiTop, 16, 59, mouseX, mouseY)) {
             int k = (this.width - this.xSize) / 2;

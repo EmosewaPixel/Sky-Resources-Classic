@@ -58,9 +58,9 @@ public class GuiWildlifeAttractor extends GuiContainer {
 
     @Override
     protected void drawGuiContainerForegroundLayer(int mouseX, int mouseY) {
-        String s = tile.getDisplayName().getUnformattedText();
+        String s = tile.getDisplayName().getUnformattedComponentText();
         this.fontRenderer.drawString(s, 88 - this.fontRenderer.getStringWidth(s) / 2, 6, 4210752);
-        this.fontRenderer.drawString(this.playerInv.getDisplayName().getUnformattedText(), 3, 96, 4210752);
+        this.fontRenderer.drawString(this.playerInv.getDisplayName().getUnformattedComponentText(), 3, 96, 4210752);
 
 
         GlStateManager.color(1.0f, 1.0f, 1.0f, 1.0f);

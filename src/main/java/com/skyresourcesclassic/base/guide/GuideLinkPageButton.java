@@ -33,7 +33,7 @@ public class GuideLinkPageButton extends GuidePageButton
     @Override
     public boolean onClicked()
     {
-        GuiScreen screen = Minecraft.getMinecraft().currentScreen;
+        GuiScreen screen = Minecraft.getInstance().currentScreen;
         if(screen instanceof GuideGUI)
         {
             ((GuideGUI) screen).openPage(SkyResourcesGuide.getPage(id));

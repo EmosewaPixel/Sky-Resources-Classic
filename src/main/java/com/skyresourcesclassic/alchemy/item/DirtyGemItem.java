@@ -1,7 +1,7 @@
 package com.skyresourcesclassic.alchemy.item;
 
 import com.skyresourcesclassic.References;
-import com.skyresourcesclassic.registry.ModCreativeTabs;
+import com.skyresourcesclassic.registry.ModItemGroups;
 import net.minecraft.item.Item;
 
 public class DirtyGemItem extends Item {
@@ -11,7 +11,6 @@ public class DirtyGemItem extends Item {
 
         setUnlocalizedName(References.ModID + ".dirty_" + gem);
         setRegistryName("dirty_" + gem);
-        setHasSubtypes(true);
-        this.setCreativeTab(ModCreativeTabs.tabTech);
+        this.setCreativeTab(ModItemGroups.tabTech);
     }
 }

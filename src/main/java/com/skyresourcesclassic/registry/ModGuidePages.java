@@ -21,7 +21,7 @@ public class ModGuidePages {
     public static void init() {
         SkyResourcesGuide.addPage("basics", "guide.skyresourcesclassic.stage1", new ItemStack(Blocks.BEDROCK));
 
-        SkyResourcesGuide.addPage("sandIsland", "guide.skyresourcesclassic.stage1", new ItemStack(Blocks.SAND, 1, 1));
+        SkyResourcesGuide.addPage("sandIsland", "guide.skyresourcesclassic.stage1", new ItemStack(Blocks.RED_SAND));
 
         SkyResourcesGuide.addPage("lifeInfusion", "guide.skyresourcesclassic.stage1",
                 new ItemStack(ModItems.alchemicalInfusionStone));
@@ -30,19 +30,19 @@ public class ModGuidePages {
 
         SkyResourcesGuide.addPage("miniFreezer", "guide.skyresourcesclassic.stage1", new ItemStack(ModBlocks.miniFreezer));
 
-        SkyResourcesGuide.addPage("woodIsland", "guide.skyresourcesclassic.stage1", new ItemStack(Blocks.PLANKS, 1, 5));
+        SkyResourcesGuide.addPage("woodIsland", "guide.skyresourcesclassic.stage1", new ItemStack(Blocks.DARK_OAK_PLANKS));
 
         SkyResourcesGuide.addPage("grassIsland", "guide.skyresourcesclassic.stage1", new ItemStack(Blocks.GRASS));
 
         SkyResourcesGuide.addPage("combustionHeater", "guide.skyresourcesclassic.stage2",
                 new ItemStack(ModBlocks.combustionHeater[0]));
         addImagePos("combustion", new BlockPos(0, -1, 0), ModBlocks.combustionHeater[0].getDefaultState());
-        addImagePos("combustion", new BlockPos(1, 0, 0), Blocks.PLANKS.getDefaultState());
-        addImagePos("combustion", new BlockPos(-1, 0, 0), Blocks.PLANKS.getDefaultState());
-        addImagePos("combustion", new BlockPos(0, 0, 1), Blocks.PLANKS.getDefaultState());
-        addImagePos("combustion", new BlockPos(0, 0, -1), Blocks.PLANKS.getDefaultState());
-        addImagePos("combustion", new BlockPos(0, 1, 0), Blocks.PLANKS.getDefaultState());
-        addImagePos("combustion", new BlockPos(0, -1, -1), Blocks.WOODEN_BUTTON.getDefaultState());
+        addImagePos("combustion", new BlockPos(1, 0, 0), Blocks.OAK_PLANKS.getDefaultState());
+        addImagePos("combustion", new BlockPos(-1, 0, 0), Blocks.OAK_PLANKS.getDefaultState());
+        addImagePos("combustion", new BlockPos(0, 0, 1), Blocks.OAK_PLANKS.getDefaultState());
+        addImagePos("combustion", new BlockPos(0, 0, -1), Blocks.OAK_PLANKS.getDefaultState());
+        addImagePos("combustion", new BlockPos(0, 1, 0), Blocks.OAK_PLANKS.getDefaultState());
+        addImagePos("combustion", new BlockPos(0, -1, -1), Blocks.OAK_BUTTON.getDefaultState());
 
         SkyResourcesGuide.addPage("waterExtractor", "guide.skyresourcesclassic.stage2",
                 new ItemStack(ModItems.waterExtractor));
@@ -114,8 +114,8 @@ public class ModGuidePages {
                 new ItemStack(ModItems.itemComponent[0]));
 
         SkyResourcesGuide.addPage("ironFreezer", "guide.skyresourcesclassic.stage3", new ItemStack(ModBlocks.ironFreezer));
-        addImagePos("ironFreezer", new BlockPos(0, -1, 0), ModBlocks.ironFreezer.getDefaultState().withProperty(BlockFreezer.PART, BlockFreezer.EnumPartType.BOTTOM).withProperty(BlockFreezer.FACING, EnumFacing.WEST));
-        addImagePos("ironFreezer", new BlockPos(0, 0, 0), ModBlocks.ironFreezer.getDefaultState().withProperty(BlockFreezer.PART, BlockFreezer.EnumPartType.TOP).withProperty(BlockFreezer.FACING, EnumFacing.WEST));
+        addImagePos("ironFreezer", new BlockPos(0, -1, 0), ModBlocks.ironFreezer.getDefaultState().with(BlockFreezer.PART, BlockFreezer.EnumPartType.BOTTOM).withProperty(BlockFreezer.FACING, EnumFacing.WEST));
+        addImagePos("ironFreezer", new BlockPos(0, 0, 0), ModBlocks.ironFreezer.getDefaultState().with(BlockFreezer.PART, BlockFreezer.EnumPartType.TOP).withProperty(BlockFreezer.FACING, EnumFacing.WEST));
 
         SkyResourcesGuide.addPage("rockCrusher", "guide.skyresourcesclassic.stage3", new ItemStack(ModBlocks.rockCrusher));
 
@@ -131,25 +131,25 @@ public class ModGuidePages {
         SkyResourcesGuide.addPage("healthGem", "guide.skyresourcesclassic.stage3", new ItemStack(ModItems.healthGem));
 
         SkyResourcesGuide.addPage("lifeInfuser", "guide.skyresourcesclassic.stage3", new ItemStack(ModBlocks.lifeInfuser));
-        addImagePos("infuser", new BlockPos(-1, -1, -1), Blocks.LOG.getDefaultState());
-        addImagePos("infuser", new BlockPos(-1, 0, -1), Blocks.LOG.getDefaultState());
-        addImagePos("infuser", new BlockPos(1, -1, -1), Blocks.LOG.getDefaultState());
-        addImagePos("infuser", new BlockPos(1, 0, -1), Blocks.LOG.getDefaultState());
-        addImagePos("infuser", new BlockPos(-1, -1, 1), Blocks.LOG.getDefaultState());
-        addImagePos("infuser", new BlockPos(-1, 0, 1), Blocks.LOG.getDefaultState());
-        addImagePos("infuser", new BlockPos(1, -1, 1), Blocks.LOG.getDefaultState());
-        addImagePos("infuser", new BlockPos(1, 0, 1), Blocks.LOG.getDefaultState());
-        addImagePos("infuser", new BlockPos(-1, 1, -1), Blocks.LEAVES.getDefaultState());
-        addImagePos("infuser", new BlockPos(0, 1, -1), Blocks.LEAVES.getDefaultState());
-        addImagePos("infuser", new BlockPos(1, 1, -1), Blocks.LEAVES.getDefaultState());
-        addImagePos("infuser", new BlockPos(1, 1, 0), Blocks.LEAVES.getDefaultState());
-        addImagePos("infuser", new BlockPos(1, 1, 1), Blocks.LEAVES.getDefaultState());
-        addImagePos("infuser", new BlockPos(0, 1, 1), Blocks.LEAVES.getDefaultState());
-        addImagePos("infuser", new BlockPos(-1, 1, 1), Blocks.LEAVES.getDefaultState());
-        addImagePos("infuser", new BlockPos(-1, 1, 0), Blocks.LEAVES.getDefaultState());
+        addImagePos("infuser", new BlockPos(-1, -1, -1), Blocks.OAK_LOG.getDefaultState());
+        addImagePos("infuser", new BlockPos(-1, 0, -1), Blocks.OAK_LOG.getDefaultState());
+        addImagePos("infuser", new BlockPos(1, -1, -1), Blocks.OAK_LOG.getDefaultState());
+        addImagePos("infuser", new BlockPos(1, 0, -1), Blocks.OAK_LOG.getDefaultState());
+        addImagePos("infuser", new BlockPos(-1, -1, 1), Blocks.OAK_LOG.getDefaultState());
+        addImagePos("infuser", new BlockPos(-1, 0, 1), Blocks.OAK_LOG.getDefaultState());
+        addImagePos("infuser", new BlockPos(1, -1, 1), Blocks.OAK_LOG.getDefaultState());
+        addImagePos("infuser", new BlockPos(1, 0, 1), Blocks.OAK_LOG.getDefaultState());
+        addImagePos("infuser", new BlockPos(-1, 1, -1), Blocks.OAK_LEAVES.getDefaultState());
+        addImagePos("infuser", new BlockPos(0, 1, -1), Blocks.OAK_LEAVES.getDefaultState());
+        addImagePos("infuser", new BlockPos(1, 1, -1), Blocks.OAK_LEAVES.getDefaultState());
+        addImagePos("infuser", new BlockPos(1, 1, 0), Blocks.OAK_LEAVES.getDefaultState());
+        addImagePos("infuser", new BlockPos(1, 1, 1), Blocks.OAK_LEAVES.getDefaultState());
+        addImagePos("infuser", new BlockPos(0, 1, 1), Blocks.OAK_LEAVES.getDefaultState());
+        addImagePos("infuser", new BlockPos(-1, 1, 1), Blocks.OAK_LEAVES.getDefaultState());
+        addImagePos("infuser", new BlockPos(-1, 1, 0), Blocks.OAK_LEAVES.getDefaultState());
         addImagePos("infuser", new BlockPos(0, 0, 0), ModBlocks.lifeInfuser.getDefaultState());
         addImagePos("infuser", new BlockPos(0, 1, 0), ModBlocks.darkMatterBlock.getDefaultState());
-        addImagePos("infuser", new BlockPos(0, 2, 0), Blocks.STONE_BUTTON.getDefaultState().withProperty(BlockButton.FACING, EnumFacing.UP));
+        addImagePos("infuser", new BlockPos(0, 2, 0), Blocks.STONE_BUTTON.getDefaultState().with(BlockButton.FACING, EnumFacing.UP));
 
         SkyResourcesGuide.addPage("end", "guide.skyresourcesclassic.stage3", new ItemStack(Items.ENDER_EYE));
         addImagePos("end", new BlockPos(0, -1, 0), ModBlocks.endPortalCore.getDefaultState());
@@ -167,19 +167,19 @@ public class ModGuidePages {
                     addImagePos("end", new BlockPos(x, -1, z), ModBlocks.darkMatterBlock.getDefaultState());
             }
         }
-        addImagePos("end", new BlockPos(-2, 0, -2), Blocks.END_BRICKS.getDefaultState());
-        addImagePos("end", new BlockPos(-2, 1, -2), Blocks.END_BRICKS.getDefaultState());
+        addImagePos("end", new BlockPos(-2, 0, -2), Blocks.END_STONE_BRICKS.getDefaultState());
+        addImagePos("end", new BlockPos(-2, 1, -2), Blocks.END_STONE_BRICKS.getDefaultState());
         addImagePos("end", new BlockPos(-2, 2, -2), Blocks.GLOWSTONE.getDefaultState());
-        addImagePos("end", new BlockPos(2, 0, -2), Blocks.END_BRICKS.getDefaultState());
-        addImagePos("end", new BlockPos(2, 1, -2), Blocks.END_BRICKS.getDefaultState());
+        addImagePos("end", new BlockPos(2, 0, -2), Blocks.END_STONE_BRICKS.getDefaultState());
+        addImagePos("end", new BlockPos(2, 1, -2), Blocks.END_STONE_BRICKS.getDefaultState());
         addImagePos("end", new BlockPos(2, 2, -2), Blocks.GLOWSTONE.getDefaultState());
-        addImagePos("end", new BlockPos(-2, 0, 2), Blocks.END_BRICKS.getDefaultState());
-        addImagePos("end", new BlockPos(-2, 1, 2), Blocks.END_BRICKS.getDefaultState());
+        addImagePos("end", new BlockPos(-2, 0, 2), Blocks.END_STONE_BRICKS.getDefaultState());
+        addImagePos("end", new BlockPos(-2, 1, 2), Blocks.END_STONE_BRICKS.getDefaultState());
         addImagePos("end", new BlockPos(-2, 2, 2), Blocks.GLOWSTONE.getDefaultState());
-        addImagePos("end", new BlockPos(2, 0, 2), Blocks.END_BRICKS.getDefaultState());
-        addImagePos("end", new BlockPos(2, 1, 2), Blocks.END_BRICKS.getDefaultState());
+        addImagePos("end", new BlockPos(2, 0, 2), Blocks.END_STONE_BRICKS.getDefaultState());
+        addImagePos("end", new BlockPos(2, 1, 2), Blocks.END_STONE_BRICKS.getDefaultState());
         addImagePos("end", new BlockPos(2, 2, 2), Blocks.GLOWSTONE.getDefaultState());
-        addImagePos("end", new BlockPos(0, 0, 0), Blocks.STONE_BUTTON.getDefaultState().withProperty(BlockButton.FACING, EnumFacing.UP));
+        addImagePos("end", new BlockPos(0, 0, 0), Blocks.STONE_BUTTON.getDefaultState().with(BlockButton.FACING, EnumFacing.UP));
     }
 
     private static void addImagePos(String id, BlockPos pos, IBlockState block) {

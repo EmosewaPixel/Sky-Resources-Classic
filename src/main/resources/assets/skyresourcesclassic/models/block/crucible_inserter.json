@@ -1,11 +1,11 @@
 {
   "parent":"block/cube_all",
   "textures": {
-       "bottom": "skyresourcesclassic:blocks/iron_machine",
-       "top": "skyresourcesclassic:blocks/iron_machine",
-       "side": "skyresourcesclassic:blocks/iron_machine",
-       "inside": "skyresourcesclassic:blocks/iron_machine",
-       "particle": "skyresourcesclassic:blocks/iron_machine"
+       "bottom": "skyresourcesclassic:block/iron_machine",
+       "top": "skyresourcesclassic:block/iron_machine",
+       "side": "skyresourcesclassic:block/iron_machine",
+       "inside": "skyresourcesclassic:block/iron_machine",
+       "particle": "skyresourcesclassic:block/iron_machine"
   },
   "elements": [
         {   "from": [ 0, 10, 0 ],

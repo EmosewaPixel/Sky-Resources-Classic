@@ -25,8 +25,8 @@ public class MiniFreezerTile extends TileItemInventory implements ITickable {
     }
 
     @Override
-    public NBTTagCompound writeToNBT(NBTTagCompound compound) {
-        super.writeToNBT(compound);
+    public NBTTagCompound write(NBTTagCompound compound) {
+        super.write(compound);
 
         if (timeFreeze != null) {
             for (int i = 0; i < timeFreeze.length; i++)
@@ -36,8 +36,8 @@ public class MiniFreezerTile extends TileItemInventory implements ITickable {
     }
 
     @Override
-    public void readFromNBT(NBTTagCompound compound) {
-        super.readFromNBT(compound);
+    public void read(NBTTagCompound compound) {
+        super.read(compound);
 
         timeFreeze = new float[getInventory().getSlots()];
         for (int i = 0; i < this.getInventory().getSlots(); i++) {
@@ -46,7 +46,7 @@ public class MiniFreezerTile extends TileItemInventory implements ITickable {
     }
 
     @Override
-    public void update() {
+    public void tick() {
         if (!world.isRemote) {
             if (timeFreeze == null) {
                 timeFreeze = new float[getInventory().getSlots()];
@@ -131,7 +131,7 @@ public class MiniFreezerTile extends TileItemInventory implements ITickable {
         return (int) timeFreeze[id];
     }
 
-    @SideOnly(Side.CLIENT)
+    @OnlyIn(Dist.CLIENT)
     public void setClientUpdate(int id, int data) {
         if (timeFreeze != null)
             timeFreeze[id] = data;

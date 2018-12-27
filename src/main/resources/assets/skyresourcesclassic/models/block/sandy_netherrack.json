@@ -1,7 +1,7 @@
 {
   "parent":"block/cube_all",
   "textures": {
-    "all": "skyresourcesclassic:blocks/sandy_netherrack"
+    "all": "skyresourcesclassic:block/sandy_netherrack"
   },
   "display": {
         "thirdperson": {

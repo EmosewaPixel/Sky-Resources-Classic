@@ -3,7 +3,7 @@ package com.skyresourcesclassic.alchemy.item;
 import com.skyresourcesclassic.ConfigOptions;
 import com.skyresourcesclassic.References;
 import com.skyresourcesclassic.alchemy.effects.IHealthBoostItem;
-import com.skyresourcesclassic.registry.ModCreativeTabs;
+import com.skyresourcesclassic.registry.ModItemGroups;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
@@ -28,25 +28,25 @@ public class ItemHealthGem extends Item implements IHealthBoostItem {
 
         setUnlocalizedName(References.ModID + ".item_health_gem");
         setRegistryName("Item_health_gem");
-        setHasSubtypes(true);
-        this.setCreativeTab(ModCreativeTabs.tabAlchemy);
+
+        this.set(ModItemGroups.tabAlchemy);
         this.setMaxStackSize(1);
     }
 
     @Override
     public int getHealthBoost(ItemStack stack) {
-        return (int) (getCompound(stack).getInteger("health") * ConfigOptions.health.healthGemPercentage);
+        return (int) (getCompound(stack).getInt("health") * ConfigOptions.health.healthGemPercentage);
     }
 
     public int getHealthInjected(ItemStack stack) {
-        return getCompound(stack).getInteger("health");
+        return getCompound(stack).getInt("health");
     }
 
     @Override
     public void onCreated(ItemStack itemStack, World world, EntityPlayer player) {
         itemStack.setTagCompound(new NBTTagCompound());
-        itemStack.getTagCompound().setInteger("health", 0);
-        itemStack.getTagCompound().setInteger("cooldown", 0);
+        itemStack.getTag().setInt("health", 0);
+        itemStack.getTag().setInt("cooldown", 0);
     }
 
     @Override
@@ -56,12 +56,12 @@ public class ItemHealthGem extends Item implements IHealthBoostItem {
         ItemStack stack = player.getHeldItem(hand);
         if (player.isSneaking()) {
             if (getCompound(stack) != null) {
-                if (stack.getTagCompound().getInteger("health") + 2 <= maxHealth
-                        && stack.getTagCompound().getInteger("cooldown") == 0) {
+                if (stack.getTag().getInt("health") + 2 <= maxHealth
+                        && stack.getTag().getInt("cooldown") == 0) {
                     player.attackEntityFrom(DamageSource.GENERIC, 2);
-                    stack.getTagCompound().setInteger("health",
-                            stack.getTagCompound().getInteger("health") + 2);
-                    stack.getTagCompound().setInteger("cooldown", 20);
+                    stack.getTag().setInt("health",
+                            stack.getTag().getInt("health") + 2);
+                    stack.getTag().setInt("cooldown", 20);
                 }
             } else {
                 onCreated(stack, world, player);
@@ -82,9 +82,9 @@ public class ItemHealthGem extends Item implements IHealthBoostItem {
 
         if (Keyboard.isKeyDown(Keyboard.KEY_LSHIFT)) {
             tooltip.add(TextFormatting.GREEN + "Shift-right click to inject health.");
-            if (stack.getTagCompound() != null) {
+            if (stack.getTag() != null) {
                 tooltip.add(TextFormatting.RED + "Health Injected: "
-                        + stack.getTagCompound().getInteger("health"));
+                        + stack.getTag().getInt("health"));
             } else
                 tooltip.add("Health Injected: " + 0);
 
@@ -95,10 +95,10 @@ public class ItemHealthGem extends Item implements IHealthBoostItem {
     }
 
     private NBTTagCompound getCompound(ItemStack stack) {
-        NBTTagCompound com = stack.getTagCompound();
+        NBTTagCompound com = stack.getTag();
         if (com == null)
             onCreated(stack, null, null);
-        com = stack.getTagCompound();
+        com = stack.getTag();
 
         return com;
     }

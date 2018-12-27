@@ -48,10 +48,10 @@ public class GuiFreezer extends GuiContainer {
 
     @Override
     protected void drawGuiContainerForegroundLayer(int mouseX, int mouseY) {
-        String s = tile.getDisplayName().getUnformattedText();
+        String s = tile.getDisplayName().getUnformattedComponentText();
         this.fontRenderer.drawString(s, 88 - this.fontRenderer.getStringWidth(s) / 2, 6, 4210752);
         this.fontRenderer.drawString("Speed: x" + tile.getFreezerSpeed(), 110, 56, 4210752);
-        this.fontRenderer.drawString(this.playerInv.getDisplayName().getUnformattedText(), 8, 72, 4210752);
+        this.fontRenderer.drawString(this.playerInv.getDisplayName().getUnformattedComponentText(), 8, 72, 4210752);
 
         drawProgress();
 

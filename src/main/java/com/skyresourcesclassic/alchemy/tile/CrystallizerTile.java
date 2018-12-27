@@ -33,7 +33,7 @@ public class CrystallizerTile extends TileBase implements ITickable {
     private int tier;
 
     @Override
-    public void update() {
+    public void tick() {
         updateRedstone();
         fluidUpdate();
     }
@@ -56,7 +56,7 @@ public class CrystallizerTile extends TileBase implements ITickable {
                     if (timeCondense >= randInterval) {
                         if (rand.nextInt(50 + ModFluids.crystalFluidInfos()[ModBlocks.crystalFluidBlocks
                                 .indexOf(crystalBlock)].rarity * 5) >= 40 + 15 * getCrystallizeEfficiencyFromTier())
-                            world.setBlockToAir(pos.up());
+                            world.removeBlock(pos.up());
 
                         ItemStack stack = new ItemStack(ModItems.metalCrystal[ModFluids
                                 .crystalFluidInfos()[ModBlocks.crystalFluidBlocks.indexOf(crystalBlock)].crystalIndex]);
@@ -75,20 +75,20 @@ public class CrystallizerTile extends TileBase implements ITickable {
     }
 
     @Override
-    public NBTTagCompound writeToNBT(NBTTagCompound compound) {
-        super.writeToNBT(compound);
+    public NBTTagCompound write(NBTTagCompound compound) {
+        super.write(compound);
 
-        compound.setInteger("time", timeCondense);
-        compound.setInteger("rand", randInterval);
+        compound.setInt("time", timeCondense);
+        compound.setInt("rand", randInterval);
         return compound;
     }
 
     @Override
-    public void readFromNBT(NBTTagCompound compound) {
-        super.readFromNBT(compound);
+    public void read(NBTTagCompound compound) {
+        super.read(compound);
 
-        timeCondense = compound.getInteger("time");
-        randInterval = compound.getInteger("rand");
+        timeCondense = compound.getInt("time");
+        randInterval = compound.getInt("rand");
     }
 
     private Block getBlockAbove() {

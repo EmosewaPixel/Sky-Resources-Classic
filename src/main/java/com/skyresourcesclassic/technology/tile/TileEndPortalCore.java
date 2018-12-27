@@ -23,7 +23,7 @@ public class TileEndPortalCore extends TileItemInventory implements ITickable {
     }
 
     @Override
-    public void update() {
+    public void tick() {
         if (!world.isRemote) {
             if (hasValidMultiblock()) {
                 spawnFish();

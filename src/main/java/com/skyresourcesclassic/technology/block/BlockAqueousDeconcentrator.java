@@ -4,7 +4,7 @@ import com.skyresourcesclassic.RandomHelper;
 import com.skyresourcesclassic.References;
 import com.skyresourcesclassic.SkyResourcesClassic;
 import com.skyresourcesclassic.registry.ModBlocks;
-import com.skyresourcesclassic.registry.ModCreativeTabs;
+import com.skyresourcesclassic.registry.ModItemGroups;
 import com.skyresourcesclassic.registry.ModGuiHandler;
 import com.skyresourcesclassic.technology.tile.TileAqueousConcentrator;
 import net.minecraft.block.BlockContainer;
@@ -34,7 +34,7 @@ public class BlockAqueousDeconcentrator extends BlockContainer {
     public BlockAqueousDeconcentrator(String name, float hardness, float resistance) {
         super(Material.GROUND);
         this.setUnlocalizedName(References.ModID + "." + name);
-        this.setCreativeTab(ModCreativeTabs.tabTech);
+        this.setCreativeTab(ModItemGroups.tabTech);
         this.setHardness(hardness);
         this.setResistance(resistance);
         this.setRegistryName(name);
@@ -56,7 +56,7 @@ public class BlockAqueousDeconcentrator extends BlockContainer {
             IBlockState iblockstate1 = worldIn.getBlockState(pos.south());
             IBlockState iblockstate2 = worldIn.getBlockState(pos.west());
             IBlockState iblockstate3 = worldIn.getBlockState(pos.east());
-            EnumFacing enumfacing = (EnumFacing) state.getValue(FACING);
+            EnumFacing enumfacing = (EnumFacing) state.get(FACING);
 
             if (enumfacing == EnumFacing.NORTH && iblockstate.isFullBlock() && !iblockstate1.isFullBlock()) {
                 enumfacing = EnumFacing.SOUTH;
@@ -74,7 +74,7 @@ public class BlockAqueousDeconcentrator extends BlockContainer {
 
     public IBlockState getStateForPlacement(World worldIn, BlockPos pos, EnumFacing facing, float hitX, float hitY,
                                             float hitZ, int meta, EntityLivingBase placer) {
-        return this.getDefaultState().withProperty(FACING, placer.getHorizontalFacing().getOpposite());
+        return this.getDefaultState().with(FACING, placer.getHorizontalFacing().getOpposite());
     }
 
     public void onBlockPlacedBy(World worldIn, BlockPos pos, IBlockState state, EntityLivingBase placer,
@@ -87,7 +87,7 @@ public class BlockAqueousDeconcentrator extends BlockContainer {
      */
     public int getMetaFromState(IBlockState state) {
         int i = 0;
-        i = i | ((EnumFacing) state.getValue(FACING)).getHorizontalIndex();
+        i = i | ((EnumFacing) state.get(FACING)).getHorizontalIndex();
 
         return i;
     }
@@ -97,7 +97,7 @@ public class BlockAqueousDeconcentrator extends BlockContainer {
      * blockstate. If inapplicable, returns the passed blockstate.
      */
     public IBlockState withRotation(IBlockState state, Rotation rot) {
-        return state.withProperty(FACING, rot.rotate((EnumFacing) state.getValue(FACING)));
+        return state.withProperty(FACING, rot.rotate((EnumFacing) state.get(FACING)));
     }
 
     /**
@@ -105,7 +105,7 @@ public class BlockAqueousDeconcentrator extends BlockContainer {
      * inapplicable, returns the passed blockstate.
      */
     public IBlockState withMirror(IBlockState state, Mirror mirrorIn) {
-        return state.withRotation(mirrorIn.toRotation((EnumFacing) state.getValue(FACING)));
+        return state.withRotation(mirrorIn.toRotation((EnumFacing) state.get(FACING)));
     }
 
     protected BlockStateContainer createBlockState() {

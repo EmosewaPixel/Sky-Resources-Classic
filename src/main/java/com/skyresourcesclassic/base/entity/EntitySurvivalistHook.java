@@ -12,8 +12,10 @@ import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.item.EntityXPOrb;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.projectile.EntityFishHook;
+import net.minecraft.fluid.IFluidState;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
+import net.minecraft.init.Particles;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -22,12 +24,15 @@ import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
 import net.minecraft.stats.StatList;
-import net.minecraft.util.EnumParticleTypes;
+import net.minecraft.tags.FluidTags;
+import net.minecraft.util.Particles;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.*;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldServer;
 import net.minecraft.world.storage.loot.LootContext;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
@@ -49,7 +54,7 @@ public class EntitySurvivalistHook extends EntityFishHook {
     private int field_191518_aw;
     private int field_191519_ax;
 
-    @SideOnly(Side.CLIENT)
+    @OnlyIn(Dist.CLIENT)
     public EntitySurvivalistHook(World worldIn, EntityPlayer p_i47290_2_, double x, double y, double z) {
         super(worldIn, p_i47290_2_, x, y, z);
         this.init(p_i47290_2_);
@@ -123,7 +128,7 @@ public class EntitySurvivalistHook extends EntityFishHook {
     /**
      * Checks if the entity is in range to render.
      */
-    @SideOnly(Side.CLIENT)
+    @OnlyIn(Dist.CLIENT)
     public boolean isInRangeToRenderDist(double distance) {
         double d0 = 64.0D;
         return distance < 4096.0D;
@@ -132,7 +137,7 @@ public class EntitySurvivalistHook extends EntityFishHook {
     /**
      * Set the position and rotation values directly without any clamping.
      */
-    @SideOnly(Side.CLIENT)
+    @OnlyIn(Dist.CLIENT)
     public void setPositionAndRotationDirect(double x, double y, double z, float yaw, float pitch,
                                              int posRotationIncrements, boolean teleport) {
     }
@@ -140,25 +145,26 @@ public class EntitySurvivalistHook extends EntityFishHook {
     /**
      * Called to update the entity's position/logic.
      */
-    public void onUpdate() {
+    public void tick() {
         if (this.angler == null) {
-            this.setDead();
+            this.remove();
         } else if (this.world.isRemote || !this.shouldStopFishing()) {
             if (this.inGround) {
                 ++this.ticksInGround;
 
                 if (this.ticksInGround >= 1200) {
-                    this.setDead();
+                    this.remove();
                     return;
                 }
             }
 
+
+
             float f = 0.0F;
             BlockPos blockpos = new BlockPos(this);
-            IBlockState iblockstate = this.world.getBlockState(blockpos);
-
-            if (iblockstate.getMaterial() == Material.WATER) {
-                f = BlockLiquid.getBlockLiquidHeight(iblockstate, this.world, blockpos);
+            IFluidState ifluidstate = this.world.getFluidState(blockpos);
+            if (ifluidstate.isTagged(FluidTags.WATER)) {
+                f = ifluidstate.getHeight();
             }
 
             if (this.currentState == EntitySurvivalistHook.State.FLYING) {
@@ -193,13 +199,13 @@ public class EntitySurvivalistHook extends EntityFishHook {
             } else {
                 if (this.currentState == EntitySurvivalistHook.State.HOOKED_IN_ENTITY) {
                     if (this.caughtEntity != null) {
-                        if (this.caughtEntity.isDead) {
+                        if (this.caughtEntity.removed) {
                             this.caughtEntity = null;
                             this.currentState = EntitySurvivalistHook.State.FLYING;
                         } else {
                             this.posX = this.caughtEntity.posX;
                             double d2 = (double) this.caughtEntity.height;
-                            this.posY = this.caughtEntity.getEntityBoundingBox().minY + d2 * 0.8D;
+                            this.posY = this.caughtEntity.getBoundingBox().minY + d2 * 0.8D;
                             this.posZ = this.caughtEntity.posZ;
                             this.setPosition(this.posX, this.posY, this.posZ);
                         }
@@ -225,7 +231,7 @@ public class EntitySurvivalistHook extends EntityFishHook {
                 }
             }
 
-            if (iblockstate.getMaterial() != Material.WATER) {
+            if (!ifluidstate.isTagged(FluidTags.WATER)) {
                 this.motionY -= 0.03D;
             }
 
@@ -245,10 +251,10 @@ public class EntitySurvivalistHook extends EntityFishHook {
         boolean flag = itemstack.getItem() == ModItems.survivalistFishingRod;
         boolean flag1 = itemstack1.getItem() == ModItems.survivalistFishingRod;
 
-        if (!this.angler.isDead && this.angler.isEntityAlive() && (flag || flag1) && this.getDistanceSq(this.angler) <= 1024.0D) {
+        if (!this.angler.removed && this.angler.isAlive() && (flag || flag1) && this.getDistanceSq(this.angler) <= 1024.0D) {
             return false;
         } else {
-            this.setDead();
+            this.remove();
             return true;
         }
     }
@@ -293,12 +299,12 @@ public class EntitySurvivalistHook extends EntityFishHook {
 
         Entity entity = null;
         List<Entity> list = this.world.getEntitiesWithinAABBExcludingEntity(this,
-                this.getEntityBoundingBox().expand(this.motionX, this.motionY, this.motionZ).grow(1.0D));
+                this.getBoundingBox().expand(this.motionX, this.motionY, this.motionZ).grow(1.0D));
         double d0 = 0.0D;
 
         for (Entity entity1 : list) {
             if (this.canBeHooked(entity1) && (entity1 != this.angler || this.ticksInAir >= 5)) {
-                AxisAlignedBB axisalignedbb = entity1.getEntityBoundingBox().expand(0.30000001192092896D, 0.30000001192092896D, 0.30000001192092896D);
+                AxisAlignedBB axisalignedbb = entity1.getBoundingBox().expand(0.30000001192092896D, 0.30000001192092896D, 0.30000001192092896D);
                 RayTraceResult raytraceresult1 = axisalignedbb.calculateIntercept(vec3d, vec3d1);
 
                 if (raytraceresult1 != null) {
@@ -316,9 +322,9 @@ public class EntitySurvivalistHook extends EntityFishHook {
             raytraceresult = new RayTraceResult(entity);
         }
 
-        if (raytraceresult != null && raytraceresult.typeOfHit != RayTraceResult.Type.MISS) {
-            if (raytraceresult.typeOfHit == RayTraceResult.Type.ENTITY) {
-                this.caughtEntity = raytraceresult.entityHit;
+        if (raytraceresult != null && raytraceresult.type != RayTraceResult.Type.MISS) {
+            if (raytraceresult.type == RayTraceResult.Type.ENTITY) {
+                this.caughtEntity = raytraceresult.entity;
                 this.setHookedEntity();
             } else {
                 this.inGround = true;
@@ -361,32 +367,32 @@ public class EntitySurvivalistHook extends EntityFishHook {
                 float f1 = MathHelper.sin(f);
                 float f2 = MathHelper.cos(f);
                 double d0 = this.posX + (double) (f1 * (float) this.ticksCatchableDelay * 0.1F);
-                double d1 = (double) ((float) MathHelper.floor(this.getEntityBoundingBox().minY) + 1.0F);
+                double d1 = (double) ((float) MathHelper.floor(this.getBoundingBox().minY) + 1.0F);
                 double d2 = this.posZ + (double) (f2 * (float) this.ticksCatchableDelay * 0.1F);
                 Block block = worldserver.getBlockState(new BlockPos(d0, d1 - 1.0D, d2)).getBlock();
 
                 if (block == Blocks.WATER || block == Blocks.FLOWING_WATER) {
                     if (this.rand.nextFloat() < 0.15F) {
-                        worldserver.spawnParticle(EnumParticleTypes.WATER_BUBBLE, d0, d1 - 0.10000000149011612D, d2, 1,
+                        worldserver.spawnParticle(Particles.WATER_BUBBLE, d0, d1 - 0.10000000149011612D, d2, 1,
                                 (double) f1, 0.1D, (double) f2, 0.0D, new int[0]);
                     }
 
                     float f3 = f1 * 0.04F;
                     float f4 = f2 * 0.04F;
-                    worldserver.spawnParticle(EnumParticleTypes.WATER_WAKE, d0, d1, d2, 0, (double) f4, 0.01D,
+                    worldserver.spawnParticle(Particles.WATER_WAKE, d0, d1, d2, 0, (double) f4, 0.01D,
                             (double) (-f3), 1.0D, new int[0]);
-                    worldserver.spawnParticle(EnumParticleTypes.WATER_WAKE, d0, d1, d2, 0, (double) (-f4), 0.01D,
+                    worldserver.spawnParticle(Particles.WATER_WAKE, d0, d1, d2, 0, (double) (-f4), 0.01D,
                             (double) f3, 1.0D, new int[0]);
                 }
             } else {
                 this.motionY = (double) (-0.4F * MathHelper.nextFloat(this.rand, 0.6F, 1.0F));
-                this.playSound(SoundEvents.ENTITY_BOBBER_SPLASH, 0.25F,
+                this.playSound(SoundEvents.ENTITY_FISHING_BOBBER_SPLASH, 0.25F,
                         1.0F + (this.rand.nextFloat() - this.rand.nextFloat()) * 0.4F);
-                double d3 = this.getEntityBoundingBox().minY + 0.5D;
-                worldserver.spawnParticle(EnumParticleTypes.WATER_BUBBLE, this.posX, d3, this.posZ,
+                double d3 = this.getBoundingBox().minY + 0.5D;
+                worldserver.spawnParticle(Particles.BUBBLE, this.posX, d3, this.posZ,
                         (int) (1.0F + this.width * 20.0F), (double) this.width, 0.0D, (double) this.width,
                         0.20000000298023224D, new int[0]);
-                worldserver.spawnParticle(EnumParticleTypes.WATER_WAKE, this.posX, d3, this.posZ,
+                worldserver.spawnParticle(Particles.WATER_WAKE, this.posX, d3, this.posZ,
                         (int) (1.0F + this.width * 20.0F), (double) this.width, 0.0D, (double) this.width,
                         0.20000000298023224D, new int[0]);
                 this.ticksCatchable = MathHelper.getInt(this.rand, 20, 40);
@@ -407,12 +413,12 @@ public class EntitySurvivalistHook extends EntityFishHook {
                 float f6 = MathHelper.nextFloat(this.rand, 0.0F, 360.0F) * 0.017453292F;
                 float f7 = MathHelper.nextFloat(this.rand, 25.0F, 60.0F);
                 double d4 = this.posX + (double) (MathHelper.sin(f6) * f7 * 0.1F);
-                double d5 = (double) ((float) MathHelper.floor(this.getEntityBoundingBox().minY) + 1.0F);
+                double d5 = (double) ((float) MathHelper.floor(this.getBoundingBox().minY) + 1.0F);
                 double d6 = this.posZ + (double) (MathHelper.cos(f6) * f7 * 0.1F);
                 Block block1 = worldserver.getBlockState(new BlockPos((int) d4, (int) d5 - 1, (int) d6)).getBlock();
 
                 if (block1 == Blocks.WATER || block1 == Blocks.FLOWING_WATER) {
-                    worldserver.spawnParticle(EnumParticleTypes.WATER_SPLASH, d4, d5, d6, 2 + this.rand.nextInt(2),
+                    worldserver.spawnParticle(Particles.SPLASH, d4, d5, d6, 2 + this.rand.nextInt(2),
                             0.10000000149011612D, 0.0D, 0.10000000149011612D, 0.0D, new int[0]);
                 }
             }
@@ -434,13 +440,13 @@ public class EntitySurvivalistHook extends EntityFishHook {
     /**
      * (abstract) Protected helper method to write subclass entity data to NBT.
      */
-    public void writeEntityToNBT(NBTTagCompound compound) {
+    public void writeAdditional(NBTTagCompound compound) {
     }
 
     /**
      * (abstract) Protected helper method to read subclass entity data from NBT.
      */
-    public void readEntityFromNBT(NBTTagCompound compound) {
+    public void readAdditional(NBTTagCompound compound) {
     }
 
     public int handleHookRetraction() {
@@ -472,7 +478,7 @@ public class EntitySurvivalistHook extends EntityFishHook {
                             this.angler.posY + 0.5D, this.angler.posZ + 0.5D, this.rand.nextInt(6) + 1));
                     Item item = itemstack.getItem();
 
-                    if (item == Items.FISH || item == Items.COOKED_FISH) {
+                    if (item == Items.COD || item == Items.SALMON || item == Items.COOKED_SALMON || item == Items.COOKED_COD) {
                         this.angler.addStat(StatList.FISH_CAUGHT, 1);
                     }
                 }
@@ -484,14 +490,14 @@ public class EntitySurvivalistHook extends EntityFishHook {
                 i = 2;
             }
 
-            this.setDead();
+            this.remove();
             return i;
         } else {
             return 0;
         }
     }
 
-    @SideOnly(Side.CLIENT)
+    @OnlyIn(Dist.CLIENT)
     public void handleStatusUpdate(byte id) {
         if (id == 31 && this.world.isRemote && this.caughtEntity instanceof EntityPlayer
                 && ((EntityPlayer) this.caughtEntity).isUser()) {
@@ -524,8 +530,8 @@ public class EntitySurvivalistHook extends EntityFishHook {
     /**
      * Will get destroyed next tick.
      */
-    public void setDead() {
-        super.setDead();
+    public void remove() {
+        super.remove();
 
         if (this.angler != null) {
             this.angler.fishEntity = null;

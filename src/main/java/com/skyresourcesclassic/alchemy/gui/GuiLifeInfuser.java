@@ -32,7 +32,7 @@ public class GuiLifeInfuser extends GuiContainer {
 
     @Override
     protected void drawGuiContainerBackgroundLayer(float partialTicks, int mouseX, int mouseY) {
-        GlStateManager.color(1.0f, 1.0f, 1.0f, 1.0f);
+        GlStateManager.color4f(1.0f, 1.0f, 1.0f, 1.0f);
         this.mc.getTextureManager()
                 .bindTexture(new ResourceLocation(References.ModID, "textures/gui/infuser.png"));
         this.drawTexturedModalRect(this.guiLeft, this.guiTop, 0, 0, this.xSize, this.ySize);
@@ -40,13 +40,13 @@ public class GuiLifeInfuser extends GuiContainer {
 
     @Override
     protected void drawGuiContainerForegroundLayer(int mouseX, int mouseY) {
-        String s = tile.getDisplayName().getUnformattedText();
+        String s = tile.getDisplayName().getUnformattedComponentText();
         this.fontRenderer.drawString(s, 88 - this.fontRenderer.getStringWidth(s) / 2, 6,
                 4210752);
-        this.fontRenderer.drawString(this.playerInv.getDisplayName().getUnformattedText(), 8, 72,
+        this.fontRenderer.drawString(this.playerInv.getDisplayName().getUnformattedComponentText(), 8, 72,
                 4210752);
 
-        GlStateManager.color(1.0f, 1.0f, 1.0f, 1.0f);
+        GlStateManager.color4f(1.0f, 1.0f, 1.0f, 1.0f);
         this.mc.getTextureManager()
                 .bindTexture(new ResourceLocation(References.ModID, "textures/gui/guiIcons.png"));
         this.drawTexturedModalRect(100, 50, 0, 16, 32, 32);
@@ -55,7 +55,7 @@ public class GuiLifeInfuser extends GuiContainer {
         else
             this.drawTexturedModalRect(132, 58, 16, 0, 16, 16);
 
-        GlStateManager.color(1.0f, 1.0f, 1.0f, 1.0f);
+        GlStateManager.color4f(1.0f, 1.0f, 1.0f, 1.0f);
         this.mc.getTextureManager().bindTexture(new ResourceLocation("textures/gui/icons.png"));
         this.drawTexturedModalRect(120, 29, 53, 1, 8, 8);
         this.fontRenderer.drawString("x" + (float) tile.getHealthInGem() / 2F, 130, 29,
@@ -104,7 +104,7 @@ public class GuiLifeInfuser extends GuiContainer {
 
     public void drawScreen(int mouseX, int mouseY, float partialTicks) {
         this.drawDefaultBackground();
-        super.drawScreen(mouseX, mouseY, partialTicks);
+        super.render(mouseX, mouseY, partialTicks);
         this.renderHoveredToolTip(mouseX, mouseY);
     }
 }

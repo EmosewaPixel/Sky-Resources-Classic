@@ -1,70 +1,67 @@
 buildscript {
     repositories {
+        mavenLocal()
+        maven { url = 'https://files.minecraftforge.net/maven' }
         jcenter()
-        maven { url = "http://files.minecraftforge.net/maven" }
+        mavenCentral()
+    }
+    configurations {
+        classpath.resolutionStrategy {
+            cacheDynamicVersionsFor 10, 'seconds'
+            cacheChangingModulesFor 0, 'seconds'
+        }
     }
     dependencies {
-        classpath 'net.minecraftforge.gradle:ForgeGradle:2.3-SNAPSHOT'
+        classpath group: 'net.minecraftforge.gradle', name: 'ForgeGradle', version: '3.+', changing: true
     }
 }
-apply plugin: 'net.minecraftforge.gradle.forge'
+apply plugin: 'net.minecraftforge.gradle'
 
 
-version = "${minecraft_version}-${mod_version}"
-group= "com.skyresourcesclassic"
-archivesBaseName = "skyresourcesclassic"
+version = '${minecraft_version}-${mod_version}'
+group= 'com.skyresourcesclassic'
+archivesBaseName = 'skyresourcesclassic'
 
-sourceCompatibility = targetCompatibility = "1.8"
 compileJava {
-    sourceCompatibility = targetCompatibility = "1.8"
+    sourceCompatibility = targetCompatibility = '1.8'
 }
 
 minecraft {
-    version = "${minecraft_version}-14.23.5.2768"
-    runDir = "run"
-    mappings = "snapshot_20171003"
+    mappings channel: 'snapshot', version: '20180921-1.13'
+    runConfig {
+        name= "Minecraft Client"
+        main= "net.minecraftforge.userdev.UserdevLauncher"
+        ideaModuleName = "${project.name}_main"
+        workingDirectory = project.file("run").canonicalPath
+        environment "target", "fmldevclient"
+        environment "assetDirectory", downloadAssets.output.absolutePath
+    }
 
-    replace("@VERSION@",project.version)
-    replaceIn("References.java")
-}
-
-repositories {
-    maven {
-        name = "Progwml6 maven"
-        url = "http://dvs1.progwml6.com/files/maven/"
-    }
-    maven {
-        name = "CraftTweaker Maven"
-        url = "https://maven.blamejared.com/"
-    }
-    maven {
-        name = "Forestry Maven"
-        url = "http://maven.ic2.player.to"
-    }
-    maven {
-        name 'tterrag maven'
-        url "https://maven.tterrag.com/"
+    runConfig {
+        name= "Minecraft Server"
+        main= "net.minecraftforge.userdev.UserdevLauncher"
+        ideaModuleName = "${project.name}_main"
+        workingDirectory = project.file("run").canonicalPath
+        environment "target", "fmldevserver"
+        environment "assetDirectory", downloadAssets.output.absolutePath
     }
 }
 
 dependencies {
-    deobfCompile "mezz.jei:jei_${minecraft_version}:${jei_version}"
-    deobfCompile "CraftTweaker2:CraftTweaker2-MC${stripped_version}-Main:${short_version}-${crafttweaker_version}"
-    deobfCompile "net.sengir.forestry:forestry_${minecraft_version}:${forestry_version}"
-    deobfCompile "mcjty.theoneprobe:TheOneProbe-${short_version}:${short_version}-${top_version}"
+    minecraft 'net.minecraftforge.test:forge:1.13-24.0.35-1.13-pre'
 }
 
 processResources {
-    inputs.property "version", project.version
-    inputs.property "mcversion", project.minecraft.version
+    inputs.property 'version', project.version
+    inputs.property 'mcversion', '1.13'
 
     from(sourceSets.main.resources.srcDirs) {
-        include 'mcmod.info'
+        include 'META_INF/mods.toml'
 
-        expand 'version':project.version, 'mcversion':project.minecraft.version
+        expand 'version':project.version, 'mcversion':'1.13'
     }
 
     from(sourceSets.main.resources.srcDirs) {
-        exclude 'mcmod.info'
+        exclude 'META_INF/mods.toml'
     }
 }

@@ -1,13 +1,13 @@
 {
   "parent":"block/cube_all",
   "textures": {
-       "down": "skyresourcesclassic:blocks/fluid_dropper",
-         "up": "blocks/furnace_top",
-      "north": "blocks/furnace_side",
-      "south": "blocks/furnace_side",
-       "west": "blocks/furnace_side",
-       "east": "blocks/furnace_side",
-   "particle": "skyresourcesclassic:blocks/fluid_dropper"
+       "down": "skyresourcesclassic:block/fluid_dropper",
+         "up": "block/furnace_top",
+      "north": "block/furnace_side",
+      "south": "block/furnace_side",
+       "west": "block/furnace_side",
+       "east": "block/furnace_side",
+   "particle": "skyresourcesclassic:block/fluid_dropper"
   },
   "display": {
         "thirdperson": {

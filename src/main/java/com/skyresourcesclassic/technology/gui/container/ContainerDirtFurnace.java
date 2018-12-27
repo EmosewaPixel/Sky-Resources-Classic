@@ -67,7 +67,7 @@ public class ContainerDirtFurnace extends Container {
         this.totalCookTime = this.tileFurnace.getField(3);
     }
 
-    @SideOnly(Side.CLIENT)
+    @OnlyIn(Dist.CLIENT)
     public void updateProgressBar(int id, int data) {
         this.tileFurnace.setField(id, data);
     }

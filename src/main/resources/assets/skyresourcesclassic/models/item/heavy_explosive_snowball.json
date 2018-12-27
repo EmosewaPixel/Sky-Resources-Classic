@@ -1,6 +1,6 @@
 {
   "parent":"item/generated",
   "textures": {
-    "layer0":"skyresourcesclassic:items/heavy_explosive_snowball"
+    "layer0":"skyresourcesclassic:item/heavy_explosive_snowball"
   }
 }

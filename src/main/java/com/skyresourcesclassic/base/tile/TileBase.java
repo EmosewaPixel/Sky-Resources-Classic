@@ -42,7 +42,7 @@ public class TileBase extends TileEntity {
             prevRedstoneSignal = redstoneSignal + 0;
             redstoneSignal = 0;
             if (canAcceptRedstone()) {
-                for (EnumFacing dir : EnumFacing.VALUES) {
+                for (EnumFacing dir : EnumFacing.values()) {
                     int redstoneSide = getWorld().getRedstonePower(getPos().offset(dir), dir);
                     redstoneSignal = Math.max(redstoneSignal, redstoneSide);
                 }
@@ -53,26 +53,26 @@ public class TileBase extends TileEntity {
     @Override
     public SPacketUpdateTileEntity getUpdatePacket() {
         NBTTagCompound nbtTag = new NBTTagCompound();
-        this.writeToNBT(nbtTag);
+        this.write(nbtTag);
         return new SPacketUpdateTileEntity(getPos(), 1, nbtTag);
     }
 
     @Override
     public void onDataPacket(NetworkManager net, SPacketUpdateTileEntity packet) {
         super.onDataPacket(net, packet);
-        this.readFromNBT(packet.getNbtCompound());
+        this.read(packet.getNbtCompound());
     }
 
     @Override
     public NBTTagCompound getUpdateTag() {
         NBTTagCompound nbtTagCompound = new NBTTagCompound();
-        writeToNBT(nbtTagCompound);
+        write(nbtTagCompound);
         return nbtTagCompound;
     }
 
     @Override
     public void handleUpdateTag(NBTTagCompound tag) {
-        this.readFromNBT(tag);
+        this.read(tag);
     }
 
     public void markDirty() {
@@ -82,18 +82,18 @@ public class TileBase extends TileEntity {
     }
 
     @Override
-    public NBTTagCompound writeToNBT(NBTTagCompound compound) {
-        super.writeToNBT(compound);
+    public NBTTagCompound write(NBTTagCompound compound) {
+        super.write(compound);
 
-        compound.setInteger("pSignal", prevRedstoneSignal);
-        compound.setInteger("signal", redstoneSignal);
+        compound.setInt("pSignal", prevRedstoneSignal);
+        compound.setInt("signal", redstoneSignal);
         return compound;
     }
 
     @Override
-    public void readFromNBT(NBTTagCompound compound) {
-        super.readFromNBT(compound);
-        prevRedstoneSignal = compound.getInteger("pSignal");
-        redstoneSignal = compound.getInteger("signal");
+    public void read(NBTTagCompound compound) {
+        super.read(compound);
+        prevRedstoneSignal = compound.getInt("pSignal");
+        redstoneSignal = compound.getInt("signal");
     }
 }

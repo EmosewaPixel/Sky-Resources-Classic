@@ -1,13 +1,13 @@
 {
   "parent":"block/cube_all",
   "textures": {
-       "down": "skyresourcesclassic:blocks/steel_machine",
-         "up": "skyresourcesclassic:blocks/steel_machine",
-      "north": "skyresourcesclassic:blocks/aqueous_concentrator",
-      "south": "skyresourcesclassic:blocks/steel_machine",
-       "west": "skyresourcesclassic:blocks/steel_machine",
-       "east": "skyresourcesclassic:blocks/steel_machine",
-   "particle": "skyresourcesclassic:blocks/aqueous_concentrator"
+       "down": "skyresourcesclassic:block/steel_machine",
+         "up": "skyresourcesclassic:block/steel_machine",
+      "north": "skyresourcesclassic:block/aqueous_concentrator",
+      "south": "skyresourcesclassic:block/steel_machine",
+       "west": "skyresourcesclassic:block/steel_machine",
+       "east": "skyresourcesclassic:block/steel_machine",
+   "particle": "skyresourcesclassic:block/aqueous_concentrator"
   },
   "display": {
         "thirdperson": {

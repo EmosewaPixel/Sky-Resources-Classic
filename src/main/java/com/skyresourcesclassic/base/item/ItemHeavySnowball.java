@@ -2,17 +2,12 @@ package com.skyresourcesclassic.base.item;
 
 import com.skyresourcesclassic.References;
 import com.skyresourcesclassic.base.entity.EntityHeavySnowball;
-import com.skyresourcesclassic.registry.ModCreativeTabs;
+import com.skyresourcesclassic.registry.ModItemGroups;
 
-import com.skyresourcesclassic.References;
-import com.skyresourcesclassic.base.entity.EntityHeavySnowball;
-import com.skyresourcesclassic.registry.ModCreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.entity.projectile.EntitySnowball;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.stats.StatList;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.EnumActionResult;
 import net.minecraft.util.EnumHand;
@@ -26,12 +21,12 @@ public class ItemHeavySnowball extends Item
 		this.maxStackSize = 8;
 		this.setUnlocalizedName(References.ModID + "." + name);
 		setRegistryName(name);
-		this.setCreativeTab(ModCreativeTabs.tabMain);
+		this.setCreativeTab(ModItemGroups.tabMain);
 	}
 
 	public ActionResult<ItemStack> onItemRightClick(World world, EntityPlayer player, EnumHand hand)
 	{
-		if (!player.capabilities.isCreativeMode)
+		if (!player.abilities.isCreativeMode)
 		{
 			player.getHeldItem(hand).shrink(1);
 		}
@@ -39,7 +34,7 @@ public class ItemHeavySnowball extends Item
 		world.playSound(null, player.posX, player.posY,
 				player.posZ, SoundEvents.ENTITY_SNOWBALL_THROW,
 				SoundCategory.NEUTRAL, 0.5F,
-				0.4F / (itemRand.nextFloat() * 0.4F + 0.8F));
+				0.4F / (random.nextFloat() * 0.4F + 0.8F));
 
 		if (!world.isRemote)
 		{

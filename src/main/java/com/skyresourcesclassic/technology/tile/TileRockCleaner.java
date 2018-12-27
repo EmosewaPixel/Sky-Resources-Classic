@@ -32,7 +32,7 @@ public class TileRockCleaner extends TileGenericPower implements ITickable, IFlu
     private NonNullList<ItemStack> bufferStacks = NonNullList.create();
 
     @Override
-    public void update() {
+    public void tick() {
         if (!this.world.isRemote) {
             if (bufferStacks.size() > 0 && fullOutput()) {
                 this.addToOutput(1);
@@ -109,23 +109,23 @@ public class TileRockCleaner extends TileGenericPower implements ITickable, IFlu
     }
 
     @Override
-    public NBTTagCompound writeToNBT(NBTTagCompound compound) {
-        compound = super.writeToNBT(compound);
+    public NBTTagCompound write(NBTTagCompound compound) {
+        compound = super.write(compound);
 
         compound.setTag("buffer", bufferListWrite());
-        compound.setInteger("progress", curProgress);
+        compound.setInt("progress", curProgress);
 
-        tank.writeToNBT(compound);
+        tank.write(compound);
         return compound;
     }
 
     @Override
-    public void readFromNBT(NBTTagCompound compound) {
-        super.readFromNBT(compound);
-        bufferListRead(compound.getCompoundTag("buffer"));
-        curProgress = compound.getInteger("progress");
+    public void read(NBTTagCompound compound) {
+        super.read(compound);
+        bufferListRead(compound.getTag("buffer"));
+        curProgress = compound.getInt("progress");
 
-        tank.readFromNBT(compound);
+        tank.read(compound);
     }
 
     private NBTTagCompound bufferListWrite() {
@@ -133,7 +133,7 @@ public class TileRockCleaner extends TileGenericPower implements ITickable, IFlu
         for (ItemStack stack : bufferStacks) {
             if (!stack.isEmpty()) {
                 NBTTagCompound itemTag = new NBTTagCompound();
-                stack.writeToNBT(itemTag);
+                stack.write(itemTag);
                 nbtTagList.appendTag(itemTag);
             }
         }
@@ -145,7 +145,7 @@ public class TileRockCleaner extends TileGenericPower implements ITickable, IFlu
     private void bufferListRead(NBTTagCompound nbt) {
         NBTTagList tagList = nbt.getTagList("Items", Constants.NBT.TAG_COMPOUND);
         for (int i = 0; i < tagList.tagCount(); i++) {
-            NBTTagCompound itemTags = tagList.getCompoundTagAt(i);
+            NBTTagCompound itemTags = tagList.getTagAt(i);
             bufferStacks.add(new ItemStack(itemTags));
         }
     }

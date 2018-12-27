@@ -1,6 +1,6 @@
 {
   "parent":"item/generated",
   "textures": {
-    "layer0":"skyresourcesclassic:items/sandstone_infusion_stone"
+    "layer0":"skyresourcesclassic:item/sandstone_infusion_stone"
   }
 }

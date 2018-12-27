@@ -1,6 +1,6 @@
 {
   "parent":"item/generated",
   "textures": {
-    "layer0":"skyresourcesclassic:items/iron_heat_component"
+    "layer0":"skyresourcesclassic:item/iron_heat_component"
   }
 }

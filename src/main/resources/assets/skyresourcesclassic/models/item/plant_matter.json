@@ -1,6 +1,6 @@
 {
   "parent":"item/generated",
   "textures": {
-    "layer0":"skyresourcesclassic:items/plant_matter"
+    "layer0":"skyresourcesclassic:item/plant_matter"
   }
 }

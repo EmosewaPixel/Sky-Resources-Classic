@@ -36,7 +36,7 @@ public abstract class GuidePageButton {
             int meta = Integer.parseInt(trimmed.split(":")[2].split("\\*")[0]);
 
             ResourceLocation resourcelocation = new ResourceLocation(itemName);
-            Item item = (Item) Item.REGISTRY.getObject(resourcelocation);
+            Item item = Item.REGISTRY.get(resourcelocation);
 
             if (item == null)
                 stackDisplay = ItemStack.EMPTY;

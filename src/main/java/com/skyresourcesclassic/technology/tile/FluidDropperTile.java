@@ -58,22 +58,22 @@ public class FluidDropperTile extends TileBase implements ITickable, IFluidHandl
     }
 
     @Override
-    public NBTTagCompound writeToNBT(NBTTagCompound compound) {
-        super.writeToNBT(compound);
+    public NBTTagCompound write(NBTTagCompound compound) {
+        super.write(compound);
 
-        tank.writeToNBT(compound);
+        tank.write(compound);
         return compound;
     }
 
     @Override
-    public void readFromNBT(NBTTagCompound compound) {
-        super.readFromNBT(compound);
+    public void read(NBTTagCompound compound) {
+        super.read(compound);
 
-        tank.readFromNBT(compound);
+        tank.read(compound);
     }
 
     @Override
-    public void update() {
+    public void tick() {
         if (!world.isRemote) {
             updateRedstone();
             pullFromAround();

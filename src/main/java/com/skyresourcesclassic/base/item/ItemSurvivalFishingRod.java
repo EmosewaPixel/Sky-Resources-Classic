@@ -2,7 +2,7 @@ package com.skyresourcesclassic.base.item;
 
 import com.skyresourcesclassic.References;
 import com.skyresourcesclassic.base.entity.EntitySurvivalistHook;
-import com.skyresourcesclassic.registry.ModCreativeTabs;
+import com.skyresourcesclassic.registry.ModItemGroups;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.SoundEvents;
@@ -21,7 +21,7 @@ public class ItemSurvivalFishingRod extends ItemFishingRod {
         super();
         this.setMaxDamage(32);
         this.setUnlocalizedName(References.ModID + "." + name);
-        this.setCreativeTab(ModCreativeTabs.tabMain);
+        this.setCreativeTab(ModItemGroups.tabMain);
         setRegistryName(name);
     }
 
@@ -32,7 +32,7 @@ public class ItemSurvivalFishingRod extends ItemFishingRod {
             int i = playerIn.fishEntity.handleHookRetraction();
             playerIn.swingArm(handIn);
         } else {
-            worldIn.playSound(null, playerIn.posX, playerIn.posY, playerIn.posZ, SoundEvents.ENTITY_BOBBER_THROW, SoundCategory.NEUTRAL, 0.5F, 0.4F / (itemRand.nextFloat() * 0.4F + 0.8F));
+            worldIn.playSound(null, playerIn.posX, playerIn.posY, playerIn.posZ, SoundEvents.ENTITY_BOBBER_THROW, SoundCategory.NEUTRAL, 0.5F, 0.4F / (random.nextFloat() * 0.4F + 0.8F));
 
             if (!worldIn.isRemote) {
                 EntitySurvivalistHook entityfishhook = new EntitySurvivalistHook(worldIn, playerIn);
@@ -52,7 +52,7 @@ public class ItemSurvivalFishingRod extends ItemFishingRod {
             }
 
             playerIn.swingArm(handIn);
-            playerIn.addStat(StatList.getObjectUseStats(this));
+            playerIn.addStat(StatList.ITEM_USED.get(this));
         }
 
         return new ActionResult(EnumActionResult.SUCCESS, itemstack);

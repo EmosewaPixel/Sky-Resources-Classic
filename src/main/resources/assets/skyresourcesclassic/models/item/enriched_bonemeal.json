@@ -1,6 +1,6 @@
 {
   "parent":"item/generated",
   "textures": {
-    "layer0":"skyresourcesclassic:items/enriched_bonemeal"
+    "layer0":"skyresourcesclassic:item/enriched_bonemeal"
   }
 }

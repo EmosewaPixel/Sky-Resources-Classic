@@ -1,6 +1,6 @@
 {
   "parent":"item/generated",
   "textures": {
-    "layer0":"skyresourcesclassic:items/steel_power_component"
+    "layer0":"skyresourcesclassic:item/steel_power_component"
   }
 }

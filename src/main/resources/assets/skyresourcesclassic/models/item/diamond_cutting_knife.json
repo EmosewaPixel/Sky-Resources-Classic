@@ -1,6 +1,6 @@
 {
   "parent":"skyresourcesclassic:item/cactus_cutting_knife",
   "textures": {
-    "layer0":"skyresourcesclassic:items/diamond_knife"
+    "layer0":"skyresourcesclassic:item/diamond_knife"
   }
 }

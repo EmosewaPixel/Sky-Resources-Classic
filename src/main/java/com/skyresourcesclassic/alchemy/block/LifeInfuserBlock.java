@@ -3,12 +3,13 @@ package com.skyresourcesclassic.alchemy.block;
 import com.skyresourcesclassic.References;
 import com.skyresourcesclassic.SkyResourcesClassic;
 import com.skyresourcesclassic.alchemy.tile.LifeInfuserTile;
-import com.skyresourcesclassic.registry.ModCreativeTabs;
+import com.skyresourcesclassic.registry.ModItemGroups;
 import com.skyresourcesclassic.registry.ModGuiHandler;
 import net.minecraft.block.BlockContainer;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.BlockRenderLayer;
 import net.minecraft.util.EnumBlockRenderType;
@@ -17,6 +18,8 @@ import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
@@ -26,7 +29,7 @@ public class LifeInfuserBlock extends BlockContainer {
                             float resistance) {
         super(Material.WOOD);
         this.setUnlocalizedName(References.ModID + "." + name);
-        this.setCreativeTab(ModCreativeTabs.tabAlchemy);
+        this.setCreativeTab(ModItemGroups.tabAlchemy);
         this.setHardness(hardness);
         this.setResistance(resistance);
         this.setRegistryName(name);
@@ -43,12 +46,12 @@ public class LifeInfuserBlock extends BlockContainer {
         return false;
     }
 
-    @SideOnly(Side.CLIENT)
+    @OnlyIn(Dist.CLIENT)
     public boolean shouldSideBeRendered(IBlockState blockState, IBlockAccess blockAccess, BlockPos pos, EnumFacing side) {
         return true;
     }
 
-    @SideOnly(Side.CLIENT)
+    @OnlyIn(Dist.CLIENT)
     public BlockRenderLayer getBlockLayer() {
         return BlockRenderLayer.CUTOUT_MIPPED;
     }
@@ -64,11 +67,11 @@ public class LifeInfuserBlock extends BlockContainer {
     }
 
     @Override
-    public void breakBlock(World world, BlockPos pos, IBlockState state) {
+    public void harvestBlock(World world, EntityPlayer player, BlockPos pos, IBlockState state, TileEntity tileEntity, ItemStack stack) {
         LifeInfuserTile te = (LifeInfuserTile) world.getTileEntity(pos);
         te.dropInventory();
 
-        super.breakBlock(world, pos, state);
+        super.harvestBlock(world, player, pos, state, tileEntity, stack);
     }
 
     @Override

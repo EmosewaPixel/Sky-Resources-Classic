@@ -1,13 +1,13 @@
 {
   "parent":"block/cube_all",
   "textures": {
-       "down": "skyresourcesclassic:blocks/iron_machine",
-         "up": "skyresourcesclassic:blocks/iron_crystallizer",
-      "north": "skyresourcesclassic:blocks/iron_machine",
-      "south": "skyresourcesclassic:blocks/iron_machine",
-       "west": "skyresourcesclassic:blocks/iron_machine",
-       "east": "skyresourcesclassic:blocks/iron_machine",
-   "particle": "skyresourcesclassic:blocks/iron_crystallizer"
+       "down": "skyresourcesclassic:block/iron_machine",
+         "up": "skyresourcesclassic:block/iron_crystallizer",
+      "north": "skyresourcesclassic:block/iron_machine",
+      "south": "skyresourcesclassic:block/iron_machine",
+       "west": "skyresourcesclassic:block/iron_machine",
+       "east": "skyresourcesclassic:block/iron_machine",
+   "particle": "skyresourcesclassic:block/iron_crystallizer"
   },
   "display": {
         "thirdperson": {

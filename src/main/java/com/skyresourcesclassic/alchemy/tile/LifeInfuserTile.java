@@ -40,7 +40,7 @@ public class LifeInfuserTile extends TileItemInventory implements ITickable {
     private static final Map<String, List<ItemStack>> oreMap = new HashMap<String, List<ItemStack>>();
 
     @Override
-    public void update() {
+    public void tick() {
         if (receivedPulse() && hasValidMultiblock()) {
             craftItem();
         }
@@ -110,12 +110,12 @@ public class LifeInfuserTile extends TileItemInventory implements ITickable {
                 getInventory().getStackInSlot(1).setItemDamage(getInventory().getStackInSlot(1).getItemDamage() + 1);
                 if (getInventory().getStackInSlot(1).getItemDamage() >= getInventory().getStackInSlot(1).getMaxDamage())
                     getInventory().setStackInSlot(1, ItemStack.EMPTY);
-                world.setBlockToAir(pos.down(1));
+                world.removeBlock(pos.down(1));
                 ItemStack gemStack = getInventory().getStackInSlot(0);
                 if (gemStack != ItemStack.EMPTY && gemStack.getItem() instanceof ItemHealthGem) {
                     ItemHealthGem healthGem = (ItemHealthGem) gemStack.getItem();
-                    gemStack.getTagCompound().setInteger("health",
-                            gemStack.getTagCompound().getInteger("health") - (int) recipe.getIntParameter());
+                    gemStack.getTag().setInt("health",
+                            gemStack.getTag().getInt("health") - (int) recipe.getIntParameter());
                 }
 
                 ItemStack stack = recipe.getOutputs().get(0).copy();

@@ -8,6 +8,6 @@
     }
   },
   "textures": {
-    "layer0":"skyresourcesclassic:items/water_extractor.empty"
+    "layer0":"skyresourcesclassic:item/water_extractor.empty"
   }
 }

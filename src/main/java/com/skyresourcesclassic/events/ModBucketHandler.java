@@ -41,7 +41,7 @@ public class ModBucketHandler {
                 if (buckets.containsKey(fluid)) {
                     Item bucket = buckets.get(fluid);
                     if (bucket != null) {
-                        world.setBlockToAir(pos.getBlockPos());
+                        world.removeBlock(pos.getBlockPos());
                         return new ItemStack(bucket, 1);
                     }
                 }

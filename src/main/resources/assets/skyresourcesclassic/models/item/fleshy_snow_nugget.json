@@ -1,6 +1,6 @@
 {
   "parent":"item/generated",
   "textures": {
-    "layer0":"skyresourcesclassic:items/fleshy_snow_nugget"
+    "layer0":"skyresourcesclassic:item/fleshy_snow_nugget"
   }
 }

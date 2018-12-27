@@ -1,7 +1,7 @@
 {
   "parent":"block/cube_all",
   "textures": {
-    "all": "skyresourcesclassic:blocks/ender_core_side"
+    "all": "skyresourcesclassic:block/ender_core_side"
   },
   "display": {
         "thirdperson": {

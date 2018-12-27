@@ -1,11 +1,11 @@
 {
   "parent":"block/cauldron_empty",
   "textures": {
-        "particle": "blocks/brick",
-        "top": "skyresourcesclassic:blocks/crucible_top",
-        "bottom": "skyresourcesclassic:blocks/crucible_bottom",
-        "side": "skyresourcesclassic:blocks/crucible_side",
-        "inside": "blocks/brick"
+        "particle": "block/brick",
+        "top": "skyresourcesclassic:block/crucible_top",
+        "bottom": "skyresourcesclassic:block/crucible_bottom",
+        "side": "skyresourcesclassic:block/crucible_side",
+        "inside": "block/brick"
     },
     "display": {
         "gui": {

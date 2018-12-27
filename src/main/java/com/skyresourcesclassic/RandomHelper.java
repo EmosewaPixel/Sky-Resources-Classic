@@ -42,21 +42,21 @@ public class RandomHelper {
         Tessellator tessellator = Tessellator.getInstance();
         BufferBuilder renderer = tessellator.getBuffer();
         renderer.begin(GL11.GL_QUADS, DefaultVertexFormats.BLOCK);
-        Minecraft.getMinecraft().renderEngine
+        Minecraft.getInstance().textureManager
                 .bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
         int color = fluid.getFluid().getColor(fluid);
         // RenderUtil.setColorRGBA(color);
-        int brightness = Minecraft.getMinecraft().world.getCombinedLight(pos,
+        int brightness = Minecraft.getInstance().world.getCombinedLight(pos,
                 fluid.getFluid().getLuminosity());
 
         pre(x, y, z);
 
-        TextureAtlasSprite still = Minecraft.getMinecraft()
-                .getTextureMapBlocks()
-                .getTextureExtry(fluid.getFluid().getStill(fluid).toString());
-        TextureAtlasSprite flowing = Minecraft.getMinecraft()
-                .getTextureMapBlocks()
-                .getTextureExtry(fluid.getFluid().getFlowing(fluid).toString());
+        TextureAtlasSprite still = Minecraft.getInstance()
+                .getTextureMap()
+                .getAtlasSprite(fluid.getFluid().getStill(fluid).toString());
+        TextureAtlasSprite flowing = Minecraft.getInstance()
+                .getTextureMap()
+                .getAtlasSprite(fluid.getFluid().getFlowing(fluid).toString());
 
         // x/y/z2 - x/y/z1 is because we need the width/height/depth
         putTexturedQuad(renderer, still, x1, y1, z1, x2 - x1, y2 - y1, z2 - z1,
@@ -78,9 +78,9 @@ public class RandomHelper {
     }
 
     private static void putTexturedQuad(BufferBuilder renderer,
-                                       TextureAtlasSprite sprite, double x, double y, double z, double w,
-                                       double h, double d, EnumFacing face, int color, int brightness,
-                                       boolean flowing) {
+                                        TextureAtlasSprite sprite, double x, double y, double z, double w,
+                                        double h, double d, EnumFacing face, int color, int brightness,
+                                        boolean flowing) {
         int l1 = brightness >> 0x10 & 0xFFFF;
         int l2 = brightness & 0xFFFF;
 
@@ -95,9 +95,9 @@ public class RandomHelper {
 
     // x and x+w has to be within [0,1], same for y/h and z/d
     private static void putTexturedQuad(BufferBuilder renderer,
-                                       TextureAtlasSprite sprite, double x, double y, double z, double w,
-                                       double h, double d, EnumFacing face, int r, int g, int b, int a,
-                                       int light1, int light2, boolean flowing) {
+                                        TextureAtlasSprite sprite, double x, double y, double z, double w,
+                                        double h, double d, EnumFacing face, int r, int g, int b, int a,
+                                        int light1, int light2, boolean flowing) {
         double minU;
         double maxU;
         double minV;
@@ -241,7 +241,7 @@ public class RandomHelper {
             GL11.glShadeModel(GL11.GL_FLAT);
         }
 
-        GlStateManager.translate(x, y, z);
+        GlStateManager.translated(x, y, z);
     }
 
     private static void post() {
@@ -344,9 +344,9 @@ public class RandomHelper {
         }
 
 
-        TextureAtlasSprite icon = Minecraft.getMinecraft()
-                .getTextureMapBlocks()
-                .getTextureExtry(fluid.getFluid().getStill(fluid).toString());
+        TextureAtlasSprite icon = Minecraft.getInstance()
+                .getTextureMap()
+                .getAtlasSprite(fluid.getFluid().getStill(fluid).toString());
         ;
         if (icon == null) {
             return;
@@ -355,7 +355,7 @@ public class RandomHelper {
         int renderAmount = (int) Math.max(Math.min(height, amount * height / capacity), 1);
         int posY = (int) (y + height - renderAmount);
 
-        Minecraft.getMinecraft().renderEngine.bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
+        Minecraft.getInstance().getTextureManager().bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
         int color = fluid.getFluid().getColor(fluid);
         GL11.glColor3ub((byte) (color >> 16 & 0xFF), (byte) (color >> 8 & 0xFF), (byte) (color & 0xFF));
 

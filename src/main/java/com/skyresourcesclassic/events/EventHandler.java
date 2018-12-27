@@ -26,8 +26,8 @@ import net.minecraft.util.DamageSource;
 import net.minecraft.util.EnumHand;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent.RightClickBlock;
 import net.minecraftforge.event.furnace.FurnaceFuelBurnTimeEvent;
+import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.InputEvent.KeyInputEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent.PlayerTickEvent;
 
@@ -47,27 +47,27 @@ public class EventHandler {
                     RandomHelper.spawnItemInWorld(event.getWorld(), new ItemStack(ModItems.itemComponent[0]),
                             event.getEntityPlayer().getPosition());
                     event.getEntityPlayer().attackEntityFrom(DamageSource.CACTUS, 2);
-                } else if (block == Blocks.SNOW_LAYER) {
+                } else if (block == Blocks.SNOW) {
                     RandomHelper.spawnItemInWorld(event.getWorld(), new ItemStack(Items.SNOWBALL), event.getPos());
                     event.getEntityPlayer().addPotionEffect(
                             new PotionEffect(MobEffects.MINING_FATIGUE, event.getWorld().rand.nextInt(80) + 20, 1));
-                    int layer = event.getWorld().getBlockState(event.getPos()).getValue(BlockSnow.LAYERS);
+                    int layer = event.getWorld().getBlockState(event.getPos()).get(BlockSnow.LAYERS);
 
                     if (layer == 1)
-                        event.getWorld().setBlockToAir(event.getPos());
+                        event.getWorld().removeBlock(event.getPos());
                     else
-                        event.getWorld().setBlockState(event.getPos(), Blocks.SNOW_LAYER.getDefaultState().withProperty(BlockSnow.LAYERS, layer - 1));
+                        event.getWorld().setBlockState(event.getPos(), Blocks.SNOW.getDefaultState().with(BlockSnow.LAYERS, layer - 1));
                 } else if (block == Blocks.SNOW) {
                     RandomHelper.spawnItemInWorld(event.getWorld(), new ItemStack(Items.SNOWBALL), event.getPos());
                     event.getEntityPlayer().addPotionEffect(
                             new PotionEffect(MobEffects.MINING_FATIGUE, event.getWorld().rand.nextInt(80) + 20, 1));
 
-                    event.getWorld().setBlockState(event.getPos(), Blocks.SNOW_LAYER.getDefaultState().withProperty(BlockSnow.LAYERS, 7));
+                    event.getWorld().setBlockState(event.getPos(), Blocks.SNOW.getDefaultState().with(BlockSnow.LAYERS, 7));
                 }
             } else if (block != null && !equip.isEmpty()) {
                 if (block == Blocks.CAULDRON) {
 
-                    int i = ((Integer) event.getWorld().getBlockState(event.getPos()).getValue(BlockCauldron.LEVEL))
+                    int i = ((Integer) event.getWorld().getBlockState(event.getPos()).get(BlockCauldron.LEVEL))
                             .intValue();
                     ItemStack item = event.getEntityPlayer().getHeldItem(EnumHand.MAIN_HAND);
 
@@ -118,14 +118,14 @@ public class EventHandler {
                 }
 
                 if (stack.isItemEqual(new ItemStack(ModItems.healthGem, 1))) {
-                    if (stack.getTagCompound().getInteger("cooldown") > 0) {
-                        stack.getTagCompound().setInteger("cooldown",
-                                stack.getTagCompound().getInteger("cooldown") - 1);
+                    if (stack.getTag().getInt("cooldown") > 0) {
+                        stack.getTag().setInt("cooldown",
+                                stack.getTag().getInt("cooldown") - 1);
                     }
                 }
             }
 
-            player.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(20 + healthToAdd);
+            player.getAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(20 + healthToAdd);
             if (player.getHealth() > player.getMaxHealth())
                 player.setHealth(player.getMaxHealth());
         }
@@ -135,7 +135,7 @@ public class EventHandler {
     @SubscribeEvent
     public void onKeyInput(KeyInputEvent event) {
         if (ModKeyBindings.guideKey.isPressed() && ConfigOptions.guide.allowGuide) {
-            EntityPlayerSP player = Minecraft.getMinecraft().player;
+            EntityPlayerSP player = Minecraft.getInstance().player;
 
             if (player.world.isRemote) {
                 player.openGui(SkyResourcesClassic.instance, ModGuiHandler.GuideGUI, player.world, player.getPosition().getX(),

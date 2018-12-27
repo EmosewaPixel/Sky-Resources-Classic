@@ -125,7 +125,7 @@ public class JEIPlugin implements IModPlugin {
         for (IBlockState state : HeatSources.getHeatSources().keySet()) {
             Item item = Item.getItemFromBlock(state.getBlock());
             if (item == Items.AIR)
-                sources.add(new HeatSourceJEI(state.getBlock().getUnlocalizedName(),
+                sources.add(new HeatSourceJEI(state.getBlock().getTranslationKey(),
                         HeatSources.getHeatSourceValue(state)));
             else
                 sources.add(new HeatSourceJEI(new ItemStack(item),

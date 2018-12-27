@@ -11,7 +11,7 @@ public class TileQuickDropper extends TileItemInventory implements ITickable {
     }
 
     @Override
-    public void update() {
+    public void tick() {
         if (!world.isRemote) {
             updateRedstone();
             if (this.getRedstoneSignal() == 0 && world.isAirBlock(pos.down())

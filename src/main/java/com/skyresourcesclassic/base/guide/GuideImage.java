@@ -41,7 +41,7 @@ public class GuideImage {
         BlockRendererDispatcher renderer = mc.getBlockRendererDispatcher();
         GlStateManager.pushMatrix();
 
-        GlStateManager.translate(x + width / 2, y + height / 2, 150);
+        GlStateManager.translatef(x + width / 2, y + height / 2, 150);
 
         int min = 0;
         int max = 0;
@@ -56,17 +56,17 @@ public class GuideImage {
         int layer = (int) (mc.getSystemTime() % (2000 * (max - min + 1))) / 2000 + min;
 
         double sc = 150 / (max - min + 1);
-        GlStateManager.scale(-sc, -sc, -sc);
+        GlStateManager.scaled(-sc, -sc, -sc);
 
-        GlStateManager.rotate(-15, 1, 0, 0);
-        GlStateManager.rotate((mc.getSystemTime() % (360 * 40)) / 40f, 0, 1, 0);
-        GlStateManager.translate(-0.5, -0.5, -0.5);
+        GlStateManager.rotatef(-15, 1, 0, 0);
+        GlStateManager.rotatef((mc.getSystemTime() % (360 * 40)) / 40f, 0, 1, 0);
+        GlStateManager.translated(-0.5, -0.5, -0.5);
 
-        Minecraft.getMinecraft().getTextureManager().bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
+        Minecraft.getInstance().getTextureManager().bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
         Tessellator.getInstance().getBuffer().begin(GL11.GL_QUADS, DefaultVertexFormats.BLOCK);
         drawBlocks.clear();
         for (BlockPos pos : drawTEs.keySet()) {
-            Minecraft.getMinecraft().world.removeTileEntity(pos);
+            Minecraft.getInstance().world.removeTileEntity(pos);
         }
         drawTEs.clear();
         for (BlockPos pos : blocks.keySet()) {

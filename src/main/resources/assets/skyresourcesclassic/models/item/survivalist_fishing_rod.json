@@ -1,7 +1,7 @@
 {
   "parent":"item/handheld_rod",
   "textures": {
-    "layer0":"skyresourcesclassic:items/survivalist_rod"
+    "layer0":"skyresourcesclassic:item/survivalist_rod"
   },
     "overrides": [
         {

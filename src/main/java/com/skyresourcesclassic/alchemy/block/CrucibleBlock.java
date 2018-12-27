@@ -4,7 +4,7 @@ import com.skyresourcesclassic.RandomHelper;
 import com.skyresourcesclassic.References;
 import com.skyresourcesclassic.alchemy.tile.CrucibleTile;
 import com.skyresourcesclassic.ConfigOptions;
-import com.skyresourcesclassic.registry.ModCreativeTabs;
+import com.skyresourcesclassic.registry.ModItemGroups;
 import net.minecraft.block.BlockContainer;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
@@ -35,7 +35,7 @@ public class CrucibleBlock extends BlockContainer {
     public CrucibleBlock(String name, float hardness, float resistance) {
         super(Material.ROCK);
         this.setUnlocalizedName(References.ModID + "." + name);
-        this.setCreativeTab(ModCreativeTabs.tabAlchemy);
+        this.setCreativeTab(ModItemGroups.tabAlchemy);
         this.setHardness(hardness);
         this.setResistance(resistance);
         this.setRegistryName(name);

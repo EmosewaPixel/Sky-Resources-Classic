@@ -21,18 +21,18 @@ public class LifeInjectorTile extends TileItemInventory implements ITickable {
     private int cooldown;
 
     @Override
-    public NBTTagCompound writeToNBT(NBTTagCompound compound) {
-        super.writeToNBT(compound);
+    public NBTTagCompound write(NBTTagCompound compound) {
+        super.write(compound);
 
-        compound.setInteger("cooldown", cooldown);
+        compound.setInt("cooldown", cooldown);
         return compound;
     }
 
     @Override
-    public void readFromNBT(NBTTagCompound compound) {
-        super.readFromNBT(compound);
+    public void read(NBTTagCompound compound) {
+        super.read(compound);
 
-        cooldown = compound.getInteger("cooldown");
+        cooldown = compound.getInt("cooldown");
     }
 
     public int getHealthInGem() {
@@ -45,7 +45,7 @@ public class LifeInjectorTile extends TileItemInventory implements ITickable {
     }
 
     @Override
-    public void update() {
+    public void tick() {
         if (!this.world.isRemote) {
             if (cooldown <= 0) {
                 List<EntityLivingBase> list = world.getEntitiesWithinAABB(EntityLivingBase.class, new AxisAlignedBB(
@@ -56,11 +56,11 @@ public class LifeInjectorTile extends TileItemInventory implements ITickable {
 
                     ItemStack stack = getInventory().getStackInSlot(0);
                     if (stack != ItemStack.EMPTY && stack.getItem() instanceof ItemHealthGem) {
-                        if (stack.getTagCompound().getInteger("health") + dmg <= ConfigOptions.health.healthGemMaxHealth) {
+                        if (stack.getTag().getInt("health") + dmg <= ConfigOptions.health.healthGemMaxHealth) {
                             entity.attackEntityFrom(DamageSource.MAGIC, dmg);
-                            stack.getTagCompound().setInteger("health",
-                                    stack.getTagCompound().getInteger("health") + 2);
-                            stack.getTagCompound().setInteger("cooldown", 20);
+                            stack.getTag().setInt("health",
+                                    stack.getTag().getInt("health") + 2);
+                            stack.getTag().setInt("cooldown", 20);
                         }
                     }
                 }

@@ -109,10 +109,10 @@ public class ModRenderers {
         ModelLoader.setCustomMeshDefinition(ModItems.waterExtractor, new ItemMeshDefinition() {
             @Override
             public ModelResourceLocation getModelLocation(ItemStack stack) {
-                NBTTagCompound tagCompound = stack.getTagCompound();
+                NBTTagCompound tagCompound = stack.getTag();
                 int amount = 0;
                 if (tagCompound != null) {
-                    amount = tagCompound.getInteger("amount");
+                    amount = tagCompound.getInt("amount");
                 }
 
                 int level = (int) (amount * 6F / ((ItemWaterExtractor) stack.getItem()).getMaxAmount());
@@ -146,7 +146,7 @@ public class ModRenderers {
 
     public static void init() {
         for (Item crystal : ModItems.metalCrystal)
-            Minecraft.getMinecraft().getItemColors().registerItemColorHandler(new IItemColor() {
+            Minecraft.getInstance().getItemColors().registerItemColorHandler(new IItemColor() {
 
                 @Override
                 public int colorMultiplier(ItemStack stack, int tintIndex) {
@@ -161,7 +161,7 @@ public class ModRenderers {
             }, crystal);
 
         for (Item gem : ModItems.dirtyGem)
-            Minecraft.getMinecraft().getItemColors().registerItemColorHandler(new IItemColor() {
+            Minecraft.getInstance().getItemColors().registerItemColorHandler(new IItemColor() {
 
                 @Override
                 public int colorMultiplier(ItemStack stack, int tintIndex) {

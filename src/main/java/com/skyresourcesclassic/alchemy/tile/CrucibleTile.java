@@ -70,18 +70,18 @@ public class CrucibleTile extends TileEntity implements ITickable, IFluidHandler
     @Override
     public SPacketUpdateTileEntity getUpdatePacket() {
         NBTTagCompound nbtTag = new NBTTagCompound();
-        this.writeToNBT(nbtTag);
+        this.write(nbtTag);
         return new SPacketUpdateTileEntity(getPos(), 1, nbtTag);
     }
 
     @Override
     public void onDataPacket(NetworkManager net, SPacketUpdateTileEntity packet) {
         super.onDataPacket(net, packet);
-        this.readFromNBT(packet.getNbtCompound());
+        this.read(packet.getNbtCompound());
     }
 
     @Override
-    public void update() {
+    public void tick() {
         if (!world.isRemote) {
             List<EntityItem> list = world.getEntitiesWithinAABB(EntityItem.class, new AxisAlignedBB(pos.getX(),
                     pos.getY() + 0.2, pos.getZ(), pos.getX() + 1, pos.getY() + 1, pos.getZ() + 1));
@@ -123,28 +123,28 @@ public class CrucibleTile extends TileEntity implements ITickable, IFluidHandler
     }
 
     @Override
-    public NBTTagCompound writeToNBT(NBTTagCompound compound) {
-        super.writeToNBT(compound);
+    public NBTTagCompound write(NBTTagCompound compound) {
+        super.write(compound);
 
         tank.writeToNBT(compound);
 
-        compound.setInteger("amount", itemAmount);
+        compound.setInt("amount", itemAmount);
         NBTTagCompound stackTag = new NBTTagCompound();
         if (itemIn != ItemStack.EMPTY)
-            itemIn.writeToNBT(stackTag);
+            itemIn.write(stackTag);
         compound.setTag("Item", stackTag);
 
         return compound;
     }
 
     @Override
-    public void readFromNBT(NBTTagCompound compound) {
-        super.readFromNBT(compound);
+    public void read(NBTTagCompound compound) {
+        super.read(compound);
 
         tank.readFromNBT(compound);
 
-        itemAmount = compound.getInteger("amount");
-        NBTTagCompound stackTag = compound.getCompoundTag("Item");
+        itemAmount = compound.getInt("amount");
+        NBTTagCompound stackTag = compound.getTag("Item");
         if (stackTag != null)
             itemIn = new ItemStack(stackTag);
     }

@@ -6,7 +6,6 @@ import com.skyresourcesclassic.alchemy.fluid.FluidRegisterInfo;
 import com.skyresourcesclassic.alchemy.fluid.FluidRegisterInfo.CrystalFluidType;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fluids.Fluid;
-import net.minecraftforge.fluids.FluidRegistry;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -73,7 +72,6 @@ public class ModFluids {
                 }
             };
             crystalFluids.add(fluid);
-            FluidRegistry.addBucketForFluid(crystalFluids.get(i));
         }
     }
 

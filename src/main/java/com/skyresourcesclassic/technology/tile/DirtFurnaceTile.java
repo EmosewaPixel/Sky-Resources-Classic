@@ -116,13 +116,13 @@ public class DirtFurnaceTile extends TileEntity implements ITickable, ISidedInve
         return this.furnaceCustomName != null && !this.furnaceCustomName.isEmpty();
     }
 
-    public void readFromNBT(NBTTagCompound compound) {
-        super.readFromNBT(compound);
+    public void read(NBTTagCompound compound) {
+        super.read(compound);
         NBTTagList nbttaglist = compound.getTagList("Items", 10);
         this.furnaceItemStacks = NonNullList.<ItemStack>withSize(this.getSizeInventory(), ItemStack.EMPTY);
 
         for (int i = 0; i < nbttaglist.tagCount(); ++i) {
-            NBTTagCompound nbttagcompound = nbttaglist.getCompoundTagAt(i);
+            NBTTagCompound nbttagcompound = nbttaglist.getTagAt(i);
             int j = nbttagcompound.getByte("Slot");
 
             if (j >= 0 && j < this.furnaceItemStacks.size()) {
@@ -130,9 +130,9 @@ public class DirtFurnaceTile extends TileEntity implements ITickable, ISidedInve
             }
         }
 
-        this.furnaceBurnTime = compound.getInteger("BurnTime");
-        this.cookTime = compound.getInteger("CookTime");
-        this.totalCookTime = compound.getInteger("CookTimeTotal");
+        this.furnaceBurnTime = compound.getInt("BurnTime");
+        this.cookTime = compound.getInt("CookTime");
+        this.totalCookTime = compound.getInt("CookTimeTotal");
         this.currentItemBurnTime = getItemBurnTime(this.furnaceItemStacks.get(1));
 
         if (compound.hasKey("CustomName", 8)) {
@@ -140,18 +140,18 @@ public class DirtFurnaceTile extends TileEntity implements ITickable, ISidedInve
         }
     }
 
-    public NBTTagCompound writeToNBT(NBTTagCompound compound) {
-        super.writeToNBT(compound);
-        compound.setInteger("BurnTime", this.furnaceBurnTime);
-        compound.setInteger("CookTime", this.cookTime);
-        compound.setInteger("CookTimeTotal", this.totalCookTime);
+    public NBTTagCompound write(NBTTagCompound compound) {
+        super.write(compound);
+        compound.setInt("BurnTime", this.furnaceBurnTime);
+        compound.setInt("CookTime", this.cookTime);
+        compound.setInt("CookTimeTotal", this.totalCookTime);
         NBTTagList nbttaglist = new NBTTagList();
 
         for (int i = 0; i < this.furnaceItemStacks.size(); ++i) {
             if (this.furnaceItemStacks.get(i) != ItemStack.EMPTY) {
                 NBTTagCompound nbttagcompound = new NBTTagCompound();
                 nbttagcompound.setByte("Slot", (byte) i);
-                this.furnaceItemStacks.get(i).writeToNBT(nbttagcompound);
+                this.furnaceItemStacks.get(i).write(nbttagcompound);
                 nbttaglist.appendTag(nbttagcompound);
             }
         }
@@ -180,7 +180,7 @@ public class DirtFurnaceTile extends TileEntity implements ITickable, ISidedInve
         return this.furnaceBurnTime > 0;
     }
 
-    @SideOnly(Side.CLIENT)
+    @OnlyIn(Dist.CLIENT)
     public static boolean isBurning(IInventory inventory) {
         return inventory.getField(0) > 0;
     }
@@ -192,7 +192,7 @@ public class DirtFurnaceTile extends TileEntity implements ITickable, ISidedInve
     /**
      * Like the old updateEntity(), except more generic.
      */
-    public void update() {
+    public void tick() {
         if (!(world.getBlockState(this.getPos()).getBlock() instanceof BlockDirtFurnace))
             return;
         boolean flag = this.isBurning();

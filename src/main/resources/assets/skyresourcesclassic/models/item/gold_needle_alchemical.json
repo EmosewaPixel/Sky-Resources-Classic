@@ -1,6 +1,6 @@
 {
   "parent":"item/generated",
   "textures": {
-    "layer0":"skyresourcesclassic:items/gold_needle_alchemical"
+    "layer0":"skyresourcesclassic:item/gold_needle_alchemical"
   }
 }

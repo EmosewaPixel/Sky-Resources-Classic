@@ -1,6 +1,6 @@
 {
   "parent":"item/generated",
   "textures": {
-    "layer0":"skyresourcesclassic:items/coal_alchemical"
+    "layer0":"skyresourcesclassic:item/coal_alchemical"
   }
 }

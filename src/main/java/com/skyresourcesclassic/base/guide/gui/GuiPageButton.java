@@ -54,7 +54,7 @@ public class GuiPageButton extends GuiButton {
     }
 
     public void resetWidth() {
-        this.width = Minecraft.getMinecraft().fontRenderer
+        this.width = Minecraft.getInstance().fontRenderer
                 .getStringWidth(buttonInfo.getDisplay()) + 22;
     }
 

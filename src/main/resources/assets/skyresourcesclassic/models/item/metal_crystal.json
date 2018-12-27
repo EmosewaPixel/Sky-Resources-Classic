@@ -1,6 +1,6 @@
 {
   "parent":"item/generated",
   "textures": {
-    "layer0":"skyresourcesclassic:items/metal_crystal"
+    "layer0":"skyresourcesclassic:item/metal_crystal"
   }
 }

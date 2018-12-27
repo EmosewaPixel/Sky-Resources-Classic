@@ -1,7 +1,7 @@
 package com.skyresourcesclassic.alchemy.item;
 
 import com.skyresourcesclassic.References;
-import com.skyresourcesclassic.registry.ModCreativeTabs;
+import com.skyresourcesclassic.registry.ModItemGroups;
 import net.minecraft.item.Item;
 
 public class MetalCrystalItem extends Item {
@@ -11,7 +11,7 @@ public class MetalCrystalItem extends Item {
 
         setUnlocalizedName(References.ModID + "." + material + "_crystal");
         setRegistryName(material + "_crystal");
-        setHasSubtypes(true);
-        this.setCreativeTab(ModCreativeTabs.tabAlchemy);
+
+        this.setCreativeTab(ModItemGroups.tabAlchemy);
     }
 }

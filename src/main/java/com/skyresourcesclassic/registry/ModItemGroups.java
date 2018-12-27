@@ -1,34 +1,29 @@
 package com.skyresourcesclassic.registry;
 
-import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
 
-public class ModCreativeTabs {
+public class ModItemGroups {
 
-    public static CreativeTabs tabMain = new CreativeTabs(
+    public static ItemGroup tabMain = new ItemGroup(
             "skyresourcesclassic.tabMain") {
         @Override
-        @SideOnly(Side.CLIENT)
-        public ItemStack getTabIconItem() {
+        public ItemStack getIconItem() {
             return new ItemStack(ModItems.ironKnife);
         }
     };
 
-    public static CreativeTabs tabAlchemy = new CreativeTabs(
+    public static ItemGroup tabAlchemy = new ItemGroup(
             "skyresourcesclassic.tabAlchemy") {
         @Override
-        @SideOnly(Side.CLIENT)
         public ItemStack getTabIconItem() {
             return new ItemStack(ModItems.sandstoneInfusionStone);
         }
     };
 
-    public static CreativeTabs tabTech = new CreativeTabs(
+    public static ItemGroup tabTech = new ItemGroup(
             "skyresourcesclassic.tabTech") {
         @Override
-        @SideOnly(Side.CLIENT)
         public ItemStack getTabIconItem() {
             return new ItemStack(ModBlocks.combustionHeater[0]);
         }

@@ -2,7 +2,7 @@ package com.skyresourcesclassic.base.item;
 
 import com.skyresourcesclassic.References;
 import com.skyresourcesclassic.base.entity.EntityHeavyExplosiveSnowball;
-import com.skyresourcesclassic.registry.ModCreativeTabs;
+import com.skyresourcesclassic.registry.ModItemGroups;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.item.Item;
@@ -18,18 +18,18 @@ public class ItemHeavyExplosiveSnowball extends Item {
         this.maxStackSize = 8;
         this.setUnlocalizedName(References.ModID + "." + name);
         setRegistryName(name);
-        this.setCreativeTab(ModCreativeTabs.tabMain);
+        this.setCreativeTab(ModItemGroups.tabMain);
     }
 
     public ActionResult<ItemStack> onItemRightClick(World world, EntityPlayer player, EnumHand hand) {
-        if (!player.capabilities.isCreativeMode) {
+        if (!player.abilities.isCreativeMode) {
             player.getHeldItem(hand).shrink(1);
         }
 
-        world.playSound((EntityPlayer) null, player.posX, player.posY,
+        world.playSound(null, player.posX, player.posY,
                 player.posZ, SoundEvents.ENTITY_SNOWBALL_THROW,
                 SoundCategory.NEUTRAL, 0.5F,
-                0.4F / (itemRand.nextFloat() * 0.4F + 0.8F));
+                0.4F / (random.nextFloat() * 0.4F + 0.8F));
 
         if (!world.isRemote) {
             EntityHeavyExplosiveSnowball entitysnowball = new EntityHeavyExplosiveSnowball(

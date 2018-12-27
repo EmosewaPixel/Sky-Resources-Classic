@@ -1,6 +1,6 @@
 {
   "parent":"item/generated",
   "textures": {
-    "layer0":"skyresourcesclassic:items/dark_matter"
+    "layer0":"skyresourcesclassic:item/dark_matter"
   }
 }

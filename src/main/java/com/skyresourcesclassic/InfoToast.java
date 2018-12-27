@@ -16,8 +16,8 @@ public class InfoToast implements IToast {
     public InfoToast(ITextComponent titleComponent, ITextComponent subtitleComponent, int time) {
         this.type = Type.Info;
         this.time = time;
-        this.title = titleComponent.getUnformattedText();
-        this.subtitle = subtitleComponent == null ? null : subtitleComponent.getUnformattedText();
+        this.title = titleComponent.getUnformattedComponentText();
+        this.subtitle = subtitleComponent == null ? null : subtitleComponent.getUnformattedComponentText();
     }
 
     public IToast.Visibility draw(GuiToast toastGui, long delta) {
@@ -27,7 +27,7 @@ public class InfoToast implements IToast {
         }
 
         toastGui.getMinecraft().getTextureManager().bindTexture(TEXTURE_TOASTS);
-        GlStateManager.color(1.0F, 1.0F, 1.0F);
+        GlStateManager.color3f(1.0F, 1.0F, 1.0F);
         toastGui.drawTexturedModalRect(0, 0, 0, 64, 160, 32);
 
         if (this.subtitle == null) {

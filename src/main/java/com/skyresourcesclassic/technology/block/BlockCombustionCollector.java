@@ -2,7 +2,7 @@ package com.skyresourcesclassic.technology.block;
 
 import com.skyresourcesclassic.References;
 import com.skyresourcesclassic.SkyResourcesClassic;
-import com.skyresourcesclassic.registry.ModCreativeTabs;
+import com.skyresourcesclassic.registry.ModItemGroups;
 import com.skyresourcesclassic.registry.ModGuiHandler;
 import com.skyresourcesclassic.technology.tile.TileCombustionCollector;
 import net.minecraft.block.BlockContainer;
@@ -21,7 +21,7 @@ public class BlockCombustionCollector extends BlockContainer {
     public BlockCombustionCollector(String name, float hardness, float resistance) {
         super(Material.IRON);
         this.setUnlocalizedName(References.ModID + "." + name);
-        this.setCreativeTab(ModCreativeTabs.tabTech);
+        this.setCreativeTab(ModItemGroups.tabTech);
         this.setHardness(hardness);
         this.setResistance(resistance);
         this.setRegistryName(name);

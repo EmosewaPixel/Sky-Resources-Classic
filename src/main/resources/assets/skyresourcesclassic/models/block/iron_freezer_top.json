@@ -1,10 +1,10 @@
 {
     "ambientocclusion": false,
     "textures": {
-        "particle": "skyresourcesclassic:blocks/iron_machine",
-        "top": "skyresourcesclassic:blocks/iron_machine",
-        "side": "skyresourcesclassic:blocks/iron_freezer_top",
-        "handle": "blocks/hardened_clay_stained_black"
+        "particle": "skyresourcesclassic:block/iron_machine",
+        "top": "skyresourcesclassic:block/iron_machine",
+        "side": "skyresourcesclassic:block/iron_freezer_top",
+        "handle": "block/hardened_clay_stained_black"
     },
     "elements": [
         {   "from": [ 0, 0, 0 ],

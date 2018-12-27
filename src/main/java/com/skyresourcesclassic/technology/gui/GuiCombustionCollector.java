@@ -39,9 +39,9 @@ public class GuiCombustionCollector extends GuiContainer {
 
     @Override
     protected void drawGuiContainerForegroundLayer(int mouseX, int mouseY) {
-        String s = tile.getDisplayName().getUnformattedText();
+        String s = tile.getDisplayName().getUnformattedComponentText();
         this.fontRenderer.drawString(s, 88 - this.fontRenderer.getStringWidth(s) / 2, 6, 4210752);
-        this.fontRenderer.drawString(this.playerInv.getDisplayName().getUnformattedText(), 8, 72, 4210752);
+        this.fontRenderer.drawString(this.playerInv.getDisplayName().getUnformattedComponentText(), 8, 72, 4210752);
     }
 
     public void drawScreen(int mouseX, int mouseY, float partialTicks) {

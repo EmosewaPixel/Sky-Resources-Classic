@@ -27,7 +27,7 @@ public class TileAqueousConcentrator extends TileGenericPower implements ITickab
     private int curProgress;
 
     @Override
-    public void update() {
+    public void tick() {
         if (!this.world.isRemote) {
             if (concentratorMode())
                 this.updateConcentrate();
@@ -90,21 +90,21 @@ public class TileAqueousConcentrator extends TileGenericPower implements ITickab
     }
 
     @Override
-    public NBTTagCompound writeToNBT(NBTTagCompound compound) {
-        compound = super.writeToNBT(compound);
+    public NBTTagCompound write(NBTTagCompound compound) {
+        compound = super.write(compound);
 
-        compound.setInteger("progress", curProgress);
+        compound.setInt("progress", curProgress);
 
-        tank.writeToNBT(compound);
+        tank.write(compound);
         return compound;
     }
 
     @Override
-    public void readFromNBT(NBTTagCompound compound) {
-        super.readFromNBT(compound);
-        curProgress = compound.getInteger("progress");
+    public void read(NBTTagCompound compound) {
+        super.read(compound);
+        curProgress = compound.getInt("progress");
 
-        tank.readFromNBT(compound);
+        tank.read(compound);
     }
 
     private FluidTank tank;

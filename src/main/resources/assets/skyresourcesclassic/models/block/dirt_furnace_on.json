@@ -1,13 +1,13 @@
 {
   "parent":"block/cube_all",
   "textures": {
-       "down": "blocks/dirt",
-         "up": "blocks/dirt",
-      "north": "skyresourcesclassic:blocks/dirt_furnace_on",
-      "south": "blocks/dirt",
-       "west": "blocks/dirt",
-       "east": "blocks/dirt",
-   "particle": "blocks/dirt"
+       "down": "block/dirt",
+         "up": "block/dirt",
+      "north": "skyresourcesclassic:block/dirt_furnace_on",
+      "south": "block/dirt",
+       "west": "block/dirt",
+       "east": "block/dirt",
+   "particle": "block/dirt"
   },
   "display": {
         "thirdperson": {

@@ -1,6 +1,6 @@
 {
   "parent":"item/handheld_rod",
   "textures": {
-    "layer0":"skyresourcesclassic:items/survivalist_rod_cast"
+    "layer0":"skyresourcesclassic:item/survivalist_rod_cast"
   }
 }

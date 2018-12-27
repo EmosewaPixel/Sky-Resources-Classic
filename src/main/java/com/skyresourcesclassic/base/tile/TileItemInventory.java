@@ -40,18 +40,18 @@ public class TileItemInventory extends TileBase {
     }
 
     @Override
-    public NBTTagCompound writeToNBT(NBTTagCompound compound) {
-        super.writeToNBT(compound);
+    public NBTTagCompound write(NBTTagCompound compound) {
+        super.write(compound);
 
         compound.setTag("inv", inventory.serializeNBT());
         return compound;
     }
 
     @Override
-    public void readFromNBT(NBTTagCompound compound) {
-        super.readFromNBT(compound);
+    public void read(NBTTagCompound compound) {
+        super.read(compound);
 
-        inventory.deserializeNBT(compound.getCompoundTag("inv"));
+        inventory.deserializeNBT(compound.getTag("inv"));
     }
 
     @Override

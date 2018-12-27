@@ -1,6 +1,6 @@
 {
   "parent":"skyresourcesclassic:item/stone_grinder",
   "textures": {
-    "layer0":"skyresourcesclassic:items/iron_rock_grinder"
+    "layer0":"skyresourcesclassic:item/iron_rock_grinder"
   }
 }

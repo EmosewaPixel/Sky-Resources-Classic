@@ -2,7 +2,7 @@ package com.skyresourcesclassic.technology.block;
 
 import com.skyresourcesclassic.References;
 import com.skyresourcesclassic.SkyResourcesClassic;
-import com.skyresourcesclassic.registry.ModCreativeTabs;
+import com.skyresourcesclassic.registry.ModItemGroups;
 import com.skyresourcesclassic.registry.ModGuiHandler;
 import com.skyresourcesclassic.technology.tile.TileHeater;
 import com.skyresourcesclassic.technology.tile.TilePoweredHeater;
@@ -33,7 +33,7 @@ public class BlockHeater extends BlockContainer {
     public BlockHeater(String material, float hardness, float resistance, int tier) {
         super(Material.IRON);
         this.setUnlocalizedName(References.ModID + "." + material + "_heater");
-        this.setCreativeTab(ModCreativeTabs.tabTech);
+        this.setCreativeTab(ModItemGroups.tabTech);
         this.setHardness(hardness);
         this.setResistance(resistance);
         this.setRegistryName(material + "_heater");
@@ -109,7 +109,7 @@ public class BlockHeater extends BlockContainer {
 
     public int getMetaFromState(IBlockState state) {
 
-        if (state.getValue(RUNNING) == true) {
+        if (state.get(RUNNING) == true) {
             return 1;
         }
 

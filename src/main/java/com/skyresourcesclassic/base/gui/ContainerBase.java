@@ -67,6 +67,6 @@ public class ContainerBase extends Container {
 
     protected Slot addSlotToContainer(Slot slotIn) {
         slotCount++;
-        return super.addSlotToContainer(slotIn);
+        return super.addSlot(slotIn);
     }
 }

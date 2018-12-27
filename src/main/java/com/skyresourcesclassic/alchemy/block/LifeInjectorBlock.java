@@ -3,12 +3,13 @@ package com.skyresourcesclassic.alchemy.block;
 import com.skyresourcesclassic.References;
 import com.skyresourcesclassic.SkyResourcesClassic;
 import com.skyresourcesclassic.alchemy.tile.LifeInjectorTile;
-import com.skyresourcesclassic.registry.ModCreativeTabs;
 import com.skyresourcesclassic.registry.ModGuiHandler;
+import com.skyresourcesclassic.registry.ModItemGroups;
 import net.minecraft.block.BlockContainer;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.BlockRenderLayer;
 import net.minecraft.util.EnumBlockRenderType;
@@ -17,14 +18,14 @@ import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 
 public class LifeInjectorBlock extends BlockContainer {
     public LifeInjectorBlock(String name, float hardness, float resistance) {
         super(Material.WOOD);
         this.setUnlocalizedName(References.ModID + "." + name);
-        this.setCreativeTab(ModCreativeTabs.tabAlchemy);
+        this.setCreativeTab(ModItemGroups.tabAlchemy);
         this.setHardness(hardness);
         this.setResistance(resistance);
         this.setRegistryName(name);
@@ -42,12 +43,12 @@ public class LifeInjectorBlock extends BlockContainer {
         return false;
     }
 
-    @SideOnly(Side.CLIENT)
+    @OnlyIn(Dist.CLIENT)
     public boolean shouldSideBeRendered(IBlockState blockState, IBlockAccess blockAccess, BlockPos pos, EnumFacing side) {
         return true;
     }
 
-    @SideOnly(Side.CLIENT)
+    @OnlyIn(Dist.CLIENT)
     public BlockRenderLayer getBlockLayer() {
         return BlockRenderLayer.CUTOUT_MIPPED;
     }
@@ -63,11 +64,11 @@ public class LifeInjectorBlock extends BlockContainer {
     }
 
     @Override
-    public void breakBlock(World world, BlockPos pos, IBlockState state) {
+    public void harvestBlock(World world, EntityPlayer player, BlockPos pos, IBlockState state, TileEntity tileEntity, ItemStack stack) {
         LifeInjectorTile te = (LifeInjectorTile) world.getTileEntity(pos);
         te.dropInventory();
 
-        super.breakBlock(world, pos, state);
+        super.harvestBlock(world, player, pos, state, tileEntity, stack);
     }
 
     @Override

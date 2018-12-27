@@ -1,6 +1,6 @@
 {
   "parent":"item/generated",
   "textures": {
-    "layer0":"skyresourcesclassic:items/cactus_fruit"
+    "layer0":"skyresourcesclassic:item/cactus_fruit"
   }
 }

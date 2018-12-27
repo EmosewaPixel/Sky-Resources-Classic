@@ -24,7 +24,7 @@ public class GuideImageButton extends GuidePageButton {
     @Override
     public boolean onClicked() {
 
-        GuiScreen screen = Minecraft.getMinecraft().currentScreen;
+        GuiScreen screen = Minecraft.getInstance().currentScreen;
         if (screen instanceof GuideGUI) {
             ((GuideGUI) screen).openImage(image);
         }

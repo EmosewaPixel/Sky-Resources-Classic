@@ -27,7 +27,7 @@ public class TileDarkMatterWarper extends TileItemInventory implements ITickable
     private int maxBurnTime = 3600;
 
     @Override
-    public void update() {
+    public void tick() {
 
         if (!world.isRemote) {
             if (burnTime <= 0) {
@@ -48,7 +48,7 @@ public class TileDarkMatterWarper extends TileItemInventory implements ITickable
                 for (EntityLivingBase entity : list) {
                     if (!entity.isDead && entity instanceof EntitySkeleton) {
                         EntitySkeleton skely = (EntitySkeleton) entity;
-                        skely.setDead();
+                        skely.remove();
                         EntityWitherSkeleton skeleton = new EntityWitherSkeleton(world);
                         skeleton.setLocationAndAngles(entity.posX, entity.posY, entity.posZ, entity.rotationYaw,
                                 entity.rotationPitch);
@@ -63,7 +63,7 @@ public class TileDarkMatterWarper extends TileItemInventory implements ITickable
                     } else if (!entity.isDead && entity instanceof EntitySpider
                             && !(entity instanceof EntityCaveSpider)) {
                         EntitySpider spider = (EntitySpider) entity;
-                        spider.setDead();
+                        spider.remove();
 
                         EntityCaveSpider caveSpider = new EntityCaveSpider(world);
                         caveSpider.setLocationAndAngles(spider.posX, spider.posY, spider.posZ, spider.rotationYaw,
@@ -74,7 +74,7 @@ public class TileDarkMatterWarper extends TileItemInventory implements ITickable
                         world.spawnEntity(caveSpider);
                     } else if (!entity.isDead && entity instanceof EntitySquid) {
                         EntitySquid squid = (EntitySquid) entity;
-                        squid.setDead();
+                        squid.remove();
 
                         EntityBlaze blaze = new EntityBlaze(world);
                         blaze.setLocationAndAngles(squid.posX, squid.posY, squid.posZ, squid.rotationYaw,
@@ -120,17 +120,17 @@ public class TileDarkMatterWarper extends TileItemInventory implements ITickable
     }
 
     @Override
-    public NBTTagCompound writeToNBT(NBTTagCompound compound) {
-        super.writeToNBT(compound);
+    public NBTTagCompound write(NBTTagCompound compound) {
+        super.write(compound);
 
-        compound.setInteger("burn", burnTime);
+        compound.setInt("burn", burnTime);
         return compound;
     }
 
     @Override
-    public void readFromNBT(NBTTagCompound compound) {
-        super.readFromNBT(compound);
+    public void read(NBTTagCompound compound) {
+        super.read(compound);
 
-        burnTime = compound.getInteger("burn");
+        burnTime = compound.getInt("burn");
     }
 }

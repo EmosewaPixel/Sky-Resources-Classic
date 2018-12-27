@@ -4,7 +4,7 @@ import com.skyresourcesclassic.RandomHelper;
 import com.skyresourcesclassic.References;
 import com.skyresourcesclassic.SkyResourcesClassic;
 import com.skyresourcesclassic.plugin.forestry.tile.TileBeeAttractor;
-import com.skyresourcesclassic.registry.ModCreativeTabs;
+import com.skyresourcesclassic.registry.ModItemGroups;
 import com.skyresourcesclassic.registry.ModGuiHandler;
 import net.minecraft.block.BlockContainer;
 import net.minecraft.block.material.Material;
@@ -25,7 +25,7 @@ public class BlockBeeAttractor extends BlockContainer {
     public BlockBeeAttractor(String unlocalizedName, String registryName, float hardness, float resistance) {
         super(Material.ROCK);
         this.setUnlocalizedName(References.ModID + "." + unlocalizedName);
-        this.setCreativeTab(ModCreativeTabs.tabTech);
+        this.setCreativeTab(ModItemGroups.tabTech);
         this.setHardness(hardness);
         this.setResistance(resistance);
         this.setRegistryName(registryName);

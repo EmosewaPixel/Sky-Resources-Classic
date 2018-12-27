@@ -22,7 +22,7 @@ public class TileHeater extends TileItemInventory implements ITickable, IHeatSou
     private int tier;
 
     @Override
-    public void update() {
+    public void tick() {
         if (!world.isRemote) {
             if (fuelBurnTime > 0 && this.getRedstoneSignal() > 0) {
                 fuelBurnTime--;
@@ -75,20 +75,20 @@ public class TileHeater extends TileItemInventory implements ITickable, IHeatSou
     }
 
     @Override
-    public NBTTagCompound writeToNBT(NBTTagCompound compound) {
-        super.writeToNBT(compound);
+    public NBTTagCompound write(NBTTagCompound compound) {
+        super.write(compound);
 
-        compound.setInteger("fuel", fuelBurnTime);
-        compound.setInteger("item", currentItemBurnTime);
+        compound.setInt("fuel", fuelBurnTime);
+        compound.setInt("item", currentItemBurnTime);
         return compound;
     }
 
     @Override
-    public void readFromNBT(NBTTagCompound compound) {
-        super.readFromNBT(compound);
+    public void read(NBTTagCompound compound) {
+        super.read(compound);
 
-        fuelBurnTime = compound.getInteger("fuel");
-        currentItemBurnTime = compound.getInteger("item");
+        fuelBurnTime = compound.getInt("fuel");
+        currentItemBurnTime = compound.getInt("item");
     }
 
     private int getHeat() {

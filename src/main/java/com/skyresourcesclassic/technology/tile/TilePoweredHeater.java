@@ -19,7 +19,7 @@ public class TilePoweredHeater extends TileGenericPower implements ITickable, IE
     private int tier;
 
     @Override
-    public void update() {
+    public void tick() {
         if (!world.isRemote) {
             if (getEnergyStored() >= powerUsage && this.getRedstoneSignal() > 0) {
                 internalExtractEnergy(powerUsage, false);

@@ -1,9 +1,9 @@
 {
   "parent":"block/cube_all",
   "textures": {
-    "particle": "skyresourcesclassic:blocks/dm_heater_top",
-    "0": "skyresourcesclassic:blocks/ender_core_side",
-    "1": "skyresourcesclassic:blocks/dm_heater_top"
+    "particle": "skyresourcesclassic:block/dm_heater_top",
+    "0": "skyresourcesclassic:block/ender_core_side",
+    "1": "skyresourcesclassic:block/dm_heater_top"
   },
   "elements": [
     {

@@ -1,6 +1,6 @@
 {
   "parent":"item/generated",
   "textures": {
-    "layer0":"skyresourcesclassic:items/sawdust"
+    "layer0":"skyresourcesclassic:item/sawdust"
   }
 }

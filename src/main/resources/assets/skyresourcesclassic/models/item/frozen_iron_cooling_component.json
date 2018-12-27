@@ -1,6 +1,6 @@
 {
   "parent":"item/generated",
   "textures": {
-    "layer0":"skyresourcesclassic:items/frozen_iron_cooling_component"
+    "layer0":"skyresourcesclassic:item/frozen_iron_cooling_component"
   }
 }

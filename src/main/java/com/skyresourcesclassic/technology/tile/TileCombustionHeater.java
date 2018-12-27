@@ -77,28 +77,28 @@ public class TileCombustionHeater extends TileItemInventory implements ITickable
     }
 
     @Override
-    public NBTTagCompound writeToNBT(NBTTagCompound compound) {
-        super.writeToNBT(compound);
+    public NBTTagCompound write(NBTTagCompound compound) {
+        super.write(compound);
 
-        compound.setInteger("heat", currentHeatValue);
-        compound.setInteger("fuel", fuelBurnTime);
-        compound.setInteger("item", currentItemBurnTime);
-        compound.setInteger("hpt", heatPerTick);
+        compound.setInt("heat", currentHeatValue);
+        compound.setInt("fuel", fuelBurnTime);
+        compound.setInt("item", currentItemBurnTime);
+        compound.setInt("hpt", heatPerTick);
         return compound;
     }
 
     @Override
-    public void readFromNBT(NBTTagCompound compound) {
-        super.readFromNBT(compound);
+    public void read(NBTTagCompound compound) {
+        super.read(compound);
 
-        currentHeatValue = compound.getInteger("heat");
-        fuelBurnTime = compound.getInteger("fuel");
-        currentItemBurnTime = compound.getInteger("item");
-        heatPerTick = compound.getInteger("hpt");
+        currentHeatValue = compound.getInt("heat");
+        fuelBurnTime = compound.getInt("fuel");
+        currentItemBurnTime = compound.getInt("item");
+        heatPerTick = compound.getInt("hpt");
     }
 
     @Override
-    public void update() {
+    public void tick() {
         if (receivedPulse() && hasValidMultiblock()) {
             craftItem();
         }

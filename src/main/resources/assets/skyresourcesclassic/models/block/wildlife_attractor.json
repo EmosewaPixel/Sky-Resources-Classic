@@ -1,13 +1,13 @@
 {
   "parent": "block/cube_all",
   "textures": {
-    "down": "skyresourcesclassic:blocks/wildlifeattractortop",
-    "up": "skyresourcesclassic:blocks/wildlifeattractortop",
-    "north": "skyresourcesclassic:blocks/wildlifeattractorside",
-    "south": "skyresourcesclassic:blocks/wildlifeattractorside",
-    "west": "skyresourcesclassic:blocks/wildlifeattractorside",
-    "east": "skyresourcesclassic:blocks/wildlifeattractorside",
-    "particle": "skyresourcesclassic:blocks/wildlifeattractorside"
+    "down": "skyresourcesclassic:block/wildlifeattractortop",
+    "up": "skyresourcesclassic:block/wildlifeattractortop",
+    "north": "skyresourcesclassic:block/wildlifeattractorside",
+    "south": "skyresourcesclassic:block/wildlifeattractorside",
+    "west": "skyresourcesclassic:block/wildlifeattractorside",
+    "east": "skyresourcesclassic:block/wildlifeattractorside",
+    "particle": "skyresourcesclassic:block/wildlifeattractorside"
   },
   "display": {
     "thirdperson": {

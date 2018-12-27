@@ -44,7 +44,7 @@ public class TilePoweredCombustionHeater extends TileGenericPower implements ITi
     }
 
     @Override
-    public void update() {
+    public void tick() {
         if (receivedPulse() && hasValidMultiblock()) {
             craftItem();
         }
@@ -182,18 +182,18 @@ public class TilePoweredCombustionHeater extends TileGenericPower implements ITi
     }
 
     @Override
-    public NBTTagCompound writeToNBT(NBTTagCompound compound) {
-        compound = super.writeToNBT(compound);
+    public NBTTagCompound write(NBTTagCompound compound) {
+        compound = super.write(compound);
 
-        compound.setInteger("heat", currentHeatValue);
+        compound.setInt("heat", currentHeatValue);
 
         return compound;
     }
 
     @Override
-    public void readFromNBT(NBTTagCompound compound) {
-        super.readFromNBT(compound);
-        currentHeatValue = compound.getInteger("heat");
+    public void read(NBTTagCompound compound) {
+        super.read(compound);
+        currentHeatValue = compound.getInt("heat");
     }
 
     public boolean shouldRefresh(World world, BlockPos pos, IBlockState oldState, IBlockState newState) {

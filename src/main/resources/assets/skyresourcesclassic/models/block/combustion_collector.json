@@ -1,7 +1,7 @@
 {
   "parent":"block/cube_all",
   "textures": {
-    "all": "skyresourcesclassic:blocks/combustion_collector"
+    "all": "skyresourcesclassic:block/combustion_collector"
   },
   "display": {
         "thirdperson": {

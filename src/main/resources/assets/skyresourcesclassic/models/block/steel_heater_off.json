@@ -1,9 +1,9 @@
 {
     "__comment": "model generated using mrcrayfish's model creator (http://mrcrayfish.com/modelcreator/)",
     "textures": {
-        "particle": "skyresourcesclassic:blocks/steel_machine",
-        "0": "skyresourcesclassic:blocks/steel_machine",
-        "1": "skyresourcesclassic:blocks/steel_heater_top_off"
+        "particle": "skyresourcesclassic:block/steel_machine",
+        "0": "skyresourcesclassic:block/steel_machine",
+        "1": "skyresourcesclassic:block/steel_heater_top_off"
     },
     "elements": [
         {

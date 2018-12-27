@@ -29,7 +29,7 @@ public class FluidCrystalBlock extends BlockFluidClassic {
 
     @Override
     @Nonnull
-    @SideOnly(Side.CLIENT)
+    @OnlyIn(Dist.CLIENT)
     public BlockRenderLayer getBlockLayer() {
         return BlockRenderLayer.TRANSLUCENT;
     }

@@ -111,11 +111,11 @@ public class ModItems {
 
         for (int i = 0; i < itemComponent.length; i++)
             if (i < 6)
-                itemComponent[i] = registerItem(new ItemComponent(ItemComponentName[i], ModCreativeTabs.tabAlchemy));
+                itemComponent[i] = registerItem(new ItemComponent(ItemComponentName[i], ModItemGroups.tabAlchemy));
             else if (i < 14)
-                itemComponent[i] = registerItem(new ItemComponent(ItemComponentName[i], ModCreativeTabs.tabMain));
+                itemComponent[i] = registerItem(new ItemComponent(ItemComponentName[i], ModItemGroups.tabMain));
             else
-                itemComponent[i] = registerItem(new ItemComponent(ItemComponentName[i], ModCreativeTabs.tabTech));
+                itemComponent[i] = registerItem(new ItemComponent(ItemComponentName[i], ModItemGroups.tabTech));
 
         for (int i = 0; i < ModFluids.crystalFluidInfos().length; i++) {
             metalCrystal[i] = registerItem(new MetalCrystalItem(ModFluids.getFluidInfo(i).name));

@@ -1,9 +1,9 @@
 {
   "parent":"block/cube_all",
   "textures": {
-        "0": "blocks/log_oak",
-        "1": "skyresourcesclassic:blocks/life_infuser",
-       "particle": "blocks/log_oak"
+        "0": "block/log_oak",
+        "1": "skyresourcesclassic:block/life_infuser",
+       "particle": "block/log_oak"
     },
     "elements": [
         {

@@ -31,7 +31,7 @@ public class TileWildlifeAttractor extends TileGenericPower implements ITickable
     }
 
     @Override
-    public void update() {
+    public void tick() {
         if (!world.isRemote) {
             if (this.getRedstoneSignal() == 0) {
                 if (matterLeft <= 0) {
@@ -77,7 +77,7 @@ public class TileWildlifeAttractor extends TileGenericPower implements ITickable
                 if (e.isNotColliding()) {
                     world.spawnEntity(e);
                 } else {
-                    e.setDead();
+                    e.remove();
                 }
             }
 
@@ -125,22 +125,22 @@ public class TileWildlifeAttractor extends TileGenericPower implements ITickable
     }
 
     @Override
-    public NBTTagCompound writeToNBT(NBTTagCompound compound) {
-        compound = super.writeToNBT(compound);
+    public NBTTagCompound write(NBTTagCompound compound) {
+        compound = super.write(compound);
 
-        compound.setInteger("matter", matterLeft);
-        tank.writeToNBT(compound);
+        compound.setInt("matter", matterLeft);
+        tank.write(compound);
 
         return compound;
     }
 
     @Override
-    public void readFromNBT(NBTTagCompound compound) {
-        super.readFromNBT(compound);
+    public void read(NBTTagCompound compound) {
+        super.read(compound);
 
-        matterLeft = compound.getInteger("matter");
+        matterLeft = compound.getInt("matter");
 
-        tank.readFromNBT(compound);
+        tank.read(compound);
     }
 
     public FluidTank getTank() {

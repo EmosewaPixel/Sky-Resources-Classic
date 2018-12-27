@@ -1,13 +1,13 @@
 {
   "parent":"block/cube_all",
   "textures": {
-    "down": "blocks/log_oak",
-    "up": "skyresourcesclassic:blocks/wooden_heater_top",
-    "north": "blocks/log_oak",
-    "south": "blocks/log_oak",
-    "west": "blocks/log_oak",
-    "east": "blocks/log_oak",
-    "particle": "skyresourcesclassic:blocks/wooden_heater_top"
+    "down": "block/log_oak",
+    "up": "skyresourcesclassic:block/wooden_heater_top",
+    "north": "block/log_oak",
+    "south": "block/log_oak",
+    "west": "block/log_oak",
+    "east": "block/log_oak",
+    "particle": "skyresourcesclassic:block/wooden_heater_top"
   },
   "display": {
         "thirdperson": {

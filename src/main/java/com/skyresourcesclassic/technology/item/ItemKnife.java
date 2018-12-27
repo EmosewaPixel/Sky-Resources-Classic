@@ -7,7 +7,7 @@ import com.skyresourcesclassic.RandomHelper;
 import com.skyresourcesclassic.References;
 import com.skyresourcesclassic.recipe.ProcessRecipe;
 import com.skyresourcesclassic.recipe.ProcessRecipeManager;
-import com.skyresourcesclassic.registry.ModCreativeTabs;
+import com.skyresourcesclassic.registry.ModItemGroups;
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.enchantment.EnchantmentHelper;
@@ -37,7 +37,7 @@ public class ItemKnife extends Item {
         setRegistryName(name);
         this.setMaxStackSize(1);
         this.setNoRepair();
-        this.setCreativeTab(ModCreativeTabs.tabMain);
+        this.setCreativeTab(ModItemGroups.tabMain);
         this.setHarvestLevel("knife", material.getHarvestLevel());
 
         ItemHelper.addKnife(this);
@@ -89,7 +89,7 @@ public class ItemKnife extends Item {
     public boolean onBlockStartBreak(ItemStack item, BlockPos pos, EntityPlayer player) {
         World world = player.world;
         IBlockState state = world.getBlockState(pos);
-        if (item.attemptDamageItem(1, this.itemRand, null)) {
+        if (item.attemptDamageItem(1, this.random, null)) {
             player.setHeldItem(EnumHand.MAIN_HAND, ItemStack.EMPTY);
         }
 

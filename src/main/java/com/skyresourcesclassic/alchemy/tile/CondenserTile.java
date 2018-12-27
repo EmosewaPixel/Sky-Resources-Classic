@@ -29,7 +29,7 @@ public class CondenserTile extends TileBase implements ITickable {
     private int tier;
 
     @Override
-    public void update() {
+    public void tick() {
         updateRedstone();
         crystalFluidUpdate();
     }
@@ -57,7 +57,7 @@ public class CondenserTile extends TileBase implements ITickable {
                 timeCondense = 0;
 
             if (timeCondense >= getTimeToCondense(crystalBlock)) {
-                world.setBlockToAir(pos.up());
+                world.removeBlock(pos.up());
                 ItemStack stack = OreDictionary.getOres(oreDictCheck).get(0).copy();
                 stack.setCount(1);
                 Entity entity = new EntityItem(world, pos.getX() + 0.5F, pos.getY() + 1.5F, pos.getZ() + 0.5F, stack);
@@ -76,18 +76,18 @@ public class CondenserTile extends TileBase implements ITickable {
     }
 
     @Override
-    public NBTTagCompound writeToNBT(NBTTagCompound compound) {
-        super.writeToNBT(compound);
+    public NBTTagCompound write(NBTTagCompound compound) {
+        super.write(compound);
 
-        compound.setInteger("time", timeCondense);
+        compound.setInt("time", timeCondense);
         return compound;
     }
 
     @Override
-    public void readFromNBT(NBTTagCompound compound) {
-        super.readFromNBT(compound);
+    public void read(NBTTagCompound compound) {
+        super.read(compound);
 
-        timeCondense = compound.getInteger("time");
+        timeCondense = compound.getInt("time");
     }
 
     private Block getBlockAbove() {

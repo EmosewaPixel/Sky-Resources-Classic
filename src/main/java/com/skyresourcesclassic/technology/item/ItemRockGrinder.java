@@ -7,7 +7,7 @@ import com.skyresourcesclassic.RandomHelper;
 import com.skyresourcesclassic.References;
 import com.skyresourcesclassic.recipe.ProcessRecipe;
 import com.skyresourcesclassic.recipe.ProcessRecipeManager;
-import com.skyresourcesclassic.registry.ModCreativeTabs;
+import com.skyresourcesclassic.registry.ModItemGroups;
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.enchantment.EnchantmentHelper;
@@ -37,7 +37,7 @@ public class ItemRockGrinder extends ItemPickaxe {
         this.setUnlocalizedName(References.ModID + "." + name);
         setRegistryName(name);
         this.setMaxStackSize(1);
-        this.setCreativeTab(ModCreativeTabs.tabTech);
+        this.setCreativeTab(ModItemGroups.tabTech);
         this.setHarvestLevel("rockGrinder", material.getHarvestLevel());
 
         ItemHelper.addRockGrinder(this);
@@ -67,7 +67,7 @@ public class ItemRockGrinder extends ItemPickaxe {
     public boolean onBlockStartBreak(ItemStack item, BlockPos pos, EntityPlayer player) {
         World world = player.world;
         IBlockState state = world.getBlockState(pos);
-        if (item.attemptDamageItem(1, this.itemRand, null)) {
+        if (item.attemptDamageItem(1, this.random, null)) {
             player.setHeldItem(EnumHand.MAIN_HAND, ItemStack.EMPTY);
         }
 
@@ -85,7 +85,7 @@ public class ItemRockGrinder extends ItemPickaxe {
                         RandomHelper.spawnItemInWorld(world, r.getOutputs().get(0).copy(), pos);
                         chance -= 1;
                     }
-                    if (itemRand.nextFloat() <= chance)
+                    if (random.nextFloat() <= chance)
                         RandomHelper.spawnItemInWorld(world, r.getOutputs().get(0).copy(), pos);
                 }
             }

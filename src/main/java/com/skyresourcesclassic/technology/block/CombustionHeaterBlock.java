@@ -2,7 +2,7 @@ package com.skyresourcesclassic.technology.block;
 
 import com.skyresourcesclassic.References;
 import com.skyresourcesclassic.SkyResourcesClassic;
-import com.skyresourcesclassic.registry.ModCreativeTabs;
+import com.skyresourcesclassic.registry.ModItemGroups;
 import com.skyresourcesclassic.registry.ModGuiHandler;
 import com.skyresourcesclassic.technology.tile.TileCombustionHeater;
 import com.skyresourcesclassic.technology.tile.TilePoweredCombustionHeater;
@@ -32,7 +32,7 @@ public class CombustionHeaterBlock extends BlockContainer {
     public CombustionHeaterBlock(String material, float hardness, float resistance, int tier) {
         super(Material.WOOD);
         this.setUnlocalizedName(References.ModID + "." + material + "_combustion_heater");
-        this.setCreativeTab(ModCreativeTabs.tabTech);
+        this.setCreativeTab(ModItemGroups.tabTech);
         this.setHardness(hardness);
         this.setResistance(resistance);
         this.setRegistryName(material + "_combustion_heater");
@@ -86,7 +86,7 @@ public class CombustionHeaterBlock extends BlockContainer {
         }
     }
 
-    @SideOnly(Side.CLIENT)
+    @OnlyIn(Dist.CLIENT)
     public void addInformation(ItemStack stack, @Nullable World worldIn, List<String> tooltip, ITooltipFlag flagIn) {
         int heat;
         switch (tier) {

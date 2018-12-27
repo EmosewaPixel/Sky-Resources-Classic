@@ -1,13 +1,13 @@
 {
   "parent":"block/cube_all",
   "textures": {
-       "down": "skyresourcesclassic:blocks/ender_core_side",
-         "up": "skyresourcesclassic:blocks/ender_core_top",
-      "north": "skyresourcesclassic:blocks/ender_core_side",
-      "south": "skyresourcesclassic:blocks/ender_core_side",
-       "west": "skyresourcesclassic:blocks/ender_core_side",
-       "east": "skyresourcesclassic:blocks/ender_core_side",
-   "particle": "skyresourcesclassic:blocks/ender_core_side"
+       "down": "skyresourcesclassic:block/ender_core_side",
+         "up": "skyresourcesclassic:block/ender_core_top",
+      "north": "skyresourcesclassic:block/ender_core_side",
+      "south": "skyresourcesclassic:block/ender_core_side",
+       "west": "skyresourcesclassic:block/ender_core_side",
+       "east": "skyresourcesclassic:block/ender_core_side",
+   "particle": "skyresourcesclassic:block/ender_core_side"
   },
   "display": {
         "thirdperson": {

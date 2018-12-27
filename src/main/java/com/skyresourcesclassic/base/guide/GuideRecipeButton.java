@@ -9,7 +9,7 @@ import java.util.List;
 
 public class GuideRecipeButton extends GuidePageButton {
     public GuideRecipeButton(ItemStack stack) {
-        super(stack.getDisplayName(), stack);
+        super(stack.getDisplayName().getString(), stack);
     }
 
     @Override
@@ -27,7 +27,7 @@ public class GuideRecipeButton extends GuidePageButton {
 
     @Override
     public String getDisplay() {
-        return getItemDisplay().getDisplayName();
+        return getItemDisplay().getDisplayName().getString();
     }
 
     @Override

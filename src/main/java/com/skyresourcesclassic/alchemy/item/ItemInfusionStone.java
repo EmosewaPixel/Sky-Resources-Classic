@@ -4,7 +4,7 @@ import com.skyresourcesclassic.ItemHelper;
 import com.skyresourcesclassic.References;
 import com.skyresourcesclassic.recipe.ProcessRecipe;
 import com.skyresourcesclassic.recipe.ProcessRecipeManager;
-import com.skyresourcesclassic.registry.ModCreativeTabs;
+import com.skyresourcesclassic.registry.ModItemGroups;
 import net.minecraft.block.Block;
 import net.minecraft.block.IGrowable;
 import net.minecraft.block.state.IBlockState;
@@ -29,7 +29,7 @@ public class ItemInfusionStone extends Item {
         setRegistryName(name);
         this.setMaxStackSize(1);
         this.setNoRepair();
-        this.setCreativeTab(ModCreativeTabs.tabAlchemy);
+        this.setCreativeTab(ModItemGroups.tabAlchemy);
 
         ItemHelper.addInfusionStone(this);
     }
@@ -57,7 +57,7 @@ public class ItemInfusionStone extends Item {
             if (player.getHealth() >= recipe.getIntParameter()) {
                 if (!world.isRemote) {
                     player.attackEntityFrom(DamageSource.MAGIC, recipe.getIntParameter());
-                    world.setBlockToAir(pos);
+                    world.removeBlock(pos);
                     player.dropItem(recipe.getOutputs().get(0).copy(), false);
                     if (offHand != ItemStack.EMPTY)
                         offHand.shrink(recipe.getInputs().get(0) instanceof ItemStack

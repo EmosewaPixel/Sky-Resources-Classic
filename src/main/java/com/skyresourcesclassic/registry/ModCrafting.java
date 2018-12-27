@@ -34,7 +34,7 @@ public class ModCrafting {
 
         GameRegistry.addSmelting(ModBlocks.dryCactus, new ItemStack(Items.DYE, 1, 7), 0.2F);
 
-        GameRegistry.addSmelting(new ItemStack(ModItems.itemComponent[8]), new ItemStack(Items.COAL, 1, 1), 0.1F);
+        GameRegistry.addSmelting(new ItemStack(ModItems.itemComponent[8]), new ItemStack(Items.CHARCOAL), 0.1F);
 
         ProcessRecipeManager.infusionRecipes.addRecipe(new ItemStack(Blocks.SAPLING, 1, 4), 10,
                 new ArrayList<>(Arrays.asList(new ItemStack(ModItems.itemComponent[0], 10),
@@ -48,9 +48,9 @@ public class ModCrafting {
 
         ProcessRecipeManager.infusionRecipes.addRecipe(new ItemStack(Blocks.CACTUS, 3), 8,
                 new ArrayList<>(Arrays.asList(new ItemStack(ModItems.itemComponent[0], 6),
-                        new ItemStack(Blocks.CACTUS, 1, OreDictionary.WILDCARD_VALUE))));
+                        new ItemStack(Blocks.CACTUS))));
 
-        ProcessRecipeManager.infusionRecipes.addRecipe(new ItemStack(Blocks.DEADBUSH), 10,
+        ProcessRecipeManager.infusionRecipes.addRecipe(new ItemStack(Blocks.DEAD_BUSH), 10,
                 new ArrayList<>(Arrays.asList(new ItemStack(Items.ROTTEN_FLESH, 4), "treeSapling")));
 
         ProcessRecipeManager.infusionRecipes.addRecipe(new ItemStack(Blocks.GRASS, 1), 14,
@@ -68,21 +68,21 @@ public class ModCrafting {
         ProcessRecipeManager.infusionRecipes.addRecipe(new ItemStack(Blocks.SAPLING, 1, 2), 19,
                 new ArrayList<>(Arrays.asList(new ItemStack(Items.DYE, 10, 15), "treeSapling")));
 
-        ProcessRecipeManager.infusionRecipes.addRecipe(new ItemStack(Items.REEDS), 19,
-                new ArrayList<>(Arrays.asList(new ItemStack(Items.SPECKLED_MELON, 3),
-                        new ItemStack(Blocks.PUMPKIN, 1, OreDictionary.WILDCARD_VALUE))));
+        ProcessRecipeManager.infusionRecipes.addRecipe(new ItemStack(Blocks.SUGAR_CANE), 19,
+                new ArrayList<>(Arrays.asList(new ItemStack(Items.GLISTERING_MELON_SLICE, 3),
+                        new ItemStack(Blocks.PUMPKIN))));
 
         ProcessRecipeManager.infusionRecipes.addRecipe(new ItemStack(Items.NETHER_WART), 19,
                 new ArrayList<>(Arrays.asList(new ItemStack(Items.SPIDER_EYE, 8),
-                        new ItemStack(Blocks.RED_MUSHROOM, 1, OreDictionary.WILDCARD_VALUE))));
+                        new ItemStack(Blocks.RED_MUSHROOM))));
 
         ProcessRecipeManager.infusionRecipes.addRecipe(new ItemStack(Blocks.RED_MUSHROOM), 15,
                 new ArrayList<>(Arrays.asList(new ItemStack(Items.DYE, 8, 1),
-                        new ItemStack(Blocks.TALLGRASS, 1, OreDictionary.WILDCARD_VALUE))));
+                        new ItemStack(Blocks.TALL_GRASS))));
 
         ProcessRecipeManager.infusionRecipes.addRecipe(new ItemStack(Blocks.BROWN_MUSHROOM), 15,
                 new ArrayList<>(Arrays.asList(new ItemStack(Items.DYE, 8, 3),
-                        new ItemStack(Blocks.TALLGRASS, 1, OreDictionary.WILDCARD_VALUE))));
+                        new ItemStack(Blocks.TALL_GRASS))));
 
         ProcessRecipeManager.infusionRecipes.addRecipe(new ItemStack(ModItems.healthGem), 15,
                 new ArrayList<>(Arrays.asList(new ItemStack(ModItems.itemComponent[3], 1),
@@ -91,7 +91,7 @@ public class ModCrafting {
         ProcessRecipeManager.infusionRecipes.addRecipe(new ItemStack(Items.CHORUS_FRUIT), 12, new ArrayList<>(Arrays.asList(new ItemStack(Items.ENDER_EYE, 4), new ItemStack(Blocks.MELON_BLOCK))));
 
         ProcessRecipeManager.combustionRecipes.addRecipe(new ItemStack(Items.COAL, 1), 50,
-                new ArrayList<>(Arrays.asList(new ItemStack(Items.COAL, 1, 1))));
+                new ArrayList<>(Arrays.asList(new ItemStack(Items.CHARCOAL))));
 
         ProcessRecipeManager.combustionRecipes.addRecipe(new ItemStack(Items.BLAZE_POWDER, 3), 75,
                 new ArrayList<>(Arrays.asList(new ItemStack(Items.GUNPOWDER))));
@@ -177,7 +177,7 @@ public class ModCrafting {
         ProcessRecipeManager.combustionRecipes
                 .addRecipe(new ItemStack(ModItems.metalCrystal[15]), 1500,
                         new ArrayList<>(Arrays.asList(new ItemStack(ModItems.metalCrystal[1]),
-                                new ItemStack(Items.GOLD_INGOT, 3), new ItemStack(Items.NETHERBRICK, 4),
+                                new ItemStack(Items.GOLD_INGOT, 3), new ItemStack(Items.NETHER_BRICK, 4),
                                 new ItemStack(Items.COAL, 5))));
 
         ProcessRecipeManager.combustionRecipes.addRecipe(new ItemStack(ModItems.metalCrystal[16]), 1800,
@@ -238,7 +238,7 @@ public class ModCrafting {
                         new ItemStack(Items.GLOWSTONE_DUST, 1), new ItemStack(Items.BLAZE_POWDER, 1))));
 
         ProcessRecipeManager.combustionRecipes.addRecipe(new ItemStack(Items.WHEAT_SEEDS, 1), 50,
-                new ArrayList<>(Arrays.asList(new ItemStack(Blocks.DEADBUSH, 1), new ItemStack(Items.FLINT, 2))));
+                new ArrayList<>(Arrays.asList(new ItemStack(Blocks.DEAD_BUSH, 1), new ItemStack(Items.FLINT, 2))));
 
         ProcessRecipeManager.combustionRecipes.addRecipe(new ItemStack(Blocks.DIRT), 100,
                 new ArrayList<>(Arrays.asList(new ItemStack(ModItems.itemComponent[8], 8))));
@@ -256,7 +256,7 @@ public class ModCrafting {
         ProcessRecipeManager.combustionRecipes.addRecipe(new ItemStack(Items.PRISMARINE_CRYSTALS, 4), 1200,
                 new ArrayList<>(Arrays.asList(new ItemStack(Items.QUARTZ, 4), new ItemStack(Blocks.GLASS, 3))));
 
-        ItemStack waterBottle = PotionUtils.addPotionToItemStack(new ItemStack(Items.POTIONITEM), PotionTypes.WATER);
+        ItemStack waterBottle = PotionUtils.addPotionToItemStack(new ItemStack(Items.POTION), PotionTypes.WATER);
 
         ProcessRecipeManager.combustionRecipes.addRecipe(new ItemStack(Items.SNOWBALL), 200,
                 new ArrayList<>(Arrays.asList(waterBottle)));
@@ -267,7 +267,7 @@ public class ModCrafting {
 
         ProcessRecipeManager.combustionRecipes.addRecipe(new ItemStack(ModItems.itemComponent[11]), 1400,
                 new ArrayList<>(
-                        Arrays.asList(new ItemStack(Blocks.OBSIDIAN, 3), new ItemStack(Items.NETHERBRICK, 6),
+                        Arrays.asList(new ItemStack(Blocks.OBSIDIAN, 3), new ItemStack(Items.NETHER_BRICK, 6),
                                 new ItemStack(OreDictionary.getOres(steelIngot).get(0).getItem(), 3))));
 
         ProcessRecipeManager.combustionRecipes.addRecipe(new ItemStack(Items.GLOWSTONE_DUST, 5), 500,
@@ -353,8 +353,8 @@ public class ModCrafting {
         GameRegistry.registerFuelHandler(new ModFuelHandler());
 
         ProcessRecipeManager.knifeRecipes.addRecipe(new ItemStack(ModItems.cactusFruit, 2), 1, new ItemStack(Blocks.CACTUS));
-        ProcessRecipeManager.knifeRecipes.addRecipe(new ItemStack(Items.MELON, 9), 1, new ItemStack(Blocks.MELON_BLOCK));
-        ProcessRecipeManager.knifeRecipes.addRecipe(new ItemStack(Blocks.PLANKS, 6), 1, new ItemStack(Blocks.LOG));
+        ProcessRecipeManager.knifeRecipes.addRecipe(new ItemStack(Items.MELON_SLICE, 9), 1, new ItemStack(Blocks.MELON_BLOCK));
+        ProcessRecipeManager.knifeRecipes.addRecipe(new ItemStack(Blocks.OAK_PLANKS, 6), 1, new ItemStack(Blocks.LOG));
         ProcessRecipeManager.knifeRecipes.addRecipe(new ItemStack(Blocks.PLANKS, 6, 1), 1, new ItemStack(Blocks.LOG, 1, 1));
         ProcessRecipeManager.knifeRecipes.addRecipe(new ItemStack(Blocks.PLANKS, 6, 2), 1, new ItemStack(Blocks.LOG, 1, 2));
         ProcessRecipeManager.knifeRecipes.addRecipe(new ItemStack(Blocks.PLANKS, 6, 3), 1, new ItemStack(Blocks.LOG, 1, 3));

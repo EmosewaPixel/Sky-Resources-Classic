@@ -78,18 +78,18 @@ public class TileGenericPower extends TileItemInventory implements IEnergyStorag
     }
 
     @Override
-    public NBTTagCompound writeToNBT(NBTTagCompound compound) {
-        compound = super.writeToNBT(compound);
+    public NBTTagCompound write(NBTTagCompound compound) {
+        compound = super.write(compound);
 
-        compound.setInteger("Energy", energy);
+        compound.setInt("Energy", energy);
 
         return compound;
     }
 
     @Override
-    public void readFromNBT(NBTTagCompound compound) {
-        super.readFromNBT(compound);
-        energy = compound.getInteger("Energy");
+    public void read(NBTTagCompound compound) {
+        super.read(compound);
+        energy = compound.getInt("Energy");
     }
 
     @Override

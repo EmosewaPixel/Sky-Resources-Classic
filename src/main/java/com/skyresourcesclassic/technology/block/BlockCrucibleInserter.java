@@ -1,7 +1,7 @@
 package com.skyresourcesclassic.technology.block;
 
 import com.skyresourcesclassic.References;
-import com.skyresourcesclassic.registry.ModCreativeTabs;
+import com.skyresourcesclassic.registry.ModItemGroups;
 import com.skyresourcesclassic.technology.tile.TileCrucibleInserter;
 import net.minecraft.block.BlockContainer;
 import net.minecraft.block.material.Material;
@@ -22,7 +22,7 @@ public class BlockCrucibleInserter extends BlockContainer {
                                  float resistance) {
         super(Material.ROCK);
         this.setUnlocalizedName(References.ModID + "." + name);
-        this.setCreativeTab(ModCreativeTabs.tabTech);
+        this.setCreativeTab(ModItemGroups.tabTech);
         this.setHardness(hardness);
         this.setResistance(resistance);
         this.setRegistryName(name);
@@ -39,12 +39,12 @@ public class BlockCrucibleInserter extends BlockContainer {
         return false;
     }
 
-    @SideOnly(Side.CLIENT)
+    @OnlyIn(Dist.CLIENT)
     public boolean shouldSideBeRendered(IBlockState blockState, IBlockAccess blockAccess, BlockPos pos, EnumFacing side) {
         return true;
     }
 
-    @SideOnly(Side.CLIENT)
+    @OnlyIn(Dist.CLIENT)
     public BlockRenderLayer getBlockLayer() {
         return BlockRenderLayer.CUTOUT_MIPPED;
     }
