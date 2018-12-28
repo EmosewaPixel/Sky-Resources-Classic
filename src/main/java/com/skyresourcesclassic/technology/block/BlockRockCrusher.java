@@ -21,6 +21,7 @@ import net.minecraft.state.IProperty;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.*;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.IBlockReader;
 import net.minecraft.world.World;
 import net.minecraft.world.chunk.BlockStateContainer;
 
@@ -80,13 +81,6 @@ public class BlockRockCrusher extends BlockContainer {
         worldIn.setBlockState(pos, state.with(FACING, placer.getHorizontalFacing().getOpposite()), 2);
     }
 
-    public int getMetaFromState(IBlockState state) {
-        int i = 0;
-        i = i | ((EnumFacing) state.get(FACING)).getHorizontalIndex();
-
-        return i;
-    }
-
     /**
      * Returns the blockstate with the given rotation from the passed
      * blockstate. If inapplicable, returns the passed blockstate.
@@ -113,7 +107,7 @@ public class BlockRockCrusher extends BlockContainer {
     }
 
     @Override
-    public TileEntity createNewTileEntity(World worldIn, int meta) {
+    public TileEntity createNewTileEntity(IBlockReader reader) {
         return new TileRockCrusher();
     }
 

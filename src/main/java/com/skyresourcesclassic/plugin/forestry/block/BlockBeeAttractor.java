@@ -37,7 +37,7 @@ public class BlockBeeAttractor extends BlockContainer {
     }
 
     @Override
-    public TileEntity createNewTileEntity(World worldIn, int meta) {
+    public TileEntity createNewTileEntity(IBlockReader reader) {
         return new TileBeeAttractor();
     }
 

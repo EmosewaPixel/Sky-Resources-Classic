@@ -20,6 +20,7 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.*;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
+import net.minecraft.world.IBlockReader;
 import net.minecraft.world.World;
 import net.minecraft.world.chunk.BlockStateContainer;
 
@@ -52,7 +53,7 @@ public class BlockFreezer extends BlockContainer {
     }
 
     @Override
-    public TileEntity createNewTileEntity(World worldIn, int meta) {
+    public TileEntity createNewTileEntity(IBlockReader reader) {
         return new FreezerTile();
     }
 
@@ -115,18 +116,6 @@ public class BlockFreezer extends BlockContainer {
         super.getStateForPlacement(worldIn, pos, facing, hitX, hitY, hitZ, meta, placer);
         return this.getDefaultState().with(FACING, placer.getHorizontalFacing().getOpposite())
                 .with(PART, EnumPartType.BOTTOM);
-    }
-
-    public int getMetaFromState(IBlockState state) {
-
-        int i = 0;
-        i = i | ((EnumFacing) state.get(FACING)).getHorizontalIndex();
-
-        if (state.get(PART) == EnumPartType.TOP) {
-            i |= 8;
-        }
-
-        return i;
     }
 
     /**

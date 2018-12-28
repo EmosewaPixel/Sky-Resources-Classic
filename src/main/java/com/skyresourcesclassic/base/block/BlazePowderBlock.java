@@ -32,12 +32,12 @@ public class BlazePowderBlock extends BaseBlock {
                     && ConfigOptions.general.meltableBlazeBlocks) {
                 world.setBlockState(pos, Blocks.LAVA.getDefaultState(), 3);
             } else
-                world.schedule(pos, this, tickRate(world));
+                world.scheduleUpdate(pos, this, tickRate(world));
         }
     }
-EntitySnowball
+
     @Override
-    public void onBlockAdded(World world, BlockPos pos, IBlockState state) {
+    public void onBlockAdded(IBlockState state1, World world, BlockPos pos, IBlockState state2) {
         world.scheduleUpdate(pos, this, tickRate(world));
     }
 }

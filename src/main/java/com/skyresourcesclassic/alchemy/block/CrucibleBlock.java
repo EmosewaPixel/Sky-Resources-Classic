@@ -7,6 +7,7 @@ import com.skyresourcesclassic.ConfigOptions;
 import com.skyresourcesclassic.registry.ModItemGroups;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockContainer;
+import net.minecraft.block.BlockHopper;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.Entity;
@@ -19,6 +20,7 @@ import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
+import net.minecraft.world.IBlockReader;
 import net.minecraft.world.World;
 import net.minecraftforge.fluids.FluidActionResult;
 import net.minecraftforge.fluids.FluidUtil;
@@ -41,7 +43,7 @@ public class CrucibleBlock extends BlockContainer {
         this.setResistance(resistance);
         this.setRegistryName(name);
     }
-
+BlockHopper
     @Override
     public void addCollisionBoxToList(IBlockState state, World worldIn, BlockPos pos, AxisAlignedBB entityBox,
                                       List<AxisAlignedBB> collidingBoxes, @Nullable Entity entityIn, boolean p_185477_7_) {
@@ -68,12 +70,12 @@ public class CrucibleBlock extends BlockContainer {
     }
 
     @Override
-    public TileEntity createNewTileEntity(World worldIn, int meta) {
+    public TileEntity createNewTileEntity(IBlockReader reader) {
         return new CrucibleTile();
     }
 
     @Override
-    public boolean isOpaqueCube(IBlockState state) {
+    public boolean isTopSolid(IBlockState state) {
         return false;
     }
 

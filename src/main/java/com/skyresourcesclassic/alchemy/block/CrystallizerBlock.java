@@ -8,6 +8,7 @@ import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumBlockRenderType;
+import net.minecraft.world.IBlockReader;
 import net.minecraft.world.World;
 
 public class CrystallizerBlock extends BlockContainer {
@@ -30,7 +31,7 @@ public class CrystallizerBlock extends BlockContainer {
     }
 
     @Override
-    public TileEntity createNewTileEntity(World worldIn, int meta) {
+    public TileEntity createNewTileEntity(IBlockReader reader) {
         return new CrystallizerTile(tier);
     }
 }

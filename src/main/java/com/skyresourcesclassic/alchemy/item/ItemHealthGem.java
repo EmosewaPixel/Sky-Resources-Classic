@@ -44,7 +44,7 @@ public class ItemHealthGem extends Item implements IHealthBoostItem {
 
     @Override
     public void onCreated(ItemStack itemStack, World world, EntityPlayer player) {
-        itemStack.setTagCompound(new NBTTagCompound());
+        itemStack.deserializeNBT(new NBTTagCompound());
         itemStack.getTag().setInt("health", 0);
         itemStack.getTag().setInt("cooldown", 0);
     }

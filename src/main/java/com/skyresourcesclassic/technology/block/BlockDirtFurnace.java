@@ -22,10 +22,13 @@ import net.minecraft.inventory.Container;
 import net.minecraft.inventory.InventoryHelper;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.state.IProperty;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.*;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.IBlockReader;
 import net.minecraft.world.World;
+import net.minecraft.world.chunk.BlockStateContainer;
 
 import javax.annotation.Nullable;
 import java.util.Random;
@@ -128,7 +131,7 @@ public class BlockDirtFurnace extends BlockContainer {
      * Returns a new instance of a block's tile entity class. Called on placing
      * the block.
      */
-    public TileEntity createNewTileEntity(World worldIn, int meta) {
+    public TileEntity createNewTileEntity(IBlockReader reader) {
         return new DirtFurnaceTile();
     }
 
@@ -178,16 +181,6 @@ public class BlockDirtFurnace extends BlockContainer {
         return EnumBlockRenderType.MODEL;
     }
 
-    public int getMetaFromState(IBlockState state) {
-        int i = 0;
-        i = i | ((EnumFacing) state.get(FACING)).getHorizontalIndex();
-
-        if (state.get(BURNING) == true) {
-            i |= 8;
-        }
-
-        return i;
-    }
 
     /**
      * Returns the blockstate with the given rotation from the passed

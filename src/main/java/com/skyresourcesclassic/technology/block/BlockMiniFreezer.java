@@ -21,6 +21,7 @@ import net.minecraft.util.*;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
+import net.minecraft.world.IBlockReader;
 import net.minecraft.world.World;
 import net.minecraft.world.chunk.BlockStateContainer;
 
@@ -58,7 +59,7 @@ public class BlockMiniFreezer extends BlockContainer {
     }
 
     @Override
-    public TileEntity createNewTileEntity(World worldIn, int meta) {
+    public TileEntity createNewTileEntity(IBlockReader reader) {
         return new MiniFreezerTile();
     }
 
@@ -120,11 +121,6 @@ public class BlockMiniFreezer extends BlockContainer {
         super.getStateForPlacement(worldIn, pos, facing, hitX, hitY, hitZ, meta, placer);
         return this.getDefaultState().with(FACING, placer.getHorizontalFacing().getOpposite());
     }
-
-    public int getMetaFromState(IBlockState state) {
-        return ((EnumFacing) state.get(FACING)).getIndex();
-    }
-
     /**
      * Returns the blockstate with the given rotation from the passed
      * blockstate. If inapplicable, returns the passed blockstate.

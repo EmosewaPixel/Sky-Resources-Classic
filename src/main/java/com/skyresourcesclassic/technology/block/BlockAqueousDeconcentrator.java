@@ -18,10 +18,13 @@ import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.state.IProperty;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.*;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.IBlockReader;
 import net.minecraft.world.World;
+import net.minecraft.world.chunk.BlockStateContainer;
 import net.minecraftforge.fluids.FluidActionResult;
 import net.minecraftforge.fluids.FluidUtil;
 
@@ -83,16 +86,6 @@ public class BlockAqueousDeconcentrator extends BlockContainer {
     }
 
     /**
-     * Convert the BlockState into the correct metadata value
-     */
-    public int getMetaFromState(IBlockState state) {
-        int i = 0;
-        i = i | ((EnumFacing) state.get(FACING)).getHorizontalIndex();
-
-        return i;
-    }
-
-    /**
      * Returns the blockstate with the given rotation from the passed
      * blockstate. If inapplicable, returns the passed blockstate.
      */
@@ -118,7 +111,7 @@ public class BlockAqueousDeconcentrator extends BlockContainer {
     }
 
     @Override
-    public TileEntity createNewTileEntity(World worldIn, int meta) {
+    public TileEntity createNewTileEntity(IBlockReader reader) {
         return new TileAqueousConcentrator();
     }
 

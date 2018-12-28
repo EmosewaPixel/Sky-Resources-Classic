@@ -6,6 +6,7 @@ import com.skyresourcesclassic.registry.ModItemGroups;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemSnowball;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.EnumActionResult;
@@ -32,8 +33,7 @@ public class ItemHeavyExplosiveSnowball extends Item {
                 0.4F / (random.nextFloat() * 0.4F + 0.8F));
 
         if (!world.isRemote) {
-            EntityHeavyExplosiveSnowball entitysnowball = new EntityHeavyExplosiveSnowball(
-                    world, player);
+            EntityHeavyExplosiveSnowball entitysnowball = new EntityHeavyExplosiveSnowball(player, world);
             entitysnowball.shoot(player, player.rotationPitch,
                     player.rotationYaw, 0.0F, 1.5F, 1.0F);
             world.spawnEntity(entitysnowball);
@@ -41,5 +41,4 @@ public class ItemHeavyExplosiveSnowball extends Item {
 
         return new ActionResult(EnumActionResult.SUCCESS, player.getHeldItem(hand));
     }
-
 }

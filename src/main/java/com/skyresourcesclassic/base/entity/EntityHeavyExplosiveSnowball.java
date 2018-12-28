@@ -1,6 +1,7 @@
 package com.skyresourcesclassic.base.entity;
 
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.EntityType;
 import net.minecraft.entity.monster.EntityBlaze;
 import net.minecraft.entity.projectile.EntityThrowable;
 import net.minecraft.init.Particles;
@@ -12,16 +13,16 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 
 public class EntityHeavyExplosiveSnowball extends EntityThrowable {
     public EntityHeavyExplosiveSnowball(World worldIn) {
-        super(worldIn);
+        super(EntityType.SNOWBALL, worldIn);
     }
 
-    public EntityHeavyExplosiveSnowball(World worldIn, EntityLivingBase throwerIn) {
-        super(worldIn, throwerIn);
+    public EntityHeavyExplosiveSnowball(EntityLivingBase throwerIn, World worldIn) {
+        super(EntityType.SNOWBALL, throwerIn, worldIn);
         this.moveRelative(1, .5f, 1, 0.1F);
     }
 
-    public EntityHeavyExplosiveSnowball(World worldIn, double x, double y, double z) {
-        super(worldIn, x, y, z);
+    public EntityHeavyExplosiveSnowball(double x, double y, double z, World worldIn) {
+        super(EntityType.SNOWBALL, x, y, z,  worldIn);
     }
 
     @OnlyIn(Dist.CLIENT)

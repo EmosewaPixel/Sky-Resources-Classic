@@ -39,13 +39,13 @@ public class ItemSurvivalFishingRod extends ItemFishingRod {
                 int j = EnchantmentHelper.getFishingSpeedBonus(itemstack);
 
                 if (j > 0) {
-                    entityfishhook.func_191516_a(j);
+                    entityfishhook.setLureSpeed(j);
                 }
 
                 int k = EnchantmentHelper.getFishingLuckBonus(itemstack);
 
                 if (k > 0) {
-                    entityfishhook.func_191517_b(k);
+                    entityfishhook.setLuck(k);
                 }
 
                 worldIn.spawnEntity(entityfishhook);

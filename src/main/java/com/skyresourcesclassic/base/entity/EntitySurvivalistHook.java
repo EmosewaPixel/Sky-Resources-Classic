@@ -2,10 +2,7 @@ package com.skyresourcesclassic.base.entity;
 
 import com.skyresourcesclassic.References;
 import com.skyresourcesclassic.registry.ModItems;
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockLiquid;
 import net.minecraft.block.material.Material;
-import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.MoverType;
 import net.minecraft.entity.item.EntityItem;
@@ -13,7 +10,6 @@ import net.minecraft.entity.item.EntityXPOrb;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.projectile.EntityFishHook;
 import net.minecraft.fluid.IFluidState;
-import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.init.Particles;
 import net.minecraft.init.SoundEvents;
@@ -32,8 +28,6 @@ import net.minecraft.world.WorldServer;
 import net.minecraft.world.storage.loot.LootContext;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
 
 import java.util.List;
 
@@ -50,8 +44,8 @@ public class EntitySurvivalistHook extends EntityFishHook {
     private float fishApproachAngle;
     private Entity caughtEntity;
     private EntitySurvivalistHook.State currentState = EntitySurvivalistHook.State.FLYING;
-    private int field_191518_aw;
-    private int field_191519_ax;
+    private int luck;
+    private int lureSpeed;
 
     @OnlyIn(Dist.CLIENT)
     public EntitySurvivalistHook(World worldIn, EntityPlayer p_i47290_2_, double x, double y, double z) {
@@ -76,12 +70,12 @@ public class EntitySurvivalistHook extends EntityFishHook {
         this.angler.fishEntity = this;
     }
 
-    public void func_191516_a(int p_191516_1_) {
-        this.field_191519_ax = p_191516_1_;
+    public void setLureSpeed(int p_191516_1_) {
+        this.lureSpeed = p_191516_1_;
     }
 
-    public void func_191517_b(int p_191517_1_) {
-        this.field_191518_aw = p_191517_1_;
+    public void setLuck(int p_191517_1_) {
+        this.luck = p_191517_1_;
     }
 
     private void shoot() {
@@ -156,7 +150,6 @@ public class EntitySurvivalistHook extends EntityFishHook {
                     return;
                 }
             }
-
 
 
             float f = 0.0F;
@@ -287,7 +280,7 @@ public class EntitySurvivalistHook extends EntityFishHook {
     private void checkCollision() {
         Vec3d vec3d = new Vec3d(this.posX, this.posY, this.posZ);
         Vec3d vec3d1 = new Vec3d(this.posX + this.motionX, this.posY + this.motionY, this.posZ + this.motionZ);
-        RayTraceResult raytraceresult = this.world.rayTraceBlocks(vec3d, vec3d1, false, true, false);
+        RayTraceResult raytraceresult = this.world.rayTraceBlocks(vec3d, vec3d1, RayTraceFluidMode.NEVER, true, false);
         vec3d = new Vec3d(this.posX, this.posY, this.posZ);
         vec3d1 = new Vec3d(this.posX + this.motionX, this.posY + this.motionY, this.posZ + this.motionZ);
 
@@ -339,96 +332,87 @@ public class EntitySurvivalistHook extends EntityFishHook {
         WorldServer worldserver = (WorldServer) this.world;
         int i = 1;
         BlockPos blockpos = p_190621_1_.up();
-
-        if (this.rand.nextFloat() < 0.75F || this.world.isRainingAt(blockpos)) {
+        if (this.rand.nextFloat() < 0.25F && this.world.isRainingAt(blockpos)) {
             ++i;
         }
 
-        if (this.rand.nextFloat() < 0.25F && !this.world.canSeeSky(blockpos)) {
+        if (this.rand.nextFloat() < 0.5F && !this.world.canSeeSky(blockpos)) {
             --i;
         }
 
         if (this.ticksCatchable > 0) {
             --this.ticksCatchable;
-
             if (this.ticksCatchable <= 0) {
                 this.ticksCaughtDelay = 0;
                 this.ticksCatchableDelay = 0;
             } else {
                 this.motionY -= 0.2D * (double) this.rand.nextFloat() * (double) this.rand.nextFloat();
             }
-        } else if (this.ticksCatchableDelay > 0) {
-            this.ticksCatchableDelay -= i;
-
+        } else {
+            float f5;
+            float f6;
+            float f7;
+            double d4;
+            double d5;
+            double d6;
             if (this.ticksCatchableDelay > 0) {
-                this.fishApproachAngle = (float) ((double) this.fishApproachAngle + this.rand.nextGaussian() * 4.0D);
-                float f = this.fishApproachAngle * 0.017453292F;
-                float f1 = MathHelper.sin(f);
-                float f2 = MathHelper.cos(f);
-                double d0 = this.posX + (double) (f1 * (float) this.ticksCatchableDelay * 0.1F);
-                double d1 = (double) ((float) MathHelper.floor(this.getBoundingBox().minY) + 1.0F);
-                double d2 = this.posZ + (double) (f2 * (float) this.ticksCatchableDelay * 0.1F);
-                Block block = worldserver.getBlockState(new BlockPos(d0, d1 - 1.0D, d2)).getBlock();
+                this.ticksCatchableDelay -= i;
+                if (this.ticksCatchableDelay > 0) {
+                    this.fishApproachAngle = (float) ((double) this.fishApproachAngle + this.rand.nextGaussian() * 4.0D);
+                    f5 = this.fishApproachAngle * 0.017453292F;
+                    f6 = MathHelper.sin(f5);
+                    f7 = MathHelper.cos(f5);
+                    d4 = this.posX + (double) (f6 * (float) this.ticksCatchableDelay * 0.1F);
+                    d5 = (double) ((float) MathHelper.floor(this.getBoundingBox().minY) + 1.0F);
+                    d6 = this.posZ + (double) (f7 * (float) this.ticksCatchableDelay * 0.1F);
+                    if (worldserver.getBlockState(new BlockPos(d4, d5 - 1.0D, d6)).getMaterial() == Material.WATER) {
+                        if (this.rand.nextFloat() < 0.15F) {
+                            worldserver.spawnParticle(Particles.BUBBLE, d4, d5 - 0.10000000149011612D, d6, 1, (double) f6, 0.1D, (double) f7, 0.0D);
+                        }
 
-                if (block == Blocks.WATER || block == Blocks.FLOWING_WATER) {
-                    if (this.rand.nextFloat() < 0.15F) {
-                        worldserver.spawnParticle(Particles.BUBBLE, d0, d1 - 0.10000000149011612D, d2, 1,
-                                (double) f1, 0.1D, (double) f2, 0.0D);
+                        float f3 = f6 * 0.04F;
+                        float f4 = f7 * 0.04F;
+                        worldserver.spawnParticle(Particles.FISHING, d4, d5, d6, 0, (double) f4, 0.01D, (double) (-f3), 1.0D);
+                        worldserver.spawnParticle(Particles.FISHING, d4, d5, d6, 0, (double) (-f4), 0.01D, (double) f3, 1.0D);
                     }
+                } else {
+                    this.motionY = (double) (-0.4F * MathHelper.nextFloat(this.rand, 0.6F, 1.0F));
+                    this.playSound(SoundEvents.ENTITY_FISHING_BOBBER_SPLASH, 0.25F, 1.0F + (this.rand.nextFloat() - this.rand.nextFloat()) * 0.4F);
+                    double d3 = this.getBoundingBox().minY + 0.5D;
+                    worldserver.spawnParticle(Particles.BUBBLE, this.posX, d3, this.posZ, (int) (1.0F + this.width * 20.0F), (double) this.width, 0.0D, (double) this.width, 0.20000000298023224D);
+                    worldserver.spawnParticle(Particles.FISHING, this.posX, d3, this.posZ, (int) (1.0F + this.width * 20.0F), (double) this.width, 0.0D, (double) this.width, 0.20000000298023224D);
+                    this.ticksCatchable = MathHelper.nextInt(this.rand, 20, 40);
+                }
+            } else if (this.ticksCaughtDelay > 0) {
+                this.ticksCaughtDelay -= i;
+                f5 = 0.15F;
+                if (this.ticksCaughtDelay < 20) {
+                    f5 = (float) ((double) f5 + (double) (20 - this.ticksCaughtDelay) * 0.05D);
+                } else if (this.ticksCaughtDelay < 40) {
+                    f5 = (float) ((double) f5 + (double) (40 - this.ticksCaughtDelay) * 0.02D);
+                } else if (this.ticksCaughtDelay < 60) {
+                    f5 = (float) ((double) f5 + (double) (60 - this.ticksCaughtDelay) * 0.01D);
+                }
 
-                    float f3 = f1 * 0.04F;
-                    float f4 = f2 * 0.04F;
-                    worldserver.spawnParticle(Particles.WATER_WAKE, d0, d1, d2, 0, (double) f4, 0.01D,
-                            (double) (-f3), 1.0D);
-                    worldserver.spawnParticle(Particles.WATER_WAKE, d0, d1, d2, 0, (double) (-f4), 0.01D,
-                            (double) f3, 1.0D);
+                if (this.rand.nextFloat() < f5) {
+                    f6 = MathHelper.nextFloat(this.rand, 0.0F, 360.0F) * 0.017453292F;
+                    f7 = MathHelper.nextFloat(this.rand, 25.0F, 60.0F);
+                    d4 = this.posX + (double) (MathHelper.sin(f6) * f7 * 0.1F);
+                    d5 = (double) ((float) MathHelper.floor(this.getBoundingBox().minY) + 1.0F);
+                    d6 = this.posZ + (double) (MathHelper.cos(f6) * f7 * 0.1F);
+                    if (worldserver.getBlockState(new BlockPos((int) d4, (int) d5 - 1, (int) d6)).getMaterial() == Material.WATER) {
+                        worldserver.spawnParticle(Particles.SPLASH, d4, d5, d6, 2 + this.rand.nextInt(2), 0.10000000149011612D, 0.0D, 0.10000000149011612D, 0.0D);
+                    }
+                }
+
+                if (this.ticksCaughtDelay <= 0) {
+                    this.fishApproachAngle = MathHelper.nextFloat(this.rand, 0.0F, 360.0F);
+                    this.ticksCatchableDelay = MathHelper.nextInt(this.rand, 20, 80);
                 }
             } else {
-                this.motionY = (double) (-0.4F * MathHelper.nextFloat(this.rand, 0.6F, 1.0F));
-                this.playSound(SoundEvents.ENTITY_FISHING_BOBBER_SPLASH, 0.25F,
-                        1.0F + (this.rand.nextFloat() - this.rand.nextFloat()) * 0.4F);
-                double d3 = this.getBoundingBox().minY + 0.5D;
-                worldserver.spawnParticle(Particles.BUBBLE, this.posX, d3, this.posZ,
-                        (int) (1.0F + this.width * 20.0F), (double) this.width, 0.0D, (double) this.width,
-                        0.20000000298023224D);
-                worldserver.spawnParticle(Particles.WATER_WAKE, this.posX, d3, this.posZ,
-                        (int) (1.0F + this.width * 20.0F), (double) this.width, 0.0D, (double) this.width,
-                        0.20000000298023224D);
-                this.ticksCatchable = MathHelper.getInt(this.rand, 20, 40);
+                this.ticksCaughtDelay = MathHelper.nextInt(this.rand, 100, 600);
+                this.ticksCaughtDelay -= this.lureSpeed * 20 * 5;
             }
-        } else if (this.ticksCaughtDelay > 0) {
-            this.ticksCaughtDelay -= i;
-            float f5 = 0.15F;
-
-            if (this.ticksCaughtDelay < 20) {
-                f5 = (float) ((double) f5 + (double) (20 - this.ticksCaughtDelay) * 0.05D);
-            } else if (this.ticksCaughtDelay < 40) {
-                f5 = (float) ((double) f5 + (double) (40 - this.ticksCaughtDelay) * 0.02D);
-            } else if (this.ticksCaughtDelay < 60) {
-                f5 = (float) ((double) f5 + (double) (60 - this.ticksCaughtDelay) * 0.01D);
-            }
-
-            if (this.rand.nextFloat() < f5) {
-                float f6 = MathHelper.nextFloat(this.rand, 0.0F, 360.0F) * 0.017453292F;
-                float f7 = MathHelper.nextFloat(this.rand, 25.0F, 60.0F);
-                double d4 = this.posX + (double) (MathHelper.sin(f6) * f7 * 0.1F);
-                double d5 = (double) ((float) MathHelper.floor(this.getBoundingBox().minY) + 1.0F);
-                double d6 = this.posZ + (double) (MathHelper.cos(f6) * f7 * 0.1F);
-                Block block1 = worldserver.getBlockState(new BlockPos((int) d4, (int) d5 - 1, (int) d6)).getBlock();
-
-                if (block1 == Blocks.WATER || block1 == Blocks.FLOWING_WATER) {
-                    worldserver.spawnParticle(Particles.SPLASH, d4, d5, d6, 2 + this.rand.nextInt(2),
-                            0.10000000149011612D, 0.0D, 0.10000000149011612D, 0.0D);
-                }
-            }
-
-            if (this.ticksCaughtDelay <= 0) {
-                this.fishApproachAngle = MathHelper.nextFloat(this.rand, 0.0F, 360.0F);
-                this.ticksCatchableDelay = MathHelper.getInt(this.rand, 10, 50);
-            }
-        } else {
-            this.ticksCaughtDelay = MathHelper.getInt(this.rand, 20, 120);
-            this.ticksCaughtDelay -= this.field_191519_ax * 20 * 5;
         }
     }
 
@@ -448,7 +432,7 @@ public class EntitySurvivalistHook extends EntityFishHook {
     public void readAdditional(NBTTagCompound compound) {
     }
 
-    public int handleHookRetraction() {
+    public int handleHookRetraction(ItemStack itemStack) {
         if (!this.world.isRemote && this.angler != null) {
             int i = 0;
 
@@ -458,9 +442,9 @@ public class EntitySurvivalistHook extends EntityFishHook {
                 i = this.caughtEntity instanceof EntityItem ? 3 : 5;
             } else if (this.ticksCatchable > 0) {
                 LootContext.Builder lootcontext$builder = new LootContext.Builder((WorldServer) this.world);
-                lootcontext$builder.withLuck((float) this.field_191518_aw + this.angler.getLuck());
+                lootcontext$builder.withLuck((float) this.luck + this.angler.getLuck());
 
-                for (ItemStack itemstack : this.world.getLootTableManager()
+                for (ItemStack itemstack : this.world.getServer().getLootTableManager()
                         .getLootTableFromLocation(new ResourceLocation(References.ModID, "gameplay/fishingsurvivalist"))
                         .generateLootForPools(this.rand, lootcontext$builder.build())) {
                     EntityItem entityitem = new EntityItem(this.world, this.posX, this.posY, this.posZ, itemstack);

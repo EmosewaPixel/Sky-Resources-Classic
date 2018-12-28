@@ -74,12 +74,12 @@ public class GuiLifeInfuser extends GuiContainer {
                 && !state.getBlock().isAir(state, tile.getWorld(), tile.getPos().down())) {
 
             GlStateManager.disableLighting();
-            GlStateManager.disableDepth();
+            GlStateManager.disableDepthTest();
             GlStateManager.colorMask(true, true, true, false);
             this.drawGradientRect(80, 52, 80 + 16, 52 + 16, -2130706433, -2130706433);
             GlStateManager.colorMask(true, true, true, true);
             GlStateManager.enableLighting();
-            GlStateManager.enableDepth();
+            GlStateManager.enableDepthTest();
 
             this.renderToolTip(
                     new ItemStack(state.getBlock()),

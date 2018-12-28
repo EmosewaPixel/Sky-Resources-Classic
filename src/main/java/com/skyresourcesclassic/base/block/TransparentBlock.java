@@ -1,36 +1,31 @@
 package com.skyresourcesclassic.base.block;
 
+import net.minecraft.block.Block;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
-import net.minecraft.entity.Entity;
 import net.minecraft.util.BlockRenderLayer;
-import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.IBlockAccess;
-import net.minecraft.world.World;
+import net.minecraft.util.math.shapes.VoxelShape;
+import net.minecraft.world.IBlockReader;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
-import javax.annotation.Nullable;
-import java.util.List;
-
 public class TransparentBlock extends BaseBlock {
-    private static AxisAlignedBB BoundingBox = new AxisAlignedBB(0.0D, 0.0D, 0.0D, 1.0D, 1.0D, 1.0D);
+    private static VoxelShape BoundingBox = Block.makeCuboidShape(0.0D, 0.0D, 0.0D, 1.0D, 1.0D, 1.0D);
 
     public TransparentBlock(Material material, String name, float hardness,
-                            float resistance, AxisAlignedBB bounds, SoundType stepSound) {
+                            float resistance, VoxelShape shape, SoundType stepSound) {
         super(material, name, hardness, resistance, stepSound);
-        BoundingBox = bounds;
+        BoundingBox = shape;
     }
 
     @Override
-    public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos) {
+    public VoxelShape getCollisionShape(IBlockState p_196268_1_, IBlockReader p_196268_2_, BlockPos p_196268_3_) {
         return BoundingBox;
     }
 
-    @Override
-    public boolean isOpaqueCube(IBlockState state) {
+    public boolean isSolid(IBlockState p_200124_1_) {
         return false;
     }
 
@@ -43,11 +38,5 @@ public class TransparentBlock extends BaseBlock {
     @OnlyIn(Dist.CLIENT)
     public BlockRenderLayer getRenderLayer() {
         return BlockRenderLayer.CUTOUT;
-    }
-
-    @Override
-    public void addCollisionBoxToList(IBlockState state, World worldIn, BlockPos pos, AxisAlignedBB entityBox,
-                                      List<AxisAlignedBB> collidingBoxes, @Nullable Entity entityIn, boolean p_185477_7_) {
-        addCollisionBoxToList(pos, entityBox, collidingBoxes, BoundingBox);
     }
 }

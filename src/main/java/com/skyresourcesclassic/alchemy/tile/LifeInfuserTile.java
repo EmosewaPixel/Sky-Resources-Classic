@@ -37,7 +37,7 @@ public class LifeInfuserTile extends TileItemInventory implements ITickable {
         });
     }
 
-    private static final Map<String, List<ItemStack>> oreMap = new HashMap<String, List<ItemStack>>();
+    private static final Map<String, List<ItemStack>> oreMap = new HashMap<>();
 
     @Override
     public void tick() {
@@ -54,11 +54,11 @@ public class LifeInfuserTile extends TileItemInventory implements ITickable {
         for (BlockPos pos : pillarPoses) {
             ItemStack stack = new ItemStack(world.getBlockState(pos).getBlock(), 1,
                     world.getBlockState(pos).getBlock().damageDropped(world.getBlockState(pos)));
-            if (!isOreDict(stack, "logWood"))
+            if (!isTag(stack, "logWood"))
                 return false;
             stack = new ItemStack(world.getBlockState(pos.down()).getBlock(), 1,
                     world.getBlockState(pos.down()).getBlock().damageDropped(world.getBlockState(pos.down())));
-            if (!isOreDict(stack, "logWood"))
+            if (!isTag(stack, "logWood"))
                 return false;
         }
         for (int x = -1; x < 2; x++) {
@@ -69,7 +69,7 @@ public class LifeInfuserTile extends TileItemInventory implements ITickable {
                 if (x == 0 && z == 0) {
                     if (world.getBlockState(posCheck.up()).getBlock() != ModBlocks.darkMatterBlock)
                         return false;
-                } else if (!isOreDict(stack, "treeLeaves"))
+                } else if (!isTag(stack, "treeLeaves"))
                     return false;
 
             }
@@ -77,19 +77,19 @@ public class LifeInfuserTile extends TileItemInventory implements ITickable {
         return true;
     }
 
-    private boolean isOreDict(ItemStack stack, String entry) {
+    private boolean isTag(ItemStack stack, String entry) {
         if (stack == ItemStack.EMPTY || stack.getItem() == null)
             return false;
 
-        List<ItemStack> ores;
+        List<ItemStack> tags;
         if (oreMap.containsKey(entry))
-            ores = oreMap.get(entry);
+            tags = oreMap.get(entry);
         else {
-            ores = OreDictionary.getOres(entry);
-            oreMap.put(entry, ores);
+            tags = OreDictionary.getOres(entry);
+            oreMap.put(entry, tags);
         }
 
-        for (ItemStack ostack : ores) {
+        for (ItemStack ostack : tags) {
             ItemStack cstack = ostack.copy();
             if (cstack.getDamage() == Short.MAX_VALUE)
                 cstack.setDamage(stack.getDamage());

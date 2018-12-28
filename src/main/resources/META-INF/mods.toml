@@ -25,7 +25,7 @@ The skyblock companion mod for 1.13+. Get everything from nothing!
 '''
 
 # A dependency - use the . to indicate dependency for a specific modid. Dependencies are optional.
-[[dependencies.controlling]] #optional
+[[dependencies.skyresourcesclassic]] #optional
     # the modid of the dependency
     modId="forge" #mandatory
     # Does this dependency have to exist - if not, ordering below must be specified

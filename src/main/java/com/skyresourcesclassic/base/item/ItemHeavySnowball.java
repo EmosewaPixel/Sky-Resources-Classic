@@ -38,8 +38,7 @@ public class ItemHeavySnowball extends Item
 
 		if (!world.isRemote)
 		{
-			EntityHeavySnowball entitysnowball = new EntityHeavySnowball(
-					world, player);
+			EntityHeavySnowball entitysnowball = new EntityHeavySnowball(player, world);
 			entitysnowball.shoot(player, player.rotationPitch,
 					player.rotationYaw, 0.0F, 1.5F, 1.0F);
 			world.spawnEntity(entitysnowball);
