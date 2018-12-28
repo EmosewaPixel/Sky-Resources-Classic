@@ -31,10 +31,10 @@ public class GuiAqueousConcentrator extends GuiContainer {
 
     @Override
     protected void drawGuiContainerBackgroundLayer(float partialTicks, int mouseX, int mouseY) {
-        GlStateManager.color(1.0f, 1.0f, 1.0f, 1.0f);
+        GlStateManager.color4f(1.0f, 1.0f, 1.0f, 1.0f);
         this.mc.getTextureManager().bindTexture(new ResourceLocation(References.ModID, "textures/gui/aqueous_concentrator.png"));
         this.drawTexturedModalRect(this.guiLeft, this.guiTop, 0, 0, this.xSize, this.ySize);
-        GlStateManager.color(1.0f, 1.0f, 1.0f, 1.0f);
+        GlStateManager.color4f(1.0f, 1.0f, 1.0f, 1.0f);
         this.mc.getTextureManager().bindTexture(new ResourceLocation(References.ModID, "textures/gui/gui_icons.png"));
         if (tile.getEnergyStored() > 0) {
             int height = (int) (tile.getEnergyStored() * 58 / tile.getMaxEnergyStored());
@@ -44,7 +44,7 @@ public class GuiAqueousConcentrator extends GuiContainer {
         RandomHelper.renderGuiTank(tile.getTank().getFluid(), tile.getTank().getCapacity(),
                 tile.getTank().getFluidAmount(), 142 + guiLeft, 30 + guiTop, 16, 58);
 
-        GlStateManager.color(1.0f, 1.0f, 1.0f, 1.0f);
+        GlStateManager.color4f(1.0f, 1.0f, 1.0f, 1.0f);
         this.mc.getTextureManager().bindTexture(new ResourceLocation(References.ModID, "textures/gui/gui_icons.png"));
         this.drawTexturedModalRect(142 + guiLeft, 30 + guiTop, 34, 0, 16, 59);
 
@@ -86,9 +86,9 @@ public class GuiAqueousConcentrator extends GuiContainer {
         }
     }
 
-    public void drawScreen(int mouseX, int mouseY, float partialTicks) {
+    public void render(int mouseX, int mouseY, float partialTicks) {
         this.drawDefaultBackground();
-        super.drawScreen(mouseX, mouseY, partialTicks);
+        super.render(mouseX, mouseY, partialTicks);
         this.renderHoveredToolTip(mouseX, mouseY);
     }
 }

@@ -24,10 +24,10 @@ public class TilePoweredHeater extends TileGenericPower implements ITickable, IE
             if (getEnergyStored() >= powerUsage && this.getRedstoneSignal() > 0) {
                 internalExtractEnergy(powerUsage, false);
                 world.setBlockState(getPos(),
-                        world.getBlockState(getPos()).withProperty(BlockHeater.RUNNING, true), 3);
+                        world.getBlockState(getPos()).with(BlockHeater.RUNNING, true), 3);
             } else
                 world.setBlockState(getPos(),
-                        world.getBlockState(getPos()).withProperty(BlockHeater.RUNNING, false), 3);
+                        world.getBlockState(getPos()).with(BlockHeater.RUNNING, false), 3);
 
             this.markDirty();
         }

@@ -24,7 +24,7 @@ public class GuiPageButton extends GuiButton {
                 && mouseY < this.y + this.height;
 
         GlStateManager.enableDepth();
-        mc.getRenderItem().renderItemAndEffectIntoGUI(buttonInfo.getItemDisplay(), this.x, this.y);
+        mc.getItemRenderer().renderItemAndEffectIntoGUI(buttonInfo.getItemDisplay(), this.x, this.y);
 
         mc.fontRenderer.drawString(I18n.translateToLocal(buttonInfo.getDisplay()), this.x + 20, this.y + 4, 16777215);
 
@@ -34,7 +34,7 @@ public class GuiPageButton extends GuiButton {
         {
             GlStateManager.disableDepth();
             this.drawRect(this.x, this.y, this.x + this.width, this.y + this.height, 2138733178);
-            GlStateManager.color(1, 1, 1, 1);
+            GlStateManager.color4f(1, 1, 1, 1);
             GlStateManager.enableDepth();
         }
 
@@ -44,7 +44,7 @@ public class GuiPageButton extends GuiButton {
     public void drawScrollButton(Minecraft mc, int x, int y, boolean highlighted) {
         RenderHelper.enableGUIStandardItemLighting();
 
-        mc.getRenderItem().renderItemAndEffectIntoGUI(
+        mc.getItemRenderer().renderItemAndEffectIntoGUI(
                 buttonInfo.getItemDisplay(), x, y);
 
         mc.fontRenderer.drawString(I18n.translateToLocal(buttonInfo.getDisplay()),

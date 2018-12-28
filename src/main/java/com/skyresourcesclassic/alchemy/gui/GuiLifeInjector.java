@@ -45,7 +45,7 @@ public class GuiLifeInjector extends GuiContainer {
         this.fontRenderer.drawString("x" + (float) tile.getHealthInGem() / 2F, 130, 29, 4210752);
     }
 
-    public void drawScreen(int mouseX, int mouseY, float partialTicks) {
+    public void render(int mouseX, int mouseY, float partialTicks) {
         this.drawDefaultBackground();
         super.render(mouseX, mouseY, partialTicks);
         this.renderHoveredToolTip(mouseX, mouseY);

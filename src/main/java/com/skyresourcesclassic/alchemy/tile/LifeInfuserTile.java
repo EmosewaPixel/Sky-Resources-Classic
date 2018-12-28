@@ -10,8 +10,8 @@ import com.skyresourcesclassic.registry.ModBlocks;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.item.EntityItem;
+import net.minecraft.init.Particles;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.ITickable;
 import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.oredict.OreDictionary;
@@ -91,8 +91,8 @@ public class LifeInfuserTile extends TileItemInventory implements ITickable {
 
         for (ItemStack ostack : ores) {
             ItemStack cstack = ostack.copy();
-            if (cstack.getItemDamage() == Short.MAX_VALUE)
-                cstack.setItemDamage(stack.getItemDamage());
+            if (cstack.getDamage() == Short.MAX_VALUE)
+                cstack.setDamage(stack.getDamage());
 
             if (stack.isItemEqual(cstack))
                 return true;
@@ -107,8 +107,8 @@ public class LifeInfuserTile extends TileItemInventory implements ITickable {
         if (recipe != null) {
             if (!world.isRemote) {
                 getInventory().extractItem(2, ((ItemStack) recipe.getInputs().get(0)).getCount(), false);
-                getInventory().getStackInSlot(1).setItemDamage(getInventory().getStackInSlot(1).getItemDamage() + 1);
-                if (getInventory().getStackInSlot(1).getItemDamage() >= getInventory().getStackInSlot(1).getMaxDamage())
+                getInventory().getStackInSlot(1).setDamage(getInventory().getStackInSlot(1).getDamage() + 1);
+                if (getInventory().getStackInSlot(1).getDamage() >= getInventory().getStackInSlot(1).getMaxDamage())
                     getInventory().setStackInSlot(1, ItemStack.EMPTY);
                 world.removeBlock(pos.down(1));
                 ItemStack gemStack = getInventory().getStackInSlot(0);
@@ -124,8 +124,8 @@ public class LifeInfuserTile extends TileItemInventory implements ITickable {
                 world.spawnEntity(entity);
             }
             if (worked) {
-                this.world.spawnParticle(EnumParticleTypes.HEART, pos.getX() + 0.5D, pos.getY() - 0.5D,
-                        pos.getZ() + 0.5D, 0.0D, 0.0D, 0.0D, new int[0]);
+                this.world.spawnParticle(Particles.HEART, pos.getX() + 0.5D, pos.getY() - 0.5D,
+                        pos.getZ() + 0.5D, 0.0D, 0.0D, 0.0D);
             }
         }
     }

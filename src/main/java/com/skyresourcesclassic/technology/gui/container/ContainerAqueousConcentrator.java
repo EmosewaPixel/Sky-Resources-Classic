@@ -8,7 +8,7 @@ import net.minecraft.inventory.IInventory;
 public class ContainerAqueousConcentrator extends ContainerBase {
     public ContainerAqueousConcentrator(IInventory playerInv, TileAqueousConcentrator te) {
         super(playerInv, te, 0, 24);
-        this.addSlotToContainer(new SlotSpecial(tile.getInventory(), 0, 55, 49));
-        this.addSlotToContainer(new SlotSpecial(tile.getInventory(), 1, 109, 49));
+        this.addSlot(new SlotSpecial(tile.getInventory(), 0, 55, 49));
+        this.addSlot(new SlotSpecial(tile.getInventory(), 1, 109, 49));
     }
 }

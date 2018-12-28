@@ -10,6 +10,6 @@ public class ContainerWildlifeAttractor extends ContainerBase {
                                       TileWildlifeAttractor te) {
         super(playerInv, te, 0, 24);
 
-        this.addSlotToContainer(new SlotSpecial(tile.getInventory(), 0, 80, 59));
+        this.addSlot(new SlotSpecial(tile.getInventory(), 0, 80, 59));
     }
 }

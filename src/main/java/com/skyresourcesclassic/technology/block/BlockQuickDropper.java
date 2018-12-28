@@ -39,11 +39,11 @@ public class BlockQuickDropper extends BlockContainer {
     }
 
     @Override
-    public void breakBlock(World world, BlockPos pos, IBlockState state) {
+    public void harvestBlock(World world, EntityPlayer player, BlockPos pos, IBlockState state, TileEntity tileEntity, ItemStack stack) {
         TileQuickDropper te = (TileQuickDropper) world.getTileEntity(pos);
         te.dropInventory();
 
-        super.breakBlock(world, pos, state);
+        super.harvestBlock(world, player, pos, state, tileEntity, stack);
     }
 
     @Override

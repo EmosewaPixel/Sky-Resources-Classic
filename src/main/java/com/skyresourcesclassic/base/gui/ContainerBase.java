@@ -17,13 +17,13 @@ public class ContainerBase extends Container {
 
         for (int y = 0; y < 3; ++y) {
             for (int x = 0; x < 9; ++x) {
-                this.addSlotToContainer(
+                this.addSlot(
                         new Slot(playerInv, x + y * 9 + 9, 8 + playerInvOffX + x * 18, 84 + playerInvOffY + y * 18));
             }
         }
 
         for (int x = 0; x < 9; ++x) {
-            this.addSlotToContainer(new Slot(playerInv, x, 8 + playerInvOffX + x * 18, 142 + playerInvOffY));
+            this.addSlot(new Slot(playerInv, x, 8 + playerInvOffX + x * 18, 142 + playerInvOffY));
         }
     }
 
@@ -65,7 +65,7 @@ public class ContainerBase extends Container {
         return previous;
     }
 
-    protected Slot addSlotToContainer(Slot slotIn) {
+    protected Slot addSlot(Slot slotIn) {
         slotCount++;
         return super.addSlot(slotIn);
     }

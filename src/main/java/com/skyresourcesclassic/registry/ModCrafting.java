@@ -368,7 +368,7 @@ public class ModCrafting {
                         && s.getItem() == Item.REGISTRY.getObject(new ResourceLocation("bigreactors", "dustmetals")))
                     continue;
                 ProcessRecipeManager.combustionRecipes
-                        .addRecipe(new ItemStack(s.getItem(), 5, s.getItemDamage()), 1100,
+                        .addRecipe(new ItemStack(s.getItem(), 5, s.getDamage()), 1100,
                                 new ArrayList<>(Arrays.asList(new ItemStack(Items.REDSTONE, 2),
                                         new ItemStack(Items.BLAZE_POWDER, 1),
                                         new ItemStack(ModItems.itemComponent[15], 2))));
@@ -377,7 +377,7 @@ public class ModCrafting {
 
         if (OreDictionary.getOres("dustThorium").size() > 0) {
             ItemStack s = OreDictionary.getOres("dustThorium").get(0);
-            ProcessRecipeManager.combustionRecipes.addRecipe(new ItemStack(s.getItem(), 5, s.getItemDamage()), 1500,
+            ProcessRecipeManager.combustionRecipes.addRecipe(new ItemStack(s.getItem(), 5, s.getDamage()), 1500,
                     new ArrayList<>(Arrays.asList(new ItemStack(Items.REDSTONE, 2),
                             new ItemStack(Items.SPIDER_EYE, 1), new ItemStack(Items.BLAZE_POWDER, 3),
                             new ItemStack(ModItems.itemComponent[15], 5))));

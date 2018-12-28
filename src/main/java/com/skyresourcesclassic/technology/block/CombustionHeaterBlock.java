@@ -21,6 +21,8 @@ import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TextComponentString;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.world.World;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
@@ -64,13 +66,13 @@ public class CombustionHeaterBlock extends BlockContainer {
     }
 
     @Override
-    public void breakBlock(World world, BlockPos pos, IBlockState state) {
+    public void harvestBlock(World world, EntityPlayer player, BlockPos pos, IBlockState state, TileEntity tileEntity, ItemStack stack) {
         if (tier < 3) {
             TileCombustionHeater te = (TileCombustionHeater) world.getTileEntity(pos);
             te.dropInventory();
         }
 
-        super.breakBlock(world, pos, state);
+        super.harvestBlock(world, player, pos, state, tileEntity, stack);
     }
 
     public int getMaximumHeat() {

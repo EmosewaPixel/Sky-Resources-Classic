@@ -5,6 +5,7 @@ import com.skyresourcesclassic.References;
 import com.skyresourcesclassic.alchemy.tile.CrucibleTile;
 import com.skyresourcesclassic.ConfigOptions;
 import com.skyresourcesclassic.registry.ModItemGroups;
+import net.minecraft.block.Block;
 import net.minecraft.block.BlockContainer;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;

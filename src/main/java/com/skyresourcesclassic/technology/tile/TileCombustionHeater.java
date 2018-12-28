@@ -8,13 +8,13 @@ import com.skyresourcesclassic.technology.block.CombustionHeaterBlock;
 import net.minecraft.block.state.BlockFaceShape;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.item.EntityItem;
+import net.minecraft.init.Particles;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.tileentity.TileEntityFurnace;
 import net.minecraft.util.EnumFacing;
-import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.ITickable;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.AxisAlignedBB;
@@ -174,8 +174,8 @@ public class TileCombustionHeater extends TileItemInventory implements ITickable
     private void craftItem() {
         ProcessRecipe recipe = recipeToCraft();
         if (recipe != null) {
-            this.world.spawnParticle(EnumParticleTypes.EXPLOSION_NORMAL, pos.getX(), pos.getY() + 1.5D, pos.getZ(),
-                    0.0D, 0.0D, 0.0D, new int[0]);
+            this.world.spawnParticle(Particles.EXPLOSION, pos.getX(), pos.getY() + 1.5D, pos.getZ(),
+                    0.0D, 0.0D, 0.0D);
             this.world.playSound(null, pos.getX(), pos.getY() + 1.5D, pos.getZ(),
                     SoundEvents.ENTITY_GENERIC_EXPLODE, SoundCategory.BLOCKS, 4.0F,
                     (1.0F + (this.world.rand.nextFloat() - this.world.rand.nextFloat()) * 0.2F) * 0.7F);

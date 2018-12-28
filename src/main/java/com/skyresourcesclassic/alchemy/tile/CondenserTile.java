@@ -11,9 +11,9 @@ import com.skyresourcesclassic.registry.ModFluids;
 import net.minecraft.block.Block;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.item.EntityItem;
+import net.minecraft.init.Particles;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.ITickable;
 import net.minecraftforge.oredict.OreDictionary;
 
@@ -49,7 +49,7 @@ public class CondenserTile extends TileBase implements ITickable {
                     && crystalBlock.isNotFlowing(world, pos.up(), world.getBlockState(pos.up()))
                     && OreDictionary.getOres(oreDictCheck).size() > 0
                     && HeatSources.isValidHeatSource(pos.down(), world)) {
-                this.world.spawnParticle(EnumParticleTypes.SMOKE_NORMAL, pos.getX() + rand.nextFloat(),
+                this.world.spawnParticle(Particles.SMOKE, pos.getX() + rand.nextFloat(),
                         pos.getY() + 1.5D, pos.getZ() + rand.nextFloat(), 0.0D, 0.0D, 0.0D);
                 if (!world.isRemote)
                     timeCondense += HeatSources.getHeatSourceValue(pos.down(), world);

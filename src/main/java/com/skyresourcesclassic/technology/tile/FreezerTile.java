@@ -21,10 +21,10 @@ public class FreezerTile extends MiniFreezerTile implements ITickable {
             if (stateUp.getBlock() instanceof BlockFreezer
                     && state.getProperties().get(BlockFreezer.PART) == BlockFreezer.EnumPartType.BOTTOM
                     && stateUp.getProperties().get(BlockFreezer.PART) == BlockFreezer.EnumPartType.BOTTOM) {
-                world.setBlockState(pos.up(), stateUp.withProperty(BlockFreezer.PART, BlockFreezer.EnumPartType.TOP));
+                world.setBlockState(pos.up(), stateUp.with(BlockFreezer.PART, BlockFreezer.EnumPartType.TOP));
             } else if (!(stateDown.getBlock() instanceof BlockFreezer)
                     && state.getProperties().get(BlockFreezer.PART) == BlockFreezer.EnumPartType.TOP) {
-                world.setBlockState(pos, state.withProperty(BlockFreezer.PART, BlockFreezer.EnumPartType.BOTTOM));
+                world.setBlockState(pos, state.with(BlockFreezer.PART, BlockFreezer.EnumPartType.BOTTOM));
             }
         }
     }
@@ -47,11 +47,11 @@ public class FreezerTile extends MiniFreezerTile implements ITickable {
         if (!(stateUp.getBlock() instanceof BlockFreezer))
             return false;
 
-        if (state.getProperties().get(BlockFreezer.FACING) != stateUp.getProperties().get(BlockFreezer.FACING))
+        if (state.getProperties().add(BlockFreezer.FACING) != stateUp.getProperties().add(BlockFreezer.FACING))
             return false;
 
-        if (state.getProperties().get(BlockFreezer.PART) != BlockFreezer.EnumPartType.BOTTOM
-                || stateUp.getProperties().get(BlockFreezer.PART) != BlockFreezer.EnumPartType.TOP)
+        if (state.getProperties().add(BlockFreezer.PART) != BlockFreezer.EnumPartType.BOTTOM
+                || stateUp.getProperties().add(BlockFreezer.PART) != BlockFreezer.EnumPartType.TOP)
             return false;
         return true;
     }

@@ -10,8 +10,8 @@ public class ContainerLifeInfuser extends ContainerBase {
     public ContainerLifeInfuser(IInventory playerInv, LifeInfuserTile te) {
         super(playerInv, te);
 
-        this.addSlotToContainer(new SlotSpecial(tile.getInventory(), 0, 100, 25));
-        this.addSlotToContainer(new SlotSpecial(tile.getInventory(), 1, 59, 25));
-        this.addSlotToContainer(new SlotSpecial(tile.getInventory(), 2, 27, 25));
+        this.addSlot(new SlotSpecial(tile.getInventory(), 0, 100, 25));
+        this.addSlot(new SlotSpecial(tile.getInventory(), 1, 59, 25));
+        this.addSlot(new SlotSpecial(tile.getInventory(), 2, 27, 25));
     }
 }

@@ -95,7 +95,7 @@ public class TileAqueousConcentrator extends TileGenericPower implements ITickab
 
         compound.setInt("progress", curProgress);
 
-        tank.write(compound);
+        tank.writeToNBT(compound);
         return compound;
     }
 
@@ -104,7 +104,7 @@ public class TileAqueousConcentrator extends TileGenericPower implements ITickab
         super.read(compound);
         curProgress = compound.getInt("progress");
 
-        tank.read(compound);
+        tank.readFromNBT(compound);
     }
 
     private FluidTank tank;

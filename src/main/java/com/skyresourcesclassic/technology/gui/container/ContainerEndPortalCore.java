@@ -10,6 +10,6 @@ public class ContainerEndPortalCore extends ContainerBase {
                                   TileEndPortalCore te) {
         super(playerInv, te);
 
-        this.addSlotToContainer(new SlotSpecial(tile.getInventory(), 0, 80, 53));
+        this.addSlot(new SlotSpecial(tile.getInventory(), 0, 80, 53));
     }
 }

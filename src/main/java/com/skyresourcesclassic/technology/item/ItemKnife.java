@@ -64,10 +64,10 @@ public class ItemKnife extends Item {
     }
 
     @Override
-    public Multimap<String, AttributeModifier> getItemAttributeModifiers(
+    public Multimap<String, AttributeModifier> getAttributeModifiers(
             EntityEquipmentSlot equipmentSlot) {
 
-        Multimap<String, AttributeModifier> multimap = super.getItemAttributeModifiers(
+        Multimap<String, AttributeModifier> multimap = super.getAttributeModifiers(
                 equipmentSlot);
 
         if (equipmentSlot == EntityEquipmentSlot.MAINHAND) {
@@ -124,7 +124,7 @@ public class ItemKnife extends Item {
     public ItemStack getContainerItem(ItemStack itemStack) {
         ItemStack stack = itemStack.copy();
 
-        stack.setItemDamage(stack.getItemDamage() + 1);
+        stack.setDamage(stack.getDamage() + 1);
         stack.setCount(1);
 
         return stack;

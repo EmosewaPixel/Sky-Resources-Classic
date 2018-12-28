@@ -114,8 +114,8 @@ public class ModGuidePages {
                 new ItemStack(ModItems.itemComponent[0]));
 
         SkyResourcesGuide.addPage("ironFreezer", "guide.skyresourcesclassic.stage3", new ItemStack(ModBlocks.ironFreezer));
-        addImagePos("ironFreezer", new BlockPos(0, -1, 0), ModBlocks.ironFreezer.getDefaultState().with(BlockFreezer.PART, BlockFreezer.EnumPartType.BOTTOM).withProperty(BlockFreezer.FACING, EnumFacing.WEST));
-        addImagePos("ironFreezer", new BlockPos(0, 0, 0), ModBlocks.ironFreezer.getDefaultState().with(BlockFreezer.PART, BlockFreezer.EnumPartType.TOP).withProperty(BlockFreezer.FACING, EnumFacing.WEST));
+        addImagePos("ironFreezer", new BlockPos(0, -1, 0), ModBlocks.ironFreezer.getDefaultState().with(BlockFreezer.PART, BlockFreezer.EnumPartType.BOTTOM).with(BlockFreezer.FACING, EnumFacing.WEST));
+        addImagePos("ironFreezer", new BlockPos(0, 0, 0), ModBlocks.ironFreezer.getDefaultState().with(BlockFreezer.PART, BlockFreezer.EnumPartType.TOP).with(BlockFreezer.FACING, EnumFacing.WEST));
 
         SkyResourcesGuide.addPage("rockCrusher", "guide.skyresourcesclassic.stage3", new ItemStack(ModBlocks.rockCrusher));
 

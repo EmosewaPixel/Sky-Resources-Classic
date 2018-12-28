@@ -129,7 +129,7 @@ public class TileWildlifeAttractor extends TileGenericPower implements ITickable
         compound = super.write(compound);
 
         compound.setInt("matter", matterLeft);
-        tank.write(compound);
+        tank.writeToNBT(compound);
 
         return compound;
     }
@@ -140,7 +140,7 @@ public class TileWildlifeAttractor extends TileGenericPower implements ITickable
 
         matterLeft = compound.getInt("matter");
 
-        tank.read(compound);
+        tank.readFromNBT(compound);
     }
 
     public FluidTank getTank() {

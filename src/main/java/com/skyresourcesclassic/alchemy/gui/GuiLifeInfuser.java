@@ -102,7 +102,7 @@ public class GuiLifeInfuser extends GuiContainer {
         RenderHelper.disableStandardItemLighting();
     }
 
-    public void drawScreen(int mouseX, int mouseY, float partialTicks) {
+    public void render(int mouseX, int mouseY, float partialTicks) {
         this.drawDefaultBackground();
         super.render(mouseX, mouseY, partialTicks);
         this.renderHoveredToolTip(mouseX, mouseY);

@@ -110,7 +110,7 @@ public class FluidDropperTile extends TileBase implements ITickable, IFluidHandl
         if (capability == CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY) {
             return true;
         }
-        return super.hasCapability(capability, facing);
+        return super.hasCapabi(capability, facing);
     }
 
     @Override

@@ -46,7 +46,7 @@ public class TileDarkMatterWarper extends TileItemInventory implements ITickable
                 burnTime--;
 
                 for (EntityLivingBase entity : list) {
-                    if (!entity.isDead && entity instanceof EntitySkeleton) {
+                    if (!entity.removed && entity instanceof EntitySkeleton) {
                         EntitySkeleton skely = (EntitySkeleton) entity;
                         skely.remove();
                         EntityWitherSkeleton skeleton = new EntityWitherSkeleton(world);
@@ -60,7 +60,7 @@ public class TileDarkMatterWarper extends TileItemInventory implements ITickable
                             skeleton.setItemStackToSlot(EntityEquipmentSlot.values()[i],
                                     skely.getItemStackFromSlot(EntityEquipmentSlot.values()[i]));
                         world.spawnEntity(skeleton);
-                    } else if (!entity.isDead && entity instanceof EntitySpider
+                    } else if (!entity.removed && entity instanceof EntitySpider
                             && !(entity instanceof EntityCaveSpider)) {
                         EntitySpider spider = (EntitySpider) entity;
                         spider.remove();
@@ -72,7 +72,7 @@ public class TileDarkMatterWarper extends TileItemInventory implements ITickable
                         caveSpider.setHealth(caveSpider.getMaxHealth());
 
                         world.spawnEntity(caveSpider);
-                    } else if (!entity.isDead && entity instanceof EntitySquid) {
+                    } else if (!entity.removed && entity instanceof EntitySquid) {
                         EntitySquid squid = (EntitySquid) entity;
                         squid.remove();
 
@@ -83,7 +83,7 @@ public class TileDarkMatterWarper extends TileItemInventory implements ITickable
                         blaze.setHealth(blaze.getMaxHealth());
 
                         world.spawnEntity(blaze);
-                    } else if (!entity.isDead && (entity instanceof EntityPlayer || entity instanceof EntityAnimal)) {
+                    } else if (!entity.removed && (entity instanceof EntityPlayer || entity instanceof EntityAnimal)) {
                         if (entity instanceof EntityPlayer && ((EntityPlayer) entity).isCreative())
                             continue;
                         entity.addPotionEffect(new PotionEffect(MobEffects.BLINDNESS, 360, 0));
@@ -96,7 +96,7 @@ public class TileDarkMatterWarper extends TileItemInventory implements ITickable
                 }
             } else {
                 for (EntityLivingBase entity : list) {
-                    if (!entity.isDead && entity instanceof EntityPlayer) {
+                    if (!entity.removed && entity instanceof EntityPlayer) {
                         if (entity instanceof EntityPlayer && ((EntityPlayer) entity).isCreative())
                             continue;
                         entity.addPotionEffect(new PotionEffect(MobEffects.BLINDNESS, 5, 2));

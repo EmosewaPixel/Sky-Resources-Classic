@@ -52,7 +52,7 @@ public class LifeInfuserBlock extends BlockContainer {
     }
 
     @OnlyIn(Dist.CLIENT)
-    public BlockRenderLayer getBlockLayer() {
+    public BlockRenderLayer getRenderLayer() {
         return BlockRenderLayer.CUTOUT_MIPPED;
     }
 

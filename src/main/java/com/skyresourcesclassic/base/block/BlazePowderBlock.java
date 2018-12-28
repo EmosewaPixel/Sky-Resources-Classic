@@ -6,6 +6,7 @@ import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.projectile.EntitySnowball;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
@@ -31,10 +32,10 @@ public class BlazePowderBlock extends BaseBlock {
                     && ConfigOptions.general.meltableBlazeBlocks) {
                 world.setBlockState(pos, Blocks.LAVA.getDefaultState(), 3);
             } else
-                world.scheduleUpdate(pos, this, tickRate(world));
+                world.schedule(pos, this, tickRate(world));
         }
     }
-
+EntitySnowball
     @Override
     public void onBlockAdded(World world, BlockPos pos, IBlockState state) {
         world.scheduleUpdate(pos, this, tickRate(world));

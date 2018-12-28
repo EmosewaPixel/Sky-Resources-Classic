@@ -25,7 +25,6 @@ import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
 import net.minecraft.stats.StatList;
 import net.minecraft.tags.FluidTags;
-import net.minecraft.util.Particles;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.*;
 import net.minecraft.world.World;
@@ -373,16 +372,16 @@ public class EntitySurvivalistHook extends EntityFishHook {
 
                 if (block == Blocks.WATER || block == Blocks.FLOWING_WATER) {
                     if (this.rand.nextFloat() < 0.15F) {
-                        worldserver.spawnParticle(Particles.WATER_BUBBLE, d0, d1 - 0.10000000149011612D, d2, 1,
-                                (double) f1, 0.1D, (double) f2, 0.0D, new int[0]);
+                        worldserver.spawnParticle(Particles.BUBBLE, d0, d1 - 0.10000000149011612D, d2, 1,
+                                (double) f1, 0.1D, (double) f2, 0.0D);
                     }
 
                     float f3 = f1 * 0.04F;
                     float f4 = f2 * 0.04F;
                     worldserver.spawnParticle(Particles.WATER_WAKE, d0, d1, d2, 0, (double) f4, 0.01D,
-                            (double) (-f3), 1.0D, new int[0]);
+                            (double) (-f3), 1.0D);
                     worldserver.spawnParticle(Particles.WATER_WAKE, d0, d1, d2, 0, (double) (-f4), 0.01D,
-                            (double) f3, 1.0D, new int[0]);
+                            (double) f3, 1.0D);
                 }
             } else {
                 this.motionY = (double) (-0.4F * MathHelper.nextFloat(this.rand, 0.6F, 1.0F));
@@ -391,10 +390,10 @@ public class EntitySurvivalistHook extends EntityFishHook {
                 double d3 = this.getBoundingBox().minY + 0.5D;
                 worldserver.spawnParticle(Particles.BUBBLE, this.posX, d3, this.posZ,
                         (int) (1.0F + this.width * 20.0F), (double) this.width, 0.0D, (double) this.width,
-                        0.20000000298023224D, new int[0]);
+                        0.20000000298023224D);
                 worldserver.spawnParticle(Particles.WATER_WAKE, this.posX, d3, this.posZ,
                         (int) (1.0F + this.width * 20.0F), (double) this.width, 0.0D, (double) this.width,
-                        0.20000000298023224D, new int[0]);
+                        0.20000000298023224D);
                 this.ticksCatchable = MathHelper.getInt(this.rand, 20, 40);
             }
         } else if (this.ticksCaughtDelay > 0) {
@@ -419,7 +418,7 @@ public class EntitySurvivalistHook extends EntityFishHook {
 
                 if (block1 == Blocks.WATER || block1 == Blocks.FLOWING_WATER) {
                     worldserver.spawnParticle(Particles.SPLASH, d4, d5, d6, 2 + this.rand.nextInt(2),
-                            0.10000000149011612D, 0.0D, 0.10000000149011612D, 0.0D, new int[0]);
+                            0.10000000149011612D, 0.0D, 0.10000000149011612D, 0.0D);
                 }
             }
 

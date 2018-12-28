@@ -10,10 +10,10 @@ public class ContainerCombustionCollector extends ContainerBase {
                                         TileCombustionCollector te) {
         super(playerInv, te);
 
-        this.addSlotToContainer(new SlotSpecial(tile.getInventory(), 0, 44, 53));
-        this.addSlotToContainer(new SlotSpecial(tile.getInventory(), 1, 62, 53));
-        this.addSlotToContainer(new SlotSpecial(tile.getInventory(), 2, 80, 53));
-        this.addSlotToContainer(new SlotSpecial(tile.getInventory(), 3, 98, 53));
-        this.addSlotToContainer(new SlotSpecial(tile.getInventory(), 4, 116, 53));
+        this.addSlot(new SlotSpecial(tile.getInventory(), 0, 44, 53));
+        this.addSlot(new SlotSpecial(tile.getInventory(), 1, 62, 53));
+        this.addSlot(new SlotSpecial(tile.getInventory(), 2, 80, 53));
+        this.addSlot(new SlotSpecial(tile.getInventory(), 3, 98, 53));
+        this.addSlot(new SlotSpecial(tile.getInventory(), 4, 116, 53));
     }
 }

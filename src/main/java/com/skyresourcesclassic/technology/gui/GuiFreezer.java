@@ -33,7 +33,7 @@ public class GuiFreezer extends GuiContainer {
 
     @Override
     protected void drawGuiContainerBackgroundLayer(float partialTicks, int mouseX, int mouseY) {
-        GlStateManager.color(1.0f, 1.0f, 1.0f, 1.0f);
+        GlStateManager.color4f(1.0f, 1.0f, 1.0f, 1.0f);
         this.mc.getTextureManager()
                 .bindTexture(new ResourceLocation(References.ModID, "textures/gui/blank_inventory.png"));
         this.drawTexturedModalRect(this.guiLeft, this.guiTop, 0, 0, this.xSize, this.ySize);
@@ -57,7 +57,7 @@ public class GuiFreezer extends GuiContainer {
 
         if (!(tile.getWorld().getBlockState(tile.getPos()).getBlock() instanceof BlockMiniFreezer)) {
 
-            GlStateManager.color(1.0f, 1.0f, 1.0f, 1.0f);
+            GlStateManager.color4f(1.0f, 1.0f, 1.0f, 1.0f);
             this.mc.getTextureManager()
                     .bindTexture(new ResourceLocation(References.ModID, "textures/gui/gui_icons.png"));
             this.drawTexturedModalRect(3, 12, 0, 16, 32, 32);
@@ -82,7 +82,7 @@ public class GuiFreezer extends GuiContainer {
 
     void drawProgress() {
         GL11.glEnable(GL11.GL_BLEND);
-        GlStateManager.color(1.0f, 1.0f, 1.0f, 0.9f);
+        GlStateManager.color4f(1.0f, 1.0f, 1.0f, 0.9f);
         this.mc.getTextureManager().bindTexture(new ResourceLocation("textures/blocks/ice_packed.png"));
 
         for (int y = 0; y < Math.floor((float) tile.getInventory().getSlots() / 5f) + 1; ++y) {
@@ -98,12 +98,12 @@ public class GuiFreezer extends GuiContainer {
             }
         }
         GL11.glDisable(GL11.GL_BLEND);
-        GlStateManager.color(1.0f, 1.0f, 1.0f, 1.0f);
+        GlStateManager.color4f(1.0f, 1.0f, 1.0f, 1.0f);
     }
 
-    public void drawScreen(int mouseX, int mouseY, float partialTicks) {
+    public void render(int mouseX, int mouseY, float partialTicks) {
         this.drawDefaultBackground();
-        super.drawScreen(mouseX, mouseY, partialTicks);
+        super.render(mouseX, mouseY, partialTicks);
         this.renderHoveredToolTip(mouseX, mouseY);
     }
 }

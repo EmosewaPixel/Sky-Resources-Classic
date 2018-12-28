@@ -54,11 +54,11 @@ public class GuideGUI extends GuiScreen {
     private PageInfo pageInfo;
 
     @Override
-    public void drawScreen(int mouseX, int mouseY, float partialTicks) {
+    public void render(int mouseX, int mouseY, float partialTicks) {
         this.drawDefaultBackground();
 
         if (currentImage == null) {
-            super.drawScreen(mouseX, mouseY, partialTicks);
+            super.render(mouseX, mouseY, partialTicks);
 
             ItemStack stack = currentPage.pageItemDisplay;
 
@@ -73,8 +73,8 @@ public class GuideGUI extends GuiScreen {
             this.fontRenderer.drawString("Category", 60 - fontRenderer.getStringWidth("Category") / 2, 6, 16777215);
 
             this.searchBox.drawTextBox();
-            this.pageScroll.drawScreen(mouseX, mouseY, partialTicks);
-            this.pageInfo.drawScreen(mouseX, mouseY, partialTicks);
+            this.pageScroll.render(mouseX, mouseY, partialTicks);
+            this.pageInfo.render(mouseX, mouseY, partialTicks);
         } else {
             this.closeButton.drawButton(mc, mouseX, mouseY, partialTicks);
             this.currentImage.draw(this.mc, this.width / 2 - 128, this.height / 2 - 128, 256, 256, partialTicks);

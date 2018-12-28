@@ -143,8 +143,8 @@ public class TileRockCleaner extends TileGenericPower implements ITickable, IFlu
     }
 
     private void bufferListRead(NBTTagCompound nbt) {
-        NBTTagList tagList = nbt.getTagList("Items", Constants.NBT.TAG_COMPOUND);
-        for (int i = 0; i < tagList.tagCount(); i++) {
+        NBTTagList tagList = nbt.getList("Items", Constants.NBT.TAG_COMPOUND);
+        for (int i = 0; i < tagList.size(); i++) {
             NBTTagCompound itemTags = tagList.getTagAt(i);
             bufferStacks.add(new ItemStack(itemTags));
         }

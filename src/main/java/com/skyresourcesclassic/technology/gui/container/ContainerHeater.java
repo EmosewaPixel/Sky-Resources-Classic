@@ -8,6 +8,6 @@ import net.minecraft.inventory.IInventory;
 public class ContainerHeater extends ContainerBase {
     public ContainerHeater(IInventory playerInv, TileHeater te) {
         super(playerInv, te);
-        this.addSlotToContainer(new SlotSpecial(tile.getInventory(), 0, 80, 53));
+        this.addSlot(new SlotSpecial(tile.getInventory(), 0, 80, 53));
     }
 }

@@ -33,7 +33,6 @@ public abstract class GuidePageButton {
         if (!Strings.isNullOrEmpty(stackInfo) && stackInfo.contains(":")) {
             String trimmed = stackInfo.replaceAll(" ", "");
             String itemName = trimmed.split(":")[0] + ":" + trimmed.split(":")[1];
-            int meta = Integer.parseInt(trimmed.split(":")[2].split("\\*")[0]);
 
             ResourceLocation resourcelocation = new ResourceLocation(itemName);
             Item item = Item.REGISTRY.get(resourcelocation);
@@ -41,7 +40,7 @@ public abstract class GuidePageButton {
             if (item == null)
                 stackDisplay = ItemStack.EMPTY;
             else
-                stackDisplay = new ItemStack(item, 1, meta);
+                stackDisplay = new ItemStack(item);
         }
 
     }

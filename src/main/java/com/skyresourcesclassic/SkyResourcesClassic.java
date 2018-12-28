@@ -26,7 +26,6 @@ public class SkyResourcesClassic {
             .addToolMaterial("CACTUSNEEDLE", 0, 4, 5, 1, 5);
 
     public void preInit(FMLPreInitializationEvent event) {
-        logger = event.getModLog();
         proxy.preInit(event);
     }
 

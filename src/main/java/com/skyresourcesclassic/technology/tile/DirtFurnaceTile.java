@@ -24,6 +24,8 @@ import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TextComponentTranslation;
 import net.minecraft.world.World;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
@@ -118,10 +120,10 @@ public class DirtFurnaceTile extends TileEntity implements ITickable, ISidedInve
 
     public void read(NBTTagCompound compound) {
         super.read(compound);
-        NBTTagList nbttaglist = compound.getTagList("Items", 10);
+        NBTTagList nbttaglist = compound.getList("Items", 10);
         this.furnaceItemStacks = NonNullList.<ItemStack>withSize(this.getSizeInventory(), ItemStack.EMPTY);
 
-        for (int i = 0; i < nbttaglist.tagCount(); ++i) {
+        for (int i = 0; i < nbttaglist.size(); ++i) {
             NBTTagCompound nbttagcompound = nbttaglist.getTagAt(i);
             int j = nbttagcompound.getByte("Slot");
 
@@ -203,7 +205,7 @@ public class DirtFurnaceTile extends TileEntity implements ITickable, ISidedInve
         }
 
         if (!this.world.isRemote) {
-            world.setBlockState(pos, world.getBlockState(pos).withProperty(BlockDirtFurnace.BURNING, this.isBurning()),
+            world.setBlockState(pos, world.getBlockState(pos).with(BlockDirtFurnace.BURNING, this.isBurning()),
                     2);
             if (this.isBurning() || this.furnaceItemStacks.get(1) != ItemStack.EMPTY
                     && this.furnaceItemStacks.get(0) != ItemStack.EMPTY) {

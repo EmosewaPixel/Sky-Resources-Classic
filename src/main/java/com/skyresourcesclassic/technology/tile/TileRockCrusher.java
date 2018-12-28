@@ -131,7 +131,7 @@ public class TileRockCrusher extends TileGenericPower implements ITickable {
 
     private boolean hasRockGrinder() {
         if (this.getInventory().getStackInSlot(0).getItem() instanceof ItemRockGrinder) {
-            return this.getInventory().getStackInSlot(0).getItemDamage() <= this.getInventory().getStackInSlot(0)
+            return this.getInventory().getStackInSlot(0).getDamage() <= this.getInventory().getStackInSlot(0)
                     .getMaxDamage();
         }
         return false;
@@ -173,8 +173,8 @@ public class TileRockCrusher extends TileGenericPower implements ITickable {
     }
 
     private void bufferListRead(NBTTagCompound nbt) {
-        NBTTagList tagList = nbt.getTagList("Items", Constants.NBT.TAG_COMPOUND);
-        for (int i = 0; i < tagList.tagCount(); i++) {
+        NBTTagList tagList = nbt.getList("Items", Constants.NBT.TAG_COMPOUND);
+        for (int i = 0; i < tagList.size(); i++) {
             NBTTagCompound itemTags = tagList.getTagAt(i);
             bufferStacks.add(new ItemStack(itemTags));
         }

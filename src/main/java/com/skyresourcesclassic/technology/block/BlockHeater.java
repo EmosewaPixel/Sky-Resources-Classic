@@ -13,6 +13,8 @@ import net.minecraft.block.properties.PropertyBool;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.ItemStack;
+import net.minecraft.state.IProperty;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumBlockRenderType;
 import net.minecraft.util.EnumFacing;
@@ -22,6 +24,7 @@ import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TextComponentString;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.world.World;
+import net.minecraft.world.chunk.BlockStateContainer;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -37,7 +40,7 @@ public class BlockHeater extends BlockContainer {
         this.setHardness(hardness);
         this.setResistance(resistance);
         this.setRegistryName(material + "_heater");
-        this.setDefaultState(this.blockState.getBaseState().withProperty(RUNNING, false));
+        this.setDefaultState(this.stateContainer.getBaseState().with(RUNNING, false));
         this.tier = tier;
     }
 
@@ -71,13 +74,13 @@ public class BlockHeater extends BlockContainer {
     }
 
     @Override
-    public void breakBlock(World world, BlockPos pos, IBlockState state) {
+    public void harvestBlock(World world, EntityPlayer player, BlockPos pos, IBlockState state, TileEntity tileEntity, ItemStack stack) {
         if (tier < 3) {
             TileHeater te = (TileHeater) world.getTileEntity(pos);
             te.dropInventory();
         }
 
-        super.breakBlock(world, pos, state);
+        super.harvestBlock(world, player, pos, state, tileEntity, stack);
     }
 
     @Override
@@ -105,15 +108,6 @@ public class BlockHeater extends BlockContainer {
             }
         }
         return true;
-    }
-
-    public int getMetaFromState(IBlockState state) {
-
-        if (state.get(RUNNING) == true) {
-            return 1;
-        }
-
-        return 0;
     }
 
     protected BlockStateContainer createBlockState() {
