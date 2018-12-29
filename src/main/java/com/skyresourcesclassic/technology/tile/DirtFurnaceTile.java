@@ -330,9 +330,9 @@ public class DirtFurnaceTile extends TileEntity implements ITickable, ISidedInve
                 }
             }
 
-            if (item instanceof ItemTool && ((ItemTool) item).getToolMaterialName().equals("WOOD"))
+            if (item instanceof ItemTool && ((ItemTool) item).getItemTierName().equals("WOOD"))
                 return 200;
-            if (item instanceof ItemSword && ((ItemSword) item).getToolMaterialName().equals("WOOD"))
+            if (item instanceof ItemSword && ((ItemSword) item).getItemTierName().equals("WOOD"))
                 return 200;
             if (item instanceof ItemHoe && ((ItemHoe) item).getMaterialName().equals("WOOD"))
                 return 200;

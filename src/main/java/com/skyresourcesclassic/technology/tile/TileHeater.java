@@ -10,6 +10,7 @@ import net.minecraft.tileentity.TileEntityFurnace;
 import net.minecraft.util.ITickable;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+import net.minecraftforge.event.ForgeEventFactory;
 
 public class TileHeater extends TileItemInventory implements ITickable, IHeatSource {
     public TileHeater(int tier) {
@@ -55,12 +56,17 @@ public class TileHeater extends TileItemInventory implements ITickable, IHeatSou
         }
     }
 
+    private int getBurnTime(ItemStack stack) {
+        int burnTime = stack.getBurnTime();
+        return ForgeEventFactory.getItemBurnTime(stack, burnTime == -1 ? TileEntityFurnace.getBurnTimes().getOrDefault(stack, 0) : burnTime);
+    }
+
     private int getFuelBurnTime(ItemStack stack) {
-        return TileEntityFurnace.getItemBurnTime(stack) * 5 / getHeat();
+        return getBurnTime(stack) * 5 / getHeat();
     }
 
     private boolean isValidFuel(ItemStack stack) {
-        return !(TileEntityFurnace.getItemBurnTime(stack) <= 0 || getFuelBurnTime(stack) <= 0);
+        return !(getBurnTime(stack) <= 0 || getFuelBurnTime(stack) <= 0);
     }
 
     @Override

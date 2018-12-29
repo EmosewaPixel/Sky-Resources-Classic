@@ -1,7 +1,8 @@
 package com.skyresourcesclassic;
 
 import com.skyresourcesclassic.proxy.CommonProxy;
-import net.minecraft.item.Item.ToolMaterial;
+import net.minecraft.item.Item.ItemTier;
+import net.minecraft.item.ItemTier;
 import net.minecraftforge.common.util.EnumHelper;
 import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fml.common.Mod;
@@ -22,8 +23,8 @@ public class SkyResourcesClassic {
 
     public static Logger logger;
 
-    public static ToolMaterial materialCactusNeedle = EnumHelper
-            .addToolMaterial("CACTUSNEEDLE", 0, 4, 5, 1, 5);
+    public static ItemTier materialCactusNeedle = EnumHelper
+            .addItemTier("CACTUSNEEDLE", 0, 4, 5, 1, 5);
 
     public void preInit(FMLPreInitializationEvent event) {
         proxy.preInit(event);

@@ -56,7 +56,7 @@ public class TileRockCrusher extends TileGenericPower implements ITickable {
                     int level = EnchantmentHelper.getEnchantmentLevel(Enchantments.EFFICIENCY,
                             this.getInventory().getStackInSlot(0));
                     String materiaName = ((ItemRockGrinder) this.getInventory().getStackInSlot(0).getItem())
-                            .getToolMaterialName();
+                            .getTier().toString();
                     switch (materiaName) {
                         case "stone":
                             base = 2;

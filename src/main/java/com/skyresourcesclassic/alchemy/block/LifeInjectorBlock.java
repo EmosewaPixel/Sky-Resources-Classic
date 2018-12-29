@@ -26,7 +26,6 @@ public class LifeInjectorBlock extends BlockContainer {
     public LifeInjectorBlock(String name, float hardness, float resistance) {
         super(Material.WOOD);
         this.setUnlocalizedName(References.ModID + "." + name);
-        this.setCreativeTab(ModItemGroups.tabAlchemy);
         this.setHardness(hardness);
         this.setResistance(resistance);
         this.setRegistryName(name);

@@ -1,23 +1,20 @@
 package com.skyresourcesclassic.technology.block;
 
 import com.skyresourcesclassic.RandomHelper;
-import com.skyresourcesclassic.References;
 import com.skyresourcesclassic.SkyResourcesClassic;
 import com.skyresourcesclassic.registry.ModBlocks;
-import com.skyresourcesclassic.registry.ModItemGroups;
 import com.skyresourcesclassic.registry.ModGuiHandler;
 import com.skyresourcesclassic.technology.tile.TileRockCleaner;
+import net.minecraft.block.Block;
 import net.minecraft.block.BlockContainer;
 import net.minecraft.block.BlockHorizontal;
 import net.minecraft.block.material.Material;
-import net.minecraft.block.properties.IProperty;
-import net.minecraft.block.properties.PropertyDirection;
-import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.state.DirectionProperty;
 import net.minecraft.state.IProperty;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.*;
@@ -33,14 +30,10 @@ import javax.annotation.Nullable;
 import java.util.Random;
 
 public class BlockRockCleaner extends BlockContainer {
-    public static final PropertyDirection FACING = BlockHorizontal.FACING;
+    public static final DirectionProperty FACING = BlockHorizontal.HORIZONTAL_FACING;
 
     public BlockRockCleaner(String name, float hardness, float resistance) {
-        super(Material.ROCK);
-        this.setUnlocalizedName(References.ModID + "." + name);
-        this.setCreativeTab(ModItemGroups.tabTech);
-        this.setHardness(hardness);
-        this.setResistance(resistance);
+        super(Block.Builder.create(Material.ROCK).hardnessAndResistance(hardness, resistance));
         this.setRegistryName(name);
     }
 
@@ -83,13 +76,6 @@ public class BlockRockCleaner extends BlockContainer {
     public void onBlockPlacedBy(World worldIn, BlockPos pos, IBlockState state, EntityLivingBase placer,
                                 ItemStack stack) {
         worldIn.setBlockState(pos, state.with(FACING, placer.getHorizontalFacing().getOpposite()), 2);
-    }
-
-    public int getMetaFromState(IBlockState state) {
-        int i = 0;
-        i = i | ((EnumFacing) state.get(FACING)).getHorizontalIndex();
-
-        return i;
     }
 
     /**

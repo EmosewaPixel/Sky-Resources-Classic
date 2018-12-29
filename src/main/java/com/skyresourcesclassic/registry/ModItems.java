@@ -12,8 +12,8 @@ import com.skyresourcesclassic.technology.item.ItemRockGrinder;
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
-import net.minecraft.item.Item.ToolMaterial;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.ItemTier;
 import net.minecraftforge.registries.GameData;
 
 import java.util.ArrayList;
@@ -132,18 +132,18 @@ public class ModItems {
         cactusKnife = registerItem(new ItemKnife(SkyResourcesClassic.materialCactusNeedle,
                 "cactus_cutting_knife"));
         stoneKnife = registerItem(
-                new ItemKnife(ToolMaterial.STONE, "stone_cutting_knife"));
+                new ItemKnife(ItemTier.STONE, "stone_cutting_knife"));
         ironKnife = registerItem(
-                new ItemKnife(ToolMaterial.IRON, "iron_cutting_knife"));
+                new ItemKnife(ItemTier.IRON, "iron_cutting_knife"));
         diamondKnife = registerItem(
-                new ItemKnife(ToolMaterial.DIAMOND, "diamond_cutting_knife"));
+                new ItemKnife(ItemTier.DIAMOND, "diamond_cutting_knife"));
 
         stoneGrinder = registerItem(
-                new ItemRockGrinder(ToolMaterial.STONE, "stone_grinder"));
+                new ItemRockGrinder(ItemTier.STONE, "stone_grinder"));
         ironGrinder = registerItem(
-                new ItemRockGrinder(ToolMaterial.IRON, "iron_grinder"));
+                new ItemRockGrinder(ItemTier.IRON, "iron_grinder"));
         diamondGrinder = registerItem(
-                new ItemRockGrinder(ToolMaterial.DIAMOND, "diamond_grinder"));
+                new ItemRockGrinder(ItemTier.DIAMOND, "diamond_grinder"));
 
         sandstoneInfusionStone = registerItem(
                 new ItemInfusionStone(100, "sandstone_infusion_stone"));

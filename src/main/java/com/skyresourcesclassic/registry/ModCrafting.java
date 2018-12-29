@@ -4,7 +4,6 @@ import com.skyresourcesclassic.ConfigOptions;
 import com.skyresourcesclassic.References;
 import com.skyresourcesclassic.alchemy.fluid.FluidRegisterInfo;
 import com.skyresourcesclassic.base.HeatSources;
-import com.skyresourcesclassic.base.ModFuelHandler;
 import com.skyresourcesclassic.recipe.ProcessRecipeManager;
 import com.skyresourcesclassic.recipe.TagVariables;
 import com.skyresourcesclassic.technology.item.GemRegisterInfo;
@@ -22,7 +21,6 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.storage.loot.LootTableList;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.Tags;
-import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fml.common.registry.GameRegistry;
@@ -351,8 +349,6 @@ public class ModCrafting {
         HeatSources.addHeatSource(Blocks.OBSIDIAN.getDefaultState(), 4);
         Block magmaBlock = Block.REGISTRY.get(new ResourceLocation("minecraft", "magma"));
         HeatSources.addHeatSource(magmaBlock.getDefaultState(), 8);
-
-        GameRegistry.registerFuelHandler(new ModFuelHandler());
 
         ProcessRecipeManager.knifeRecipes.addRecipe(new ItemStack(ModItems.cactusFruit, 2), 1, new ItemStack(Blocks.CACTUS));
         ProcessRecipeManager.knifeRecipes.addRecipe(new ItemStack(Items.MELON_SLICE, 9), 1, new ItemStack(Blocks.MELON));

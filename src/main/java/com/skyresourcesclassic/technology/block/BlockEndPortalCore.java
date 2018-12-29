@@ -1,10 +1,9 @@
 package com.skyresourcesclassic.technology.block;
 
-import com.skyresourcesclassic.References;
 import com.skyresourcesclassic.SkyResourcesClassic;
-import com.skyresourcesclassic.registry.ModItemGroups;
 import com.skyresourcesclassic.registry.ModGuiHandler;
 import com.skyresourcesclassic.technology.tile.TileEndPortalCore;
+import net.minecraft.block.Block;
 import net.minecraft.block.BlockContainer;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
@@ -20,11 +19,7 @@ import net.minecraft.world.World;
 
 public class BlockEndPortalCore extends BlockContainer {
     public BlockEndPortalCore(String name, float hardness, float resistance) {
-        super(Material.ROCK);
-        this.setUnlocalizedName(References.ModID + "." + name);
-        this.setCreativeTab(ModItemGroups.tabTech);
-        this.setHardness(hardness);
-        this.setResistance(resistance);
+        super(Block.Builder.create(Material.ROCK).hardnessAndResistance(hardness, resistance));
         this.setRegistryName(name);
     }
 

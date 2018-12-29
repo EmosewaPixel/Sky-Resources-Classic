@@ -11,8 +11,6 @@ public class BaseBlock extends Block {
     public BaseBlock(Material material, String name, float hardness, float resistance,
                      SoundType stepSound) {
         super(Block.Builder.create(material).hardnessAndResistance(hardness, resistance));
-        this.setUnlocalizedName(References.ModID + "." + name);
-        this.setCreativeTab(ModItemGroups.tabMain);
         this.setRegistryName(name);
         this.setSoundType(stepSound);
     }

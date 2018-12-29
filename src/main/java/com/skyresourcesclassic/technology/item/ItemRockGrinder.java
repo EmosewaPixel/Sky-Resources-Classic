@@ -4,7 +4,6 @@ import com.google.common.collect.Multimap;
 import com.skyresourcesclassic.ConfigOptions;
 import com.skyresourcesclassic.ItemHelper;
 import com.skyresourcesclassic.RandomHelper;
-import com.skyresourcesclassic.References;
 import com.skyresourcesclassic.recipe.ProcessRecipe;
 import com.skyresourcesclassic.recipe.ProcessRecipeManager;
 import com.skyresourcesclassic.registry.ModItemGroups;
@@ -16,29 +15,27 @@ import net.minecraft.entity.ai.attributes.AttributeModifier;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Enchantments;
 import net.minecraft.inventory.EntityEquipmentSlot;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemPickaxe;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.ItemTier;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+import net.minecraftforge.common.ToolType;
 
 import java.util.Collections;
 
 public class ItemRockGrinder extends ItemPickaxe {
     private float damageVsEntity;
 
-    private ToolMaterial toolMaterial;
+    private ItemTier toolMaterial;
 
-    public ItemRockGrinder(ToolMaterial material, String name) {
-        super(material);
+    public ItemRockGrinder(ItemTier material, String name) {
+        super(material, (int) material.getAttackDamage(), material.getAttackDamage(), new Item.Builder().addToolType(ToolType.get("rockGrinder"),material.getHarvestLevel()).defaultMaxDamage((int) (material.getMaxUses() * ConfigOptions.rockGrinder.rockGrinderBaseDurability)).maxStackSize(1).group(ModItemGroups.tabTech));
         toolMaterial = material;
-        this.setMaxDamage((int) (material.getMaxUses() * ConfigOptions.rockGrinder.rockGrinderBaseDurability));
         this.damageVsEntity = ConfigOptions.rockGrinder.rockGrinderBaseDamage + material.getAttackDamage();
-        this.setUnlocalizedName(References.ModID + "." + name);
         setRegistryName(name);
-        this.setMaxStackSize(1);
-        this.setCreativeTab(ModItemGroups.tabTech);
-        this.setHarvestLevel("rockGrinder", material.getHarvestLevel());
 
         ItemHelper.addRockGrinder(this);
     }

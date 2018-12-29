@@ -28,8 +28,6 @@ public class BlockWildlifeAttractor extends BlockContainer
     public BlockWildlifeAttractor(String name, float hardness, float resistance)
     {
         super(Material.GRASS);
-        this.setUnlocalizedName(References.ModID + "." + name);
-        this.setCreativeTab(ModItemGroups.tabTech);
         this.setHardness(hardness);
         this.setResistance(resistance);
         this.setRegistryName(name);

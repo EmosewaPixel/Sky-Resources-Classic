@@ -12,6 +12,7 @@ import net.minecraft.util.ITickable;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.common.capabilities.Capability;
+import net.minecraftforge.eventbus.api.Event;
 import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.FluidTank;
@@ -65,11 +66,11 @@ public class TileWildlifeAttractor extends TileGenericPower implements ITickable
             e.setLocationAndAngles(pos.getX() + 0.5f, pos.getY() + 1f, pos.getZ() + 0.5f,
                     world.rand.nextFloat() * 360.0F, 0.0F);
 
-            net.minecraftforge.fml.common.eventhandler.Event.Result canSpawn = net.minecraftforge.event.ForgeEventFactory
+            Event.Result canSpawn = net.minecraftforge.event.ForgeEventFactory
                     .canEntitySpawn(e, world, pos.getX() + 0.5f, pos.getY() + 1f, pos.getZ() + 0.5f, false);
             boolean isNotColliding = e.isNotColliding();
-            if (canSpawn == net.minecraftforge.fml.common.eventhandler.Event.Result.ALLOW
-                    || (canSpawn == net.minecraftforge.fml.common.eventhandler.Event.Result.DEFAULT && isNotColliding)) {
+            if (canSpawn == Event.Result.ALLOW
+                    || (canSpawn == Event.Result.DEFAULT && isNotColliding)) {
                 if (!net.minecraftforge.event.ForgeEventFactory.doSpecialSpawn(e, world, pos.getX() + 0.5f,
                         pos.getY() + 1f, pos.getZ() + 0.5f))
                     e.onInitialSpawn(world.getDifficultyForLocation(new BlockPos(e)), null);

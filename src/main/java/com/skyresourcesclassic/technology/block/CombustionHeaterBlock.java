@@ -1,11 +1,10 @@
 package com.skyresourcesclassic.technology.block;
 
-import com.skyresourcesclassic.References;
 import com.skyresourcesclassic.SkyResourcesClassic;
-import com.skyresourcesclassic.registry.ModItemGroups;
 import com.skyresourcesclassic.registry.ModGuiHandler;
 import com.skyresourcesclassic.technology.tile.TileCombustionHeater;
 import com.skyresourcesclassic.technology.tile.TilePoweredCombustionHeater;
+import net.minecraft.block.Block;
 import net.minecraft.block.BlockContainer;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
@@ -24,8 +23,6 @@ import net.minecraft.world.IBlockReader;
 import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
 
 import javax.annotation.Nullable;
 import java.util.ArrayList;
@@ -33,11 +30,7 @@ import java.util.List;
 
 public class CombustionHeaterBlock extends BlockContainer {
     public CombustionHeaterBlock(String material, float hardness, float resistance, int tier) {
-        super(Material.WOOD);
-        this.setUnlocalizedName(References.ModID + "." + material + "_combustion_heater");
-        this.setCreativeTab(ModItemGroups.tabTech);
-        this.setHardness(hardness);
-        this.setResistance(resistance);
+        super(Block.Builder.create(Material.WOOD).hardnessAndResistance(hardness, resistance));
         this.setRegistryName(material + "_combustion_heater");
         this.tier = tier;
     }

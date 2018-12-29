@@ -83,9 +83,9 @@ public class TileEndPortalCore extends TileItemInventory implements ITickable {
         BlockPos[] endBlockPoses = new BlockPos[]{pos.north(2).west(2), pos.north(2).east(2), pos.south(2).west(2),
                 pos.south(2).east(2)};
         for (BlockPos pos : endBlockPoses) {
-            if (world.getBlockState(pos.up()).getBlock() != Blocks.END_BRICKS)
+            if (world.getBlockState(pos.up()).getBlock() != Blocks.END_STONE_BRICKS)
                 return false;
-            if (world.getBlockState(pos.up(2)).getBlock() != Blocks.END_BRICKS)
+            if (world.getBlockState(pos.up(2)).getBlock() != Blocks.END_STONE_BRICKS)
                 return false;
             if (world.getBlockState(pos.up(3)).getBlock() != Blocks.GLOWSTONE)
                 return false;

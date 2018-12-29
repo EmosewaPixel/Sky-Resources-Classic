@@ -1,12 +1,10 @@
 package com.skyresourcesclassic.base.item;
 
-import com.skyresourcesclassic.References;
 import com.skyresourcesclassic.base.entity.EntityHeavyExplosiveSnowball;
 import com.skyresourcesclassic.registry.ModItemGroups;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.item.Item;
-import net.minecraft.item.ItemSnowball;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.EnumActionResult;
@@ -16,10 +14,8 @@ import net.minecraft.world.World;
 
 public class ItemHeavyExplosiveSnowball extends Item {
     public ItemHeavyExplosiveSnowball(String name) {
-        this.maxStackSize = 8;
-        this.setUnlocalizedName(References.ModID + "." + name);
+        super(new Item.Builder().maxStackSize(8).group(ModItemGroups.tabMain));
         setRegistryName(name);
-        this.setCreativeTab(ModItemGroups.tabMain);
     }
 
     public ActionResult<ItemStack> onItemRightClick(World world, EntityPlayer player, EnumHand hand) {

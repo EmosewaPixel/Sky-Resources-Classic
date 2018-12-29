@@ -115,7 +115,7 @@ public class TileRockCleaner extends TileGenericPower implements ITickable, IFlu
         compound.setTag("buffer", bufferListWrite());
         compound.setInt("progress", curProgress);
 
-        tank.write(compound);
+        tank.writeToNBT(compound);
         return compound;
     }
 
@@ -125,7 +125,7 @@ public class TileRockCleaner extends TileGenericPower implements ITickable, IFlu
         bufferListRead(compound.getTag("buffer"));
         curProgress = compound.getInt("progress");
 
-        tank.read(compound);
+        tank.readFromNBT(compound);
     }
 
     private NBTTagCompound bufferListWrite() {

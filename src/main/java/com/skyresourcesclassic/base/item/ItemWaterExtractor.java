@@ -42,10 +42,8 @@ public class ItemWaterExtractor extends Item implements IFluidHandler {
             "full6"};
 
     public ItemWaterExtractor() {
-        this.maxStackSize = 1;
-        this.setCreativeTab(ModItemGroups.tabMain);
+        super(new Item.Builder().maxStackSize(1).group(ModItemGroups.tabMain));
         tank = new FluidTank(new FluidStack(FluidRegistry.WATER, 0), maxAmount);
-        setUnlocalizedName(References.ModID + ".water_extractor");
         setRegistryName("water_extractor");
     }
 

@@ -10,7 +10,6 @@ import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
-import net.minecraftforge.fml.common.Loader;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -123,8 +122,7 @@ public class ModGuidePages {
 
         SkyResourcesGuide.addPage("aqueous", "guide.skyresourcesclassic.stage3", new ItemStack(ModBlocks.aqueousConcentrator));
 
-        if (Loader.isModLoaded("voidislandcontrol"))
-            SkyResourcesGuide.addPage("nether", "guide.skyresourcesclassic.misc", new ItemStack(Blocks.NETHERRACK));
+        SkyResourcesGuide.addPage("nether", "guide.skyresourcesclassic.misc", new ItemStack(Blocks.NETHERRACK));
 
         SkyResourcesGuide.addPage("dmWarper", "guide.skyresourcesclassic.stage3", new ItemStack(ModBlocks.darkMatterWarper));
 
@@ -149,7 +147,7 @@ public class ModGuidePages {
         addImagePos("infuser", new BlockPos(-1, 1, 0), Blocks.OAK_LEAVES.getDefaultState());
         addImagePos("infuser", new BlockPos(0, 0, 0), ModBlocks.lifeInfuser.getDefaultState());
         addImagePos("infuser", new BlockPos(0, 1, 0), ModBlocks.darkMatterBlock.getDefaultState());
-        addImagePos("infuser", new BlockPos(0, 2, 0), Blocks.STONE_BUTTON.getDefaultState().with(BlockButton.FACING, EnumFacing.UP));
+        addImagePos("infuser", new BlockPos(0, 2, 0), Blocks.STONE_BUTTON.getDefaultState().with(BlockButton.HORIZONTAL_FACING, EnumFacing.UP));
 
         SkyResourcesGuide.addPage("end", "guide.skyresourcesclassic.stage3", new ItemStack(Items.ENDER_EYE));
         addImagePos("end", new BlockPos(0, -1, 0), ModBlocks.endPortalCore.getDefaultState());
@@ -179,7 +177,7 @@ public class ModGuidePages {
         addImagePos("end", new BlockPos(2, 0, 2), Blocks.END_STONE_BRICKS.getDefaultState());
         addImagePos("end", new BlockPos(2, 1, 2), Blocks.END_STONE_BRICKS.getDefaultState());
         addImagePos("end", new BlockPos(2, 2, 2), Blocks.GLOWSTONE.getDefaultState());
-        addImagePos("end", new BlockPos(0, 0, 0), Blocks.STONE_BUTTON.getDefaultState().with(BlockButton.FACING, EnumFacing.UP));
+        addImagePos("end", new BlockPos(0, 0, 0), Blocks.STONE_BUTTON.getDefaultState().with(BlockButton.HORIZONTAL_FACING, EnumFacing.UP));
     }
 
     private static void addImagePos(String id, BlockPos pos, IBlockState block) {

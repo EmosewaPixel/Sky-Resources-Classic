@@ -1,11 +1,11 @@
 package com.skyresourcesclassic.base.item;
 
-import com.skyresourcesclassic.References;
 import com.skyresourcesclassic.base.entity.EntitySurvivalistHook;
 import com.skyresourcesclassic.registry.ModItemGroups;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.SoundEvents;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemFishingRod;
 import net.minecraft.item.ItemStack;
 import net.minecraft.stats.StatList;
@@ -18,10 +18,7 @@ import net.minecraft.world.World;
 public class ItemSurvivalFishingRod extends ItemFishingRod {
 
     public ItemSurvivalFishingRod(String name) {
-        super();
-        this.setMaxDamage(32);
-        this.setUnlocalizedName(References.ModID + "." + name);
-        this.setCreativeTab(ModItemGroups.tabMain);
+        super(new Item.Builder().group(ModItemGroups.tabMain).defaultMaxDamage(32));
         setRegistryName(name);
     }
 
@@ -29,7 +26,6 @@ public class ItemSurvivalFishingRod extends ItemFishingRod {
         ItemStack itemstack = playerIn.getHeldItem(handIn);
 
         if (playerIn.fishEntity != null) {
-            int i = playerIn.fishEntity.handleHookRetraction();
             playerIn.swingArm(handIn);
         } else {
             worldIn.playSound(null, playerIn.posX, playerIn.posY, playerIn.posZ, SoundEvents.ENTITY_BOBBER_THROW, SoundCategory.NEUTRAL, 0.5F, 0.4F / (random.nextFloat() * 0.4F + 0.8F));

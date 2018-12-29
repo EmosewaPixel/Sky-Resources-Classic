@@ -19,6 +19,7 @@ import net.minecraft.util.ITickable;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
+import net.minecraftforge.event.ForgeEventFactory;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -55,8 +56,13 @@ public class TileCombustionHeater extends TileItemInventory implements ITickable
         }
     }
 
+    private int getBurnTime(ItemStack stack) {
+        int burnTime = stack.getBurnTime();
+        return ForgeEventFactory.getItemBurnTime(stack, burnTime == -1 ? TileEntityFurnace.getBurnTimes().getOrDefault(stack, 0) : burnTime);
+    }
+
     private int getHeatPerTick(ItemStack stack) {
-        int fuelTime = TileEntityFurnace.getItemBurnTime(stack);
+        int fuelTime = getBurnTime(stack);
         if (fuelTime > 0) {
             return (int) Math.cbrt((float) fuelTime * ConfigOptions.combustion.combustionHeatMultiplier);
         }
@@ -68,11 +74,11 @@ public class TileCombustionHeater extends TileItemInventory implements ITickable
         if ((float) getHeatPerTick(stack) <= 0)
             return 0;
 
-        return (int) ((float) Math.pow(TileEntityFurnace.getItemBurnTime(stack), 0.75F) / getHeatPerTick(stack));
+        return (int) ((float) Math.pow(getBurnTime(stack), 0.75F) / getHeatPerTick(stack));
     }
 
     private boolean isValidFuel(ItemStack stack) {
-        return !(TileEntityFurnace.getItemBurnTime(stack) <= 0 || getHeatPerTick(stack) <= 0
+        return !(getBurnTime(stack) <= 0 || getHeatPerTick(stack) <= 0
                 || getHeatPerTick(stack) > getMaxHeatPerTick() || getFuelBurnTime(stack) <= 0);
     }
 

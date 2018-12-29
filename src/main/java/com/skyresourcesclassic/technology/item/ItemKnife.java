@@ -4,7 +4,6 @@ import com.google.common.collect.Multimap;
 import com.skyresourcesclassic.ConfigOptions;
 import com.skyresourcesclassic.ItemHelper;
 import com.skyresourcesclassic.RandomHelper;
-import com.skyresourcesclassic.References;
 import com.skyresourcesclassic.recipe.ProcessRecipe;
 import com.skyresourcesclassic.recipe.ProcessRecipeManager;
 import com.skyresourcesclassic.registry.ModItemGroups;
@@ -18,27 +17,24 @@ import net.minecraft.init.Enchantments;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.ItemTier;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+import net.minecraftforge.common.ToolType;
 
 import java.util.Collections;
 
 public class ItemKnife extends Item {
     private float damageVsEntity;
 
-    private ToolMaterial toolMaterial;
+    private ItemTier toolMaterial;
 
-    public ItemKnife(Item.ToolMaterial material, String name) {
-        this.setMaxDamage((int) (material.getMaxUses() * ConfigOptions.knife.knifeBaseDurability));
+    public ItemKnife(ItemTier material, String name) {
+        super(new Item.Builder().group(ModItemGroups.tabMain).maxStackSize(1).setNoRepair().addToolType(ToolType.get("knife"), material.getHarvestLevel()).defaultMaxDamage((int) (material.getMaxUses() * ConfigOptions.knife.knifeBaseDurability)));
         toolMaterial = material;
         this.damageVsEntity = ConfigOptions.knife.knifeBaseDamage + material.getAttackDamage();
-        this.setUnlocalizedName(References.ModID + "." + name);
         setRegistryName(name);
-        this.setMaxStackSize(1);
-        this.setNoRepair();
-        this.setCreativeTab(ModItemGroups.tabMain);
-        this.setHarvestLevel("knife", material.getHarvestLevel());
 
         ItemHelper.addKnife(this);
     }
