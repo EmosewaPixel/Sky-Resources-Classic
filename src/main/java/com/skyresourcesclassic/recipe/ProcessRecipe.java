@@ -115,7 +115,7 @@ public class ProcessRecipe {
             float ratio = -1;
             for (Object o2 : recipe.inputs) {
                 if (o2 instanceof String) {
-                    int[] ids = OreDictionary.getOreIDs((ItemStack) i);
+                    int[] ids = OreDictionary.getO((ItemStack) i);
                     for (int id : ids)
                         if (id == OreDictionary.getOreID(o2.toString()))
                             valid = true;

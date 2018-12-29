@@ -10,8 +10,7 @@
   "type": "forge:ore_shaped",
   "key": {
     "X": {
-      "type": "forge:ore_dict",
-      "ore": "logWood"
+      "tag": "#minecraft:logs"
     },
     "Y": {
       "item": "skyresourcesclassic:wood_heat_component"

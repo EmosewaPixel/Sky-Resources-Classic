@@ -19,9 +19,9 @@ public class TConPlugin implements IModPlugin {
     }
 
     public void init() {
-        Item edible = Item.REGISTRY.getObject(new ResourceLocation("tconstruct", "edible"));
-        Item sapling = Item.REGISTRY.getObject(new ResourceLocation("tconstruct", "slime_sapling"));
-        Block dirt = Block.REGISTRY.getObject(new ResourceLocation("tconstruct", "slime_dirt"));
+        Item edible = Item.REGISTRY.get(new ResourceLocation("tconstruct", "edible"));
+        Item sapling = Item.REGISTRY.get(new ResourceLocation("tconstruct", "slime_sapling"));
+        Block dirt = Block.REGISTRY.get(new ResourceLocation("tconstruct", "slime_dirt"));
 
         ProcessRecipeManager.combustionRecipes.addRecipe(new ItemStack(edible, 1, 1), 350,
                 new ArrayList<Object>(Arrays.asList(new ItemStack(Items.SLIME_BALL), new ItemStack(Items.DYE, 2, 4))));

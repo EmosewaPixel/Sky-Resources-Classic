@@ -33,15 +33,13 @@
   "type": "forge:ore_shaped",
   "key": {
     "X": {
-      "type": "forge:ore_dict",
-      "ore": "ingotIron"
+      "tag": "#forge:ingots/iron"
     },
     "Y": {
       "item": "minecraft:redstone_block"
     },
     "Z": {
-      "type": "forge:ore_dict",
-      "ore": "dustRedstone"
+      "tag": "#forge:dusts/redstone"
     }
   }
 }

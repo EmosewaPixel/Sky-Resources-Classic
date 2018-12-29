@@ -10,8 +10,7 @@
   "type": "forge:ore_shaped",
   "key": {
     "X": {
-      "type": "forge:ore_dict",
-      "ore": "plankWood"
+      "tag": "#minecraft:planks"
     },
     "Y": {
       "item": "minecraft:gunpowder"

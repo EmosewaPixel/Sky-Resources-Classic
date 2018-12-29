@@ -10,12 +10,10 @@
   "type": "forge:ore_shaped",
   "key": {
     "A": {
-      "item": "minecraft:sand",
-      "data": 0
+      "item": "minecraft:sand"
     },
     "X": {
-      "type": "forge:ore_dict",
-      "ore": "ingotIron"
+      "tag": "#forge:ingots/iron"
     },
     "Y": {
       "item": "skyresourcesclassic:steel_power_component"

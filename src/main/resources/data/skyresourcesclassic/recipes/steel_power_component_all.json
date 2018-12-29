@@ -10,16 +10,13 @@
   "type": "forge:ore_shaped",
   "key": {
     "X": {
-      "type": "forge:ore_dict",
-      "ore": "ingotSteel"
+      "tag": "#forge:ingots/steel"
     },
     "Y": {
-      "type": "forge:ore_dict",
-      "ore": "circuitBasic"
+      "tag": "#forge:circuits/basic"
     },
     "Z": {
-      "type": "forge:ore_dict",
-      "ore": "dustCoal"
+      "tag": "#forge:dusts/coal"
     }
   }
 }

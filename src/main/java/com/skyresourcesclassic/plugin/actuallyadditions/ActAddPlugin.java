@@ -14,11 +14,11 @@ public class ActAddPlugin implements IModPlugin {
     }
 
     public void init() {
-        Item canola = Item.REGISTRY.getObject(new ResourceLocation("actuallyadditions", "item_canola_seed"));
-        Item coffee = Item.REGISTRY.getObject(new ResourceLocation("actuallyadditions", "item_coffee_seed"));
-        Item flax = Item.REGISTRY.getObject(new ResourceLocation("actuallyadditions", "item_flax_seed"));
-        Item rice = Item.REGISTRY.getObject(new ResourceLocation("actuallyadditions", "item_rice_seed"));
-        Item misc = Item.REGISTRY.getObject(new ResourceLocation("actuallyadditions", "item_misc"));
+        Item canola = Item.REGISTRY.get(new ResourceLocation("actuallyadditions", "item_canola_seed"));
+        Item coffee = Item.REGISTRY.get(new ResourceLocation("actuallyadditions", "item_coffee_seed"));
+        Item flax = Item.REGISTRY.get(new ResourceLocation("actuallyadditions", "item_flax_seed"));
+        Item rice = Item.REGISTRY.get(new ResourceLocation("actuallyadditions", "item_rice_seed"));
+        Item misc = Item.REGISTRY.get(new ResourceLocation("actuallyadditions", "item_misc"));
 
         MinecraftForge.addGrassSeed(new ItemStack(canola), 10);
         MinecraftForge.addGrassSeed(new ItemStack(coffee), 10);

@@ -19,8 +19,8 @@ public class IntegratedDynamicsPlugin implements IModPlugin {
     }
 
     public void init() {
-        Item berries = Item.REGISTRY.getObject(new ResourceLocation("integrateddynamics", "menril_berries"));
-        Item sapling = Item.REGISTRY.getObject(new ResourceLocation("integrateddynamics", "menril_sapling"));
+        Item berries = Item.REGISTRY.get(new ResourceLocation("integrateddynamics", "menril_berries"));
+        Item sapling = Item.REGISTRY.get(new ResourceLocation("integrateddynamics", "menril_sapling"));
 
         ProcessRecipeManager.infusionRecipes.addRecipe(new ItemStack(berries, 1), 12,
                 new ArrayList<Object>(Arrays.asList(new ItemStack(Items.DYE, 4, 12), new ItemStack(Blocks.RED_MUSHROOM))));

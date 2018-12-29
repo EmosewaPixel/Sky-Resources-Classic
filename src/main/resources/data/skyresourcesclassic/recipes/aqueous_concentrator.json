@@ -13,8 +13,7 @@
       "item": "minecraft:snow"
     },
     "X": {
-      "type": "forge:ore_dict",
-      "ore": "ingotIron"
+      "tag": "#forge:ingots/iron"
     },
     "Y": {
       "item": "skyresourcesclassic:steel_power_component"

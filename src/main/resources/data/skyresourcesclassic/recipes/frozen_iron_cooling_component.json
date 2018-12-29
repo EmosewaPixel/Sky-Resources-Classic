@@ -10,8 +10,7 @@
   "type": "forge:ore_shaped",
   "key": {
     "X": {
-      "type": "forge:ore_dict",
-      "ore": "ingotFrozenIron"
+      "tag": "#forge:ingots/frozen_iron"
     },
     "Y": {
       "item": "minecraft:glowstone_dust"

@@ -1,12 +1,10 @@
 {
   "result": {
-    "item": "minecraft:sapling",
-    "data": 1
+    "item": "minecraft:spruce_sapling"
   },
   "ingredients": [
     {
-      "item": "minecraft:dirt",
-      "data": 32767
+      "tag": "forge:blocks/dirt"
     },
     {
       "item": "minecraft:pumpkin_seeds"
@@ -15,8 +13,7 @@
       "item": "minecraft:pumpkin_seeds"
     },
     {
-      "item": "minecraft:dye",
-      "data": 15
+      "item": "minecraft:bone_meal"
     }
   ],
   "type": "minecraft:crafting_shapeless"

@@ -15,7 +15,6 @@ import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraftforge.registries.GameData;
 
 import java.util.ArrayList;
@@ -69,7 +68,7 @@ public class ModBlocks {
 
         crystalFluidBlocks = new ArrayList<>();
         cactusFruitNeedle = registerBlock(new TransparentBlock(Material.PLANTS, "cactus_fruit_needle",
-                0.5F, 0.5F, new AxisAlignedBB(0.3D, 0D, 0.3D, 0.7D, 0.8D, 0.7D), SoundType.PLANT));
+                0.5F, 0.5F, Block.makeCuboidShape(0.3D, 0D, 0.3D, 0.7D, 0.8D, 0.7D), SoundType.PLANT));
 
         compressedCoalBlock = registerBlock(
                 new BaseBlock(Material.ROCK, "compressed_coal_block", 6F, 6F, SoundType.STONE));

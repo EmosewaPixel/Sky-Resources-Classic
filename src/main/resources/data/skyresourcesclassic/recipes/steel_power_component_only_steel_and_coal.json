@@ -4,18 +4,18 @@
       "type": "forge:not",
       "value": {
         "type": "ore_condition",
-        "ore": "ingotSteel"
+        "tag": "#forge:ingots/steel"
       }
     },
     {
-        "type": "ore_condition",
-        "ore": "circuitBasic"
+      "type": "ore_condition",
+      "tag": "#forge:circuits/basic"
     },
     {
       "type": "forge:not",
       "value": {
         "type": "ore_condition",
-        "ore": "dustCoal"
+        "tag": "#forge:dusts/coal"
       }
     }
   ],
@@ -30,15 +30,13 @@
   "type": "forge:ore_shaped",
   "key": {
     "X": {
-      "type": "forge:ore_dict",
-      "ore": "ingotSteel"
+      "tag": "#forge:ingots/steel"
     },
     "Y": {
       "item": "minecraft:redstone_block"
     },
     "Z": {
-      "type": "forge:ore_dict",
-      "ore": "dustCoal"
+      "tag": "#forge:dusts/coal"
     }
   }
 }

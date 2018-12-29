@@ -10,8 +10,7 @@
   "type": "forge:ore_shaped",
   "key": {
     "X": {
-      "type": "forge:ore_dict",
-      "ore": "ingotSteel"
+      "tag": "#forge:ingots/steel"
     },
     "Y": {
       "item": "skyresourcesclassic:frozen_iron_cooling_component"

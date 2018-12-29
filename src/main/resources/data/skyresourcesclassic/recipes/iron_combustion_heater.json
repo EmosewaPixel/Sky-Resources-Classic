@@ -10,8 +10,7 @@
   "type": "forge:ore_shaped",
   "key": {
     "X": {
-      "type": "forge:ore_dict",
-      "ore": "ingotIron"
+      "tag": "#forge:ingots/iron"
     },
     "Y": {
       "item": "skyresourcesclassic:iron_heat_component"

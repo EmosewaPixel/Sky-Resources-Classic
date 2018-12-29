@@ -13,8 +13,7 @@
       "item": "minecraft:coal_block"
     },
     "Y": {
-      "item": "minecraft:coal",
-      "data": 0
+      "item": "minecraft:coal"
     }
   }
 }

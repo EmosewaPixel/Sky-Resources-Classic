@@ -37,7 +37,6 @@ public class CommonProxy {
         NetworkRegistry.INSTANCE.registerGuiHandler(SkyResourcesClassic.instance, new ModGuiHandler());
         ModEntities.init();
         ModCrafting.init();
-        ModCrafting.initOreDict();
 
         ModPlugins.init();
     }
