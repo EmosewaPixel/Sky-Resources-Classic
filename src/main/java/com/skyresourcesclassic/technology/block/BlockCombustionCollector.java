@@ -18,7 +18,6 @@ import net.minecraft.world.IBlockReader;
 import net.minecraft.world.World;
 
 public class BlockCombustionCollector extends BlockContainer {
-
     public BlockCombustionCollector(String name, float hardness, float resistance) {
         super(Block.Builder.create(Material.IRON).hardnessAndResistance(hardness, resistance));
         this.setRegistryName(name);
@@ -43,7 +42,7 @@ public class BlockCombustionCollector extends BlockContainer {
     }
 
     @Override
-    public boolean onBlockActivated(World world, BlockPos pos, IBlockState state, EntityPlayer player, EnumHand hand,
+    public boolean onBlockActivated(IBlockState state, World world, BlockPos pos, EntityPlayer player, EnumHand hand,
                                     EnumFacing side, float hitX, float hitY, float hitZ) {
         if (!world.isRemote) {
             player.openGui(SkyResourcesClassic.instance, ModGuiHandler.CombustionCollectorGUI, world, pos.getX(), pos.getY(),

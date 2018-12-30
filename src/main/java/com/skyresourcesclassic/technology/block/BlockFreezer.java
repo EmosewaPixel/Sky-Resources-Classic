@@ -10,6 +10,7 @@ import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.BlockItemUseContext;
 import net.minecraft.item.ItemStack;
 import net.minecraft.state.DirectionProperty;
 import net.minecraft.state.EnumProperty;
@@ -38,10 +39,6 @@ public class BlockFreezer extends BlockContainer {
         return EnumBlockRenderType.MODEL;
     }
 
-    public boolean isOpaqueCube(IBlockState state) {
-        return false;
-    }
-
     public boolean isFullCube(IBlockState state) {
         return false;
     }
@@ -51,9 +48,6 @@ public class BlockFreezer extends BlockContainer {
         return new FreezerTile();
     }
 
-    public boolean isSideSolid(IBlockState base_state, IBlockAccess world, BlockPos pos, EnumFacing side) {
-        return false;
-    }
 
     @Override
     public int damageDropped(IBlockState blockstate) {
@@ -68,7 +62,7 @@ public class BlockFreezer extends BlockContainer {
     }
 
     @Override
-    public boolean onBlockActivated(World world, BlockPos pos, IBlockState state, EntityPlayer player, EnumHand hand,
+    public boolean onBlockActivated(IBlockState state, World world, BlockPos pos, EntityPlayer player, EnumHand hand,
                                     EnumFacing side, float hitX, float hitY, float hitZ) {
         if (!world.isRemote) {
             BlockPos bottomPos = state.getProperties().get(PART) == EnumPartType.BOTTOM ? pos : pos.down();
@@ -78,8 +72,8 @@ public class BlockFreezer extends BlockContainer {
         return true;
     }
 
-    public void onBlockAdded(World worldIn, BlockPos pos, IBlockState state) {
-        super.onBlockAdded(state, worldIn, pos);
+    public void onBlockAdded(IBlockState state, World worldIn, BlockPos pos, IBlockState oldState) {
+        super.onBlockAdded(state, worldIn, pos, oldState);
         this.setDefaultFacing(worldIn, pos, state);
     }
 
@@ -105,10 +99,9 @@ public class BlockFreezer extends BlockContainer {
         }
     }
 
-    public IBlockState getStateForPlacement(World worldIn, BlockPos pos, EnumFacing facing, float hitX, float hitY,
-                                            float hitZ, int meta, EntityLivingBase placer) {
-        super.getStateForPlacement(worldIn, pos, facing, hitX, hitY, hitZ, meta, placer);
-        return this.getDefaultState().with(FACING, placer.getHorizontalFacing().getOpposite())
+    public IBlockState getStateForPlacement(BlockItemUseContext context) {
+        super.getStateForPlacement(context);
+        return this.getDefaultState().with(FACING, context.getPlacementHorizontalFacing().getOpposite())
                 .with(PART, EnumPartType.BOTTOM);
     }
 
@@ -128,8 +121,8 @@ public class BlockFreezer extends BlockContainer {
         return state.rotate(mirrorIn.toRotation((EnumFacing) state.get(FACING)));
     }
 
-    protected BlockStateContainer createBlockState() {
-        return new BlockStateContainer(this, new IProperty[]{FACING, PART});
+    protected void fillStateContainer(net.minecraft.state.StateContainer.Builder<Block, IBlockState> builder) {
+        builder.add(new IProperty[]{FACING, PART});
     }
 
     public enum EnumPartType implements IStringSerializable {

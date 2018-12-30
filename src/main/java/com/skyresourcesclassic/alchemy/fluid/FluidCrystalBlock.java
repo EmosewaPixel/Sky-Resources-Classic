@@ -50,11 +50,6 @@ public class FluidCrystalBlock extends BlockFluidClassic {
     }
 
     @Override
-    public Item getItemDropped(IBlockState state, Random rand, int fortune) {
-        return null;
-    }
-
-    @Override
     public AxisAlignedBB getSelectedBoundingBox(IBlockState blockState, World worldIn, BlockPos pos) {
         return NULL_AABB;
     }

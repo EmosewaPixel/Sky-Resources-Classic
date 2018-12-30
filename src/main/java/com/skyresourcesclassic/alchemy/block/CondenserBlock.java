@@ -1,23 +1,17 @@
 package com.skyresourcesclassic.alchemy.block;
 
-import com.skyresourcesclassic.References;
 import com.skyresourcesclassic.alchemy.tile.CondenserTile;
-import com.skyresourcesclassic.registry.ModItemGroups;
+import net.minecraft.block.Block;
 import net.minecraft.block.BlockContainer;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumBlockRenderType;
 import net.minecraft.world.IBlockReader;
-import net.minecraft.world.World;
 
 public class CondenserBlock extends BlockContainer {
     public CondenserBlock(String material, float hardness, float resistance, int tier) {
-        super(Material.ROCK);
-        this.setUnlocalizedName(References.ModID + "." + material + "_condenser");
-        this.setCreativeTab(ModItemGroups.tabAlchemy);
-        this.setHardness(hardness);
-        this.setResistance(resistance);
+        super(Block.Builder.create(Material.ROCK).hardnessAndResistance(hardness, resistance));
         this.setRegistryName(material + "_condenser");
         this.tier = tier;
     }

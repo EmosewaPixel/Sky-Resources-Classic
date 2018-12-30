@@ -46,7 +46,7 @@ public class BlockQuickDropper extends BlockContainer {
     }
 
     @Override
-    public boolean onBlockActivated(World world, BlockPos pos, IBlockState state, EntityPlayer player, EnumHand hand,
+    public boolean onBlockActivated(IBlockState state, World world, BlockPos pos, EntityPlayer player, EnumHand hand,
                                     EnumFacing side, float hitX, float hitY, float hitZ) {
         if (!world.isRemote) {
             player.openGui(SkyResourcesClassic.instance, ModGuiHandler.QuickDropperGUI, world, pos.getX(), pos.getY(),

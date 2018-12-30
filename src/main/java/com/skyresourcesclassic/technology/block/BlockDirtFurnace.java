@@ -15,6 +15,7 @@ import net.minecraft.init.Particles;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.inventory.Container;
 import net.minecraft.inventory.InventoryHelper;
+import net.minecraft.item.BlockItemUseContext;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.state.BooleanProperty;
@@ -25,7 +26,6 @@ import net.minecraft.util.*;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.World;
-import net.minecraft.world.chunk.BlockStateContainer;
 
 import javax.annotation.Nullable;
 import java.util.Random;
@@ -45,11 +45,11 @@ public class BlockDirtFurnace extends BlockContainer {
      * Get the Item that this Block should drop when harvested.
      */
     @Nullable
-    public Item getItemDropped(IBlockState state, Random rand, int fortune) {
+    public Item getItemDropped(IBlockState state, World worldIn, BlockPos pos, int fortune) {
         return Item.getItemFromBlock(ModBlocks.dirtFurnace);
     }
 
-    public void onBlockAdded(World worldIn, BlockPos pos, IBlockState state) {
+    public void onBlockAdded(IBlockState state, World worldIn, BlockPos pos, IBlockState oldState) {
         this.setDefaultFacing(worldIn, pos, state);
     }
 
@@ -112,7 +112,7 @@ public class BlockDirtFurnace extends BlockContainer {
     }
 
     @Override
-    public boolean onBlockActivated(World world, BlockPos pos, IBlockState state, EntityPlayer player, EnumHand hand,
+    public boolean onBlockActivated(IBlockState state, World world, BlockPos pos, EntityPlayer player, EnumHand hand,
                                     EnumFacing side, float hitX, float hitY, float hitZ) {
         if (!world.isRemote) {
             player.openGui(SkyResourcesClassic.instance, ModGuiHandler.FurnaceGUI, world, pos.getX(), pos.getY(), pos.getZ());
@@ -132,9 +132,8 @@ public class BlockDirtFurnace extends BlockContainer {
      * Called by ItemBlocks just before a block is actually set in the world, to
      * allow for adjustments to the IBlockstate
      */
-    public IBlockState getStateForPlacement(World worldIn, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ,
-                                            int meta, EntityLivingBase placer) {
-        return this.getDefaultState().with(FACING, placer.getHorizontalFacing().getOpposite())
+    public IBlockState getStateForPlacement(BlockItemUseContext context) {
+        return this.getDefaultState().with(FACING, context.getPlacementHorizontalFacing().getOpposite())
                 .with(BURNING, false);
     }
 
@@ -191,7 +190,7 @@ public class BlockDirtFurnace extends BlockContainer {
         return state.rotate(mirrorIn.toRotation((EnumFacing) state.get(FACING)));
     }
 
-    protected BlockStateContainer createBlockState() {
-        return new BlockStateContainer(this, new IProperty[]{FACING, BURNING});
+    protected void fillStateContainer(net.minecraft.state.StateContainer.Builder<Block, IBlockState> builder) {
+        builder.add(new IProperty[]{FACING});
     }
 }

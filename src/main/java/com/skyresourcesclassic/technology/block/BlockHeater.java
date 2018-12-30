@@ -63,11 +63,6 @@ public class BlockHeater extends BlockContainer {
     }
 
     @Override
-    public boolean isOpaqueCube(IBlockState state) {
-        return false;
-    }
-
-    @Override
     public void harvestBlock(World world, EntityPlayer player, BlockPos pos, IBlockState state, TileEntity tileEntity, ItemStack stack) {
         if (tier < 3) {
             TileHeater te = (TileHeater) world.getTileEntity(pos);
@@ -78,7 +73,7 @@ public class BlockHeater extends BlockContainer {
     }
 
     @Override
-    public boolean onBlockActivated(World world, BlockPos pos, IBlockState state,
+    public boolean onBlockActivated(IBlockState state, World world, BlockPos pos,
                                     EntityPlayer player, EnumHand hand, EnumFacing side, float hitX,
                                     float hitY, float hitZ) {
         if (!world.isRemote) {
@@ -104,8 +99,7 @@ public class BlockHeater extends BlockContainer {
         return true;
     }
 
-    protected BlockStateContainer createBlockState() {
-        return new BlockStateContainer(this, new IProperty[]
-                {RUNNING});
+    protected void fillStateContainer(net.minecraft.state.StateContainer.Builder<Block, IBlockState> builder) {
+        builder.add(new IProperty[]{RUNNING});
     }
 }
