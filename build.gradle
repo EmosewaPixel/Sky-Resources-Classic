@@ -28,27 +28,19 @@ compileJava {
 
 minecraft {
     mappings channel: 'snapshot', version: '20180921-1.13'
-    runConfig {
-        name= "Minecraft Client"
-        main= "net.minecraftforge.userdev.UserdevLauncher"
-        ideaModuleName = "${project.name}_main"
-        workingDirectory = project.file("run").canonicalPath
-        environment "target", "fmldevclient"
-        environment "assetDirectory", downloadAssets.output.absolutePath
-    }
-
-    runConfig {
-        name= "Minecraft Server"
-        main= "net.minecraftforge.userdev.UserdevLauncher"
-        ideaModuleName = "${project.name}_main"
-        workingDirectory = project.file("run").canonicalPath
-        environment "target", "fmldevserver"
-        environment "assetDirectory", downloadAssets.output.absolutePath
+    runs {
+        client = {
+            workingDirectory project.file('run').canonicalPath
+            source sourceSets.main
+        }
+        server = {
+            workingDirectory project.file('run').canonicalPath
+        }
     }
 }
 
 dependencies {
-    minecraft 'net.minecraftforge.test:forge:1.13-24.0.47-1.13-pre'
+    minecraft 'net.minecraftforge.test:forge:1.13-24.0.150-1.13-pre'
 }
 
 processResources {

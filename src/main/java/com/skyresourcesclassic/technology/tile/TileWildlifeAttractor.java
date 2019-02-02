@@ -1,6 +1,5 @@
 package com.skyresourcesclassic.technology.tile;
 
-import com.skyresourcesclassic.ConfigOptions;
 import com.skyresourcesclassic.base.tile.TileGenericPower;
 import com.skyresourcesclassic.registry.ModItems;
 import net.minecraft.entity.EntityList;
@@ -58,10 +57,14 @@ public class TileWildlifeAttractor extends TileGenericPower implements ITickable
         return matterLeft;
     }
 
+    private EntityLiving[] wildlifeAttractorAnimalIDs = {"minecraft:sheep", "minecraft:cow",
+            "minecraft:chicken", "minecraft:pig", "minecraft:rabbit", "minecraft:squid", "minecraft:horse",
+            "minecraft:parrot"};
+
     private void spawnRandomAnimal() {
         if (world.rand.nextInt(600) == 0) {
-            String randomID = ConfigOptions.wildLifeAttractor.wildlifeAttractorAnimalIDs[world.rand
-                    .nextInt(ConfigOptions.wildLifeAttractor.wildlifeAttractorAnimalIDs.length)];
+            String randomID = wildlifeAttractorAnimalIDs[world.rand
+                    .nextInt(wildlifeAttractorAnimalIDs.length)];
             EntityLiving e = (EntityLiving) EntityList.createEntityByIDFromName(new ResourceLocation(randomID), world);
             e.setLocationAndAngles(pos.getX() + 0.5f, pos.getY() + 1f, pos.getZ() + 0.5f,
                     world.rand.nextFloat() * 360.0F, 0.0F);
@@ -72,8 +75,8 @@ public class TileWildlifeAttractor extends TileGenericPower implements ITickable
             if (canSpawn == Event.Result.ALLOW
                     || (canSpawn == Event.Result.DEFAULT && isNotColliding)) {
                 if (!net.minecraftforge.event.ForgeEventFactory.doSpecialSpawn(e, world, pos.getX() + 0.5f,
-                        pos.getY() + 1f, pos.getZ() + 0.5f))
-                    e.onInitialSpawn(world.getDifficultyForLocation(new BlockPos(e)), null);
+                        pos.getY() + 1f, pos.getZ() + 0.5f, null))
+                    e.onInitialSpawn(world.getDifficultyForLocation(new BlockPos(e)), null, null);
 
                 if (e.isNotColliding()) {
                     world.spawnEntity(e);
@@ -81,7 +84,6 @@ public class TileWildlifeAttractor extends TileGenericPower implements ITickable
                     e.remove();
                 }
             }
-
         }
     }
 

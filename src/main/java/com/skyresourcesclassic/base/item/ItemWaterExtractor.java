@@ -21,6 +21,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.util.text.ITextComponent;
+import net.minecraft.util.text.TextComponentString;
 import net.minecraft.world.World;
 import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fluids.FluidStack;
@@ -227,9 +228,9 @@ public class ItemWaterExtractor extends Item implements IFluidHandler {
 
     public void addInformation(ItemStack stack, @Nullable World worldIn, List<ITextComponent> tooltip, ITooltipFlag flagIn) {
         if (stack.getTag() != null) {
-            tooltip.add("Water: " + stack.getTag().getInt("amount") + " mB");
+            tooltip.add(new TextComponentString("Water: " + stack.getTag().getInt("amount") + " mB"));
         } else
-            tooltip.add("Water: 0 mB");
+            tooltip.add(new TextComponentString("Water: 0 mB"));
     }
 
     public int getMaxAmount() {

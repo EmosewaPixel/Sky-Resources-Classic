@@ -164,7 +164,7 @@ public class TileRockCrusher extends TileGenericPower implements ITickable {
             if (!item.isEmpty()) {
                 NBTTagCompound itemTag = new NBTTagCompound();
                 item.write(itemTag);
-                nbtTagList.appendTag(itemTag);
+                nbtTagList.add(itemTag);
             }
         }
         NBTTagCompound nbt = new NBTTagCompound();
@@ -175,7 +175,7 @@ public class TileRockCrusher extends TileGenericPower implements ITickable {
     private void bufferListRead(NBTTagCompound nbt) {
         NBTTagList tagList = nbt.getList("Items", Constants.NBT.TAG_COMPOUND);
         for (int i = 0; i < tagList.size(); i++) {
-            NBTTagCompound itemTags = tagList.getTagAt(i);
+            NBTTagCompound itemTags = (NBTTagCompound) tagList.getTag(i);
             bufferStacks.add(new ItemStack(itemTags));
         }
     }

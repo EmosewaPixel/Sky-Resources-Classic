@@ -1,145 +1,175 @@
 package com.skyresourcesclassic;
 
-import net.minecraftforge.common.config.Config;
+import net.minecraftforge.common.ForgeConfigSpec;
 
-@Config(modid = References.ModID)
 public class ConfigOptions {
-    @Config.Comment("The general config options for Sky Resources Classic")
-    public static general general = new general();
+    private static final ForgeConfigSpec.Builder CLIENT_BUILDER = new ForgeConfigSpec.Builder();
+    private static final ForgeConfigSpec.Builder SERVER_BUILDER = new ForgeConfigSpec.Builder();
 
+    public static final general general = new general(SERVER_BUILDER);
+    public static final health health = new health(SERVER_BUILDER);
+    public static final condenser condenser = new condenser(SERVER_BUILDER);
+    public static final knife knife = new knife(SERVER_BUILDER);
+    public static final combustion combustion = new combustion(SERVER_BUILDER);
+    public static final crucible crucible = new crucible(SERVER_BUILDER);
+    public static fluidDropper fluidDropper = new fluidDropper(SERVER_BUILDER);
+    public static guide guide = new guide(CLIENT_BUILDER);
+    public static rockGrinder rockGrinder = new rockGrinder(SERVER_BUILDER);
 
-    @Config.Comment("The general config options for the Health Gem")
-    public static health health = new health();
+    public static class general {
+        public final ForgeConfigSpec.BooleanValue endWussMode;
+        public final ForgeConfigSpec.IntValue draconiumType;
+        public final ForgeConfigSpec.BooleanValue allowAllGemTypes;
+        public final ForgeConfigSpec.BooleanValue meltableBlazeBlocks;
 
-    @Config.Comment("Config options for the Condenser")
-    public static condenser condenser = new condenser();
+        general(ForgeConfigSpec.Builder builder) {
+            builder.comment("The general config options for Sky Resources Classic").push("General");
 
-    @Config.Comment("Config options for the Knives")
-    public static knife knife = new knife();
+            endWussMode = builder
+                    .comment("Makes the end portal less dangerous")
+                    .translation("End Portal Wuss Mode")
+                    .define("endWussMode", false);
 
-    @Config.Comment("Config options for the Combustion Chamber")
-    public static combustion combustion = new combustion();
+            draconiumType = builder
+                    .comment("0=overworld, 1=nether")
+                    .translation("Draconium Crystal Type")
+                    .defineInRange("draconiumType", 1, 1, Integer.MAX_VALUE);
 
-    @Config.Comment("Config options for the Crucible")
-    public static crucible crucible = new crucible();
+            allowAllGemTypes = builder
+                    .comment("Allows all dirty gem types to be obtainable")
+                    .translation("All Dirty Gem Types")
+                    .define("allowAllGemTypes", false);
 
-    @Config.Comment("Config options for the Fluid Dropper")
-    public static fluidDropper fluidDropper = new fluidDropper();
-
-    @Config.Comment("Config options for the guide")
-    public static guide guide = new guide();
-
-    @Config.Comment("Config options for the Rock Grinders")
-    public static rockGrinder rockGrinder = new rockGrinder();
-
-
-    @Config.Comment("Config options for the Rock Grinders")
-    public static wildLifeAttractor wildLifeAttractor = new wildLifeAttractor();
-
-    public static class general
-
-    {
-        @Config.Comment("Makes the end portal less dangerous")
-        @Config.Name("End Portal Wuss Mode")
-        public boolean endWussMode = false;
-
-        @Config.Comment("0=overworld, 1=nether")
-        @Config.Name("Draconium Crystal Type")
-        public int draconiumType = 1;
-
-        @Config.Comment("Allows all dirty gem types to be obtainable")
-        @Config.Name("All Dirty Gem Types")
-        public boolean allowAllGemTypes = false;
-
-        @Config.Name("Should Blaze Blocks be meltable in-world?")
-        public boolean meltableBlazeBlocks = true;
+            meltableBlazeBlocks = builder
+                    .translation("Should Blaze Blocks be meltable in-world?")
+                    .define("meltableBlazeBlocks", true);
+        }
     }
 
-    public static class health
+    public static class health {
+        public final ForgeConfigSpec.IntValue healthGemMaxHealth;
+        public final ForgeConfigSpec.DoubleValue healthGemPercentage;
 
-    {
+        health(ForgeConfigSpec.Builder builder) {
+            builder.comment("The general config options for the Health Gem").push("Health");
 
-        @Config.Comment("Max health the Health Gem can store")
-        @Config.Name("Health Gem Max Health Infusion")
-        public int healthGemMaxHealth = 100;
+            healthGemMaxHealth = builder
+                    .comment("Max health the Health Gem can store")
+                    .translation("Health Gem Max Health Infusion")
+                    .defineInRange("healthGemMaxHealth", 100, 0, Integer.MAX_VALUE);
 
-        @Config.Comment("Percentage (min 0) of health stored to boost player health")
-        @Config.Name("Health Gem Boost Percentage")
-        public float healthGemPercentage = (float) 0.02;
+            healthGemPercentage = builder
+                    .comment("Percentage (min 0) of health stored to boost player health")
+                    .translation("Health Gem Boost Percentage")
+                    .defineInRange("healthGemPercentage", 0.02, 0, (double) Float.MAX_VALUE);
+        }
     }
 
-    public static class condenser
+    public static class condenser {
+        public final ForgeConfigSpec.IntValue condenserProcessTimeBase;
 
-    {
-        @Config.Comment("Base time for condensers to process")
-        @Config.Name("Condenser Base Process Time")
-        public int condenserProcessTimeBase = 250;
+        condenser(ForgeConfigSpec.Builder builder) {
+            builder.comment("Config options for the Condenser").push("condenser");
+
+            condenserProcessTimeBase = builder
+                    .comment("Base time for condensers to process")
+                    .translation("Condenser Base Process Time")
+                    .defineInRange("condenserProcessTimeBase", 250, 0, Integer.MAX_VALUE);
+        }
     }
 
-    public static class knife
+    public static class knife {
+        public final ForgeConfigSpec.DoubleValue knifeBaseDamage;
+        public final ForgeConfigSpec.DoubleValue knifeBaseDurability;
 
-    {
-        @Config.Name("Knife Base Damage")
-        public float knifeBaseDamage = (float) 1.5;
+        knife(ForgeConfigSpec.Builder builder) {
+            builder.comment("Config options for the Knives").push("knife");
 
-        @Config.Name("Knife Base Durability")
-        public float knifeBaseDurability = (float) 0.8;
+            knifeBaseDamage = builder
+                    .translation("Knife Base Damage")
+                    .defineInRange("knifeBaseDamage", 1.5, 0, Float.MAX_VALUE);
 
-    }
-
-
-    public static class crucible
-
-    {
-        @Config.Name("Crucible Capacity")
-        public int crucibleCapacity = 4000;
-    }
-
-
-    public static class combustion
-
-    {
-
-        @Config.Comment("Amount of heat from fuel gained")
-        @Config.Name("Combustion Fuel Heat Multiplier")
-        public float combustionHeatMultiplier = (float) 0.5;
+            knifeBaseDurability = builder
+                    .translation("Knife Base Durability")
+                    .defineInRange("knifeBaseDurability", 0.8, 0.1, Float.MAX_VALUE);
+        }
     }
 
 
-    public static class fluidDropper
+    public static class crucible {
+        public final ForgeConfigSpec.IntValue crucibleCapacity;
 
-    {
-        @Config.Name("Fluid Dropper Capacity")
-        public int fluidDropperCapacity = 1000;
+        crucible(ForgeConfigSpec.Builder builder) {
+            builder.comment("Config options for the Crucible").push("crucible");
 
+            crucibleCapacity = builder
+                    .translation("Crucible Capacity")
+                    .defineInRange("crucibleCapacity", 4000, 1, Integer.MAX_VALUE);
+        }
     }
 
-    public static class guide
 
-    {
+    public static class combustion {
+        public final ForgeConfigSpec.DoubleValue combustionHeatMultiplier;
 
-        @Config.Name("Remember Current Guide Page")
-        public boolean rememberGuide = true;
+        combustion(ForgeConfigSpec.Builder builder) {
+            builder.comment("Config options for the Combustion Chamber").push("combustion");
 
-        @Config.Name("Allow guide to be opened")
-        public boolean allowGuide = true;
-
+            combustionHeatMultiplier = builder
+                    .comment("Amount of heat from fuel gained")
+                    .translation("Combustion Fuel Heat Multiplier")
+                    .defineInRange("combustionHeatMultiplier", 0.5, 0, Float.MAX_VALUE);
+        }
     }
 
-    public static class rockGrinder
 
-    {
-        @Config.Name("Rock Grinder Base Damage")
-        public float rockGrinderBaseDamage = (float) 2.5;
+    public static class fluidDropper {
+        public final ForgeConfigSpec.IntValue fluidDropperCapacity;
 
-        @Config.Name("Rock Grinder Base Durability")
-        public float rockGrinderBaseDurability = (float) 0.8;
+        fluidDropper(ForgeConfigSpec.Builder builder) {
+            builder.comment("Config options for the Fluid Dropper").push("fluidDropper");
+
+            fluidDropperCapacity = builder
+                    .translation("Fluid Dropper Capacity")
+                    .defineInRange("fluidDropperCapacity", 1000, 1, Integer.MAX_VALUE);
+        }
     }
 
-    public static class wildLifeAttractor {
-        @Config.Comment("Wildlife Attractor Animal Ids")
-        public String[] wildlifeAttractorAnimalIDs = new String[] { "minecraft:sheep", "minecraft:cow",
-                "minecraft:chicken", "minecraft:pig", "minecraft:rabbit", "minecraft:squid", "minecraft:horse",
-                "minecraft:parrot" };
+    public static class guide {
+        public final ForgeConfigSpec.BooleanValue rememberGuide;
+        public final ForgeConfigSpec.BooleanValue allowGuide;
+
+        guide(ForgeConfigSpec.Builder builder) {
+            builder.comment("Config options for the guide").push("guide");
+
+            rememberGuide = builder
+                    .translation("Remember Current Guide Page")
+                    .define("rememberGuide", true);
+
+            allowGuide = builder
+                    .translation("Allow guide to be opened")
+                    .define("allowGuide", true);
+        }
     }
+
+    public static class rockGrinder {
+        public final ForgeConfigSpec.DoubleValue rockGrinderBaseDamage;
+        public final ForgeConfigSpec.DoubleValue rockGrinderBaseDurability;
+
+        rockGrinder(ForgeConfigSpec.Builder builder) {
+            builder.comment("Config options for the Rock Grinders").push("rockGrinder");
+
+            rockGrinderBaseDamage = builder
+                    .translation("Rock Grinder Base Damage")
+                    .defineInRange("rockGrinderBaseDamage", 2.5, 0, Float.MAX_VALUE);
+
+            rockGrinderBaseDurability = builder
+                    .translation("Rock Grinder Base Durability")
+                    .defineInRange("rockGrinderBaseDurability", 0.8, 0, Float.MAX_VALUE);
+        }
+    }
+
+    public static final ForgeConfigSpec client_spec = CLIENT_BUILDER.build();
+    public static final ForgeConfigSpec server_spec = SERVER_BUILDER.build();
+
 }

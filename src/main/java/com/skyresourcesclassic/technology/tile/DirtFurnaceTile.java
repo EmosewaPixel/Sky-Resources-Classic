@@ -1,35 +1,36 @@
 package com.skyresourcesclassic.technology.tile;
 
-import com.skyresourcesclassic.technology.block.BlockDirtFurnace;
-import net.minecraft.block.Block;
-import net.minecraft.block.material.Material;
+import com.google.common.collect.Lists;
+import com.google.common.collect.Maps;
+import net.minecraft.block.BlockFurnace;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.EntityPlayerMP;
+import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
-import net.minecraft.inventory.IInventory;
-import net.minecraft.inventory.ISidedInventory;
-import net.minecraft.inventory.ItemStackHelper;
-import net.minecraft.inventory.SlotFurnaceFuel;
-import net.minecraft.item.*;
-import net.minecraft.item.crafting.FurnaceRecipes;
+import net.minecraft.inventory.*;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
+import net.minecraft.item.crafting.FurnaceRecipe;
+import net.minecraft.item.crafting.IRecipe;
+import net.minecraft.item.crafting.RecipeItemHelper;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.nbt.NBTTagList;
+import net.minecraft.tags.ItemTags;
+import net.minecraft.tags.Tag;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.EnumFacing;
-import net.minecraft.util.ITickable;
-import net.minecraft.util.NonNullList;
-import net.minecraft.util.math.BlockPos;
+import net.minecraft.tileentity.TileEntityType;
+import net.minecraft.util.*;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TextComponentTranslation;
 import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
 
 import javax.annotation.Nullable;
+import java.util.List;
+import java.util.Map;
 
 public class DirtFurnaceTile extends TileEntity implements ITickable, ISidedInventory {
     private static final int[] SLOTS_TOP = new int[]{0};
@@ -44,13 +45,82 @@ public class DirtFurnaceTile extends TileEntity implements ITickable, ISidedInve
      */
     private int furnaceBurnTime;
     /**
-     * The number of ticks that a fresh copy of the currently-burning item would
-     * keep the furnace burning for
+     * The number of ticks that a fresh copy of the currently-burning item would keep the furnace burning for
      */
     private int currentItemBurnTime;
     private int cookTime;
     private int totalCookTime;
-    private String furnaceCustomName;
+    private ITextComponent furnaceCustomName;
+    private final Map<ResourceLocation, Integer> recipeUseCounts = Maps.<ResourceLocation, Integer>newHashMap();
+
+    private static void setBurnTime(Map<Item, Integer> map, Tag<Item> tagIn, int time) {
+        for (Item item : tagIn.getAllElements()) {
+            map.put(item, time);
+        }
+
+    }
+
+    private static void setBurnTime(Map<Item, Integer> map, IItemProvider itemProvider, int time) {
+        map.put(itemProvider.asItem(), time);
+    }
+
+    public static Map<Item, Integer> getBurnTimes() {
+        Map<Item, Integer> map = Maps.<Item, Integer>newLinkedHashMap();
+        setBurnTime(map, Items.LAVA_BUCKET, 20000);
+        setBurnTime(map, Blocks.COAL_BLOCK, 16000);
+        setBurnTime(map, Items.BLAZE_ROD, 2400);
+        setBurnTime(map, Items.COAL, 1600);
+        setBurnTime(map, Items.CHARCOAL, 1600);
+        setBurnTime(map, ItemTags.LOGS, 300);
+        setBurnTime(map, ItemTags.PLANKS, 300);
+        setBurnTime(map, ItemTags.WOODEN_STAIRS, 300);
+        setBurnTime(map, ItemTags.WOODEN_SLABS, 150);
+        setBurnTime(map, ItemTags.WOODEN_TRAPDOORS, 300);
+        setBurnTime(map, ItemTags.WOODEN_PRESSURE_PLATES, 300);
+        setBurnTime(map, Blocks.OAK_FENCE, 300);
+        setBurnTime(map, Blocks.BIRCH_FENCE, 300);
+        setBurnTime(map, Blocks.SPRUCE_FENCE, 300);
+        setBurnTime(map, Blocks.JUNGLE_FENCE, 300);
+        setBurnTime(map, Blocks.DARK_OAK_FENCE, 300);
+        setBurnTime(map, Blocks.ACACIA_FENCE, 300);
+        setBurnTime(map, Blocks.OAK_FENCE_GATE, 300);
+        setBurnTime(map, Blocks.BIRCH_FENCE_GATE, 300);
+        setBurnTime(map, Blocks.SPRUCE_FENCE_GATE, 300);
+        setBurnTime(map, Blocks.JUNGLE_FENCE_GATE, 300);
+        setBurnTime(map, Blocks.DARK_OAK_FENCE_GATE, 300);
+        setBurnTime(map, Blocks.ACACIA_FENCE_GATE, 300);
+        setBurnTime(map, Blocks.NOTE_BLOCK, 300);
+        setBurnTime(map, Blocks.BOOKSHELF, 300);
+        setBurnTime(map, Blocks.JUKEBOX, 300);
+        setBurnTime(map, Blocks.CHEST, 300);
+        setBurnTime(map, Blocks.TRAPPED_CHEST, 300);
+        setBurnTime(map, Blocks.CRAFTING_TABLE, 300);
+        setBurnTime(map, Blocks.DAYLIGHT_DETECTOR, 300);
+        setBurnTime(map, ItemTags.BANNERS, 300);
+        setBurnTime(map, Items.BOW, 300);
+        setBurnTime(map, Items.FISHING_ROD, 300);
+        setBurnTime(map, Blocks.LADDER, 300);
+        setBurnTime(map, Items.SIGN, 200);
+        setBurnTime(map, Items.WOODEN_SHOVEL, 200);
+        setBurnTime(map, Items.WOODEN_SWORD, 200);
+        setBurnTime(map, Items.WOODEN_HOE, 200);
+        setBurnTime(map, Items.WOODEN_AXE, 200);
+        setBurnTime(map, Items.WOODEN_PICKAXE, 200);
+        setBurnTime(map, ItemTags.WOODEN_DOORS, 200);
+        setBurnTime(map, ItemTags.BOATS, 200);
+        setBurnTime(map, ItemTags.WOOL, 100);
+        setBurnTime(map, ItemTags.WOODEN_BUTTONS, 100);
+        setBurnTime(map, Items.STICK, 100);
+        setBurnTime(map, ItemTags.SAPLINGS, 100);
+        setBurnTime(map, Items.BOWL, 100);
+        setBurnTime(map, ItemTags.CARPETS, 67);
+        setBurnTime(map, Blocks.DRIED_KELP_BLOCK, 4001);
+        return map;
+    }
+
+    public DirtFurnaceTile() {
+        super(TileEntityType.FURNACE);
+    }
 
     /**
      * Returns the number of slots in the inventory.
@@ -59,19 +129,26 @@ public class DirtFurnaceTile extends TileEntity implements ITickable, ISidedInve
         return this.furnaceItemStacks.size();
     }
 
+    public boolean isEmpty() {
+        for (ItemStack itemstack : this.furnaceItemStacks) {
+            if (!itemstack.isEmpty()) {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
     /**
      * Returns the stack in the given slot.
      */
-    @Nullable
     public ItemStack getStackInSlot(int index) {
         return this.furnaceItemStacks.get(index);
     }
 
     /**
-     * Removes up to a specified number of items from an inventory slot and
-     * returns them in a new stack.
+     * Removes up to a specified number of items from an inventory slot and returns them in a new stack.
      */
-    @Nullable
     public ItemStack decrStackSize(int index, int count) {
         return ItemStackHelper.getAndSplit(this.furnaceItemStacks, index, count);
     }
@@ -79,67 +156,66 @@ public class DirtFurnaceTile extends TileEntity implements ITickable, ISidedInve
     /**
      * Removes a stack from the given slot and returns it.
      */
-    @Nullable
     public ItemStack removeStackFromSlot(int index) {
         return ItemStackHelper.getAndRemove(this.furnaceItemStacks, index);
     }
 
     /**
-     * Sets the given item stack to the specified slot in the inventory (can be
-     * crafting or armor sections).
+     * Sets the given item stack to the specified slot in the inventory (can be crafting or armor sections).
      */
-    public void setInventorySlotContents(int index, @Nullable ItemStack stack) {
-        boolean flag = stack != ItemStack.EMPTY && stack.isItemEqual(this.furnaceItemStacks.get(index))
-                && ItemStack.areItemStackTagsEqual(stack, this.furnaceItemStacks.get(index));
+    public void setInventorySlotContents(int index, ItemStack stack) {
+        ItemStack itemstack = this.furnaceItemStacks.get(index);
+        boolean flag = !stack.isEmpty() && stack.isItemEqual(itemstack) && ItemStack.areItemStackTagsEqual(stack, itemstack);
         this.furnaceItemStacks.set(index, stack);
-
-        if (stack != ItemStack.EMPTY && stack.getCount() > this.getInventoryStackLimit()) {
+        if (stack.getCount() > this.getInventoryStackLimit()) {
             stack.setCount(this.getInventoryStackLimit());
         }
 
         if (index == 0 && !flag) {
-            this.totalCookTime = this.getCookTime(stack);
+            this.totalCookTime = this.getCookTime();
             this.cookTime = 0;
             this.markDirty();
         }
+
     }
 
-    /**
-     * Get the name of this object. For players this returns their username
-     */
-    public String getName() {
-        return this.hasCustomName() ? this.furnaceCustomName : "container.furnace";
+    public ITextComponent getName() {
+        return (ITextComponent) (this.furnaceCustomName != null ? this.furnaceCustomName : new TextComponentTranslation("container.furnace", new Object[0]));
     }
 
-    /**
-     * Returns true if this thing is named
-     */
     public boolean hasCustomName() {
-        return this.furnaceCustomName != null && !this.furnaceCustomName.isEmpty();
+        return this.furnaceCustomName != null;
+    }
+
+    @Nullable
+    public ITextComponent getCustomName() {
+        return this.furnaceCustomName;
+    }
+
+    public void setCustomName(@Nullable ITextComponent name) {
+        this.furnaceCustomName = name;
     }
 
     public void read(NBTTagCompound compound) {
         super.read(compound);
-        NBTTagList nbttaglist = compound.getList("Items", 10);
         this.furnaceItemStacks = NonNullList.<ItemStack>withSize(this.getSizeInventory(), ItemStack.EMPTY);
-
-        for (int i = 0; i < nbttaglist.size(); ++i) {
-            NBTTagCompound nbttagcompound = nbttaglist.getTagAt(i);
-            int j = nbttagcompound.getByte("Slot");
-
-            if (j >= 0 && j < this.furnaceItemStacks.size()) {
-                this.furnaceItemStacks.set(j, new ItemStack(nbttagcompound));
-            }
-        }
-
+        ItemStackHelper.loadAllItems(compound, this.furnaceItemStacks);
         this.furnaceBurnTime = compound.getInt("BurnTime");
         this.cookTime = compound.getInt("CookTime");
         this.totalCookTime = compound.getInt("CookTimeTotal");
         this.currentItemBurnTime = getItemBurnTime(this.furnaceItemStacks.get(1));
+        int i = compound.getShort("RecipesUsedSize");
 
-        if (compound.hasKey("CustomName", 8)) {
-            this.furnaceCustomName = compound.getString("CustomName");
+        for (int j = 0; j < i; ++j) {
+            ResourceLocation resourcelocation = new ResourceLocation(compound.getString("RecipeLocation" + j));
+            int k = compound.getInt("RecipeAmount" + j);
+            this.recipeUseCounts.put(resourcelocation, k);
         }
+
+        if (compound.contains("CustomName", 8)) {
+            this.furnaceCustomName = ITextComponent.Serializer.fromJson(compound.getString("CustomName"));
+        }
+
     }
 
     public NBTTagCompound write(NBTTagCompound compound) {
@@ -147,29 +223,25 @@ public class DirtFurnaceTile extends TileEntity implements ITickable, ISidedInve
         compound.setInt("BurnTime", this.furnaceBurnTime);
         compound.setInt("CookTime", this.cookTime);
         compound.setInt("CookTimeTotal", this.totalCookTime);
-        NBTTagList nbttaglist = new NBTTagList();
+        ItemStackHelper.saveAllItems(compound, this.furnaceItemStacks);
+        compound.setShort("RecipesUsedSize", (short) this.recipeUseCounts.size());
+        int i = 0;
 
-        for (int i = 0; i < this.furnaceItemStacks.size(); ++i) {
-            if (this.furnaceItemStacks.get(i) != ItemStack.EMPTY) {
-                NBTTagCompound nbttagcompound = new NBTTagCompound();
-                nbttagcompound.setByte("Slot", (byte) i);
-                this.furnaceItemStacks.get(i).write(nbttagcompound);
-                nbttaglist.appendTag(nbttagcompound);
-            }
+        for (Map.Entry<ResourceLocation, Integer> entry : this.recipeUseCounts.entrySet()) {
+            compound.setString("RecipeLocation" + i, ((ResourceLocation) entry.getKey()).toString());
+            compound.setInt("RecipeAmount" + i, entry.getValue());
+            ++i;
         }
 
-        compound.setTag("Items", nbttaglist);
-
-        if (this.hasCustomName()) {
-            compound.setString("CustomName", this.furnaceCustomName);
+        if (this.furnaceCustomName != null) {
+            compound.setString("CustomName", ITextComponent.Serializer.toJson(this.furnaceCustomName));
         }
 
         return compound;
     }
 
     /**
-     * Returns the maximum stack size for a inventory slot. Seems to always be
-     * 64, possibly will be extended.
+     * Returns the maximum stack size for a inventory slot. Seems to always be 64, possibly will be extended.
      */
     public int getInventoryStackLimit() {
         return 64;
@@ -178,7 +250,7 @@ public class DirtFurnaceTile extends TileEntity implements ITickable, ISidedInve
     /**
      * Furnace isBurning
      */
-    public boolean isBurning() {
+    private boolean isBurning() {
         return this.furnaceBurnTime > 0;
     }
 
@@ -187,52 +259,41 @@ public class DirtFurnaceTile extends TileEntity implements ITickable, ISidedInve
         return inventory.getField(0) > 0;
     }
 
-    public boolean shouldRefresh(World world, BlockPos pos, IBlockState oldState, IBlockState newState) {
-        return (oldState.getBlock() != newState.getBlock());
-    }
-
-    /**
-     * Like the old updateEntity(), except more generic.
-     */
     public void tick() {
-        if (!(world.getBlockState(this.getPos()).getBlock() instanceof BlockDirtFurnace))
-            return;
         boolean flag = this.isBurning();
         boolean flag1 = false;
-
         if (this.isBurning()) {
-            this.furnaceBurnTime -= 3;
+            --this.furnaceBurnTime;
         }
 
         if (!this.world.isRemote) {
-            world.setBlockState(pos, world.getBlockState(pos).with(BlockDirtFurnace.BURNING, this.isBurning()),
-                    2);
-            if (this.isBurning() || this.furnaceItemStacks.get(1) != ItemStack.EMPTY
-                    && this.furnaceItemStacks.get(0) != ItemStack.EMPTY) {
-                if (!this.isBurning() && this.canSmelt()) {
-                    this.currentItemBurnTime = this.furnaceBurnTime = getItemBurnTime(this.furnaceItemStacks.get(1));
-
+            ItemStack itemstack = this.furnaceItemStacks.get(1);
+            if (this.isBurning() || !itemstack.isEmpty() && !((ItemStack) this.furnaceItemStacks.get(0)).isEmpty()) {
+                IRecipe irecipe = this.world.getRecipeManager().getRecipe(this, this.world, net.minecraftforge.common.crafting.VanillaRecipeTypes.SMELTING);
+                if (!this.isBurning() && this.canSmelt(irecipe)) {
+                    this.furnaceBurnTime = getItemBurnTime(itemstack);
+                    this.currentItemBurnTime = this.furnaceBurnTime;
                     if (this.isBurning()) {
                         flag1 = true;
-
-                        if (this.furnaceItemStacks.get(1) != ItemStack.EMPTY) {
-                            this.furnaceItemStacks.get(1).shrink(1);
-
-                            if (this.furnaceItemStacks.get(1).getCount() == 0) {
-                                this.furnaceItemStacks.set(1,
-                                        furnaceItemStacks.get(1).getItem().getContainerItem(furnaceItemStacks.get(1)));
+                        if (itemstack.hasContainerItem()) {
+                            this.furnaceItemStacks.set(1, itemstack.getContainerItem());
+                        } else if (!itemstack.isEmpty()) {
+                            Item item = itemstack.getItem();
+                            itemstack.shrink(1);
+                            if (itemstack.isEmpty()) {
+                                Item item1 = item.getContainerItem();
+                                this.furnaceItemStacks.set(1, item1 == null ? ItemStack.EMPTY : new ItemStack(item1));
                             }
                         }
                     }
                 }
 
-                if (this.isBurning() && this.canSmelt()) {
+                if (this.isBurning() && this.canSmelt(irecipe)) {
                     ++this.cookTime;
-
                     if (this.cookTime == this.totalCookTime) {
                         this.cookTime = 0;
-                        this.totalCookTime = this.getCookTime(this.furnaceItemStacks.get(0));
-                        this.smeltItem();
+                        this.totalCookTime = this.getCookTime();
+                        this.smeltItem(irecipe);
                         flag1 = true;
                     }
                 } else {
@@ -244,127 +305,92 @@ public class DirtFurnaceTile extends TileEntity implements ITickable, ISidedInve
 
             if (flag != this.isBurning()) {
                 flag1 = true;
+                this.world.setBlockState(this.pos, (IBlockState) this.world.getBlockState(this.pos).with(BlockFurnace.LIT, Boolean.valueOf(this.isBurning())), 3);
             }
         }
 
         if (flag1) {
             this.markDirty();
         }
+
     }
 
-    private int getCookTime(@Nullable ItemStack stack) {
-        return 200;
+    private int getCookTime() {
+        FurnaceRecipe furnacerecipe = this.world.getRecipeManager().getRecipe(this, this.world, net.minecraftforge.common.crafting.VanillaRecipeTypes.SMELTING);
+        return furnacerecipe != null ? furnacerecipe.getCookingTime() : 200;
     }
 
-    /**
-     * Returns true if the furnace can smelt an item, i.e. has a source item,
-     * destination stack isn't full, etc.
-     */
-    private boolean canSmelt() {
-        if (this.furnaceItemStacks.get(0) == ItemStack.EMPTY) {
-            return false;
+    private boolean canSmelt(@Nullable IRecipe recipe) {
+        if (!(this.furnaceItemStacks.get(0)).isEmpty() && recipe != null) {
+            ItemStack itemstack = recipe.getRecipeOutput();
+            if (itemstack.isEmpty()) {
+                return false;
+            } else {
+                ItemStack itemstack1 = this.furnaceItemStacks.get(2);
+                if (itemstack1.isEmpty()) {
+                    return true;
+                } else if (!itemstack1.isItemEqual(itemstack)) {
+                    return false;
+                } else if (itemstack1.getCount() + itemstack.getCount() <= this.getInventoryStackLimit() && itemstack1.getCount() < itemstack1.getMaxStackSize()) { // Forge fix: make furnace respect stack sizes in furnace recipes
+                    return true;
+                } else {
+                    return itemstack1.getCount() + itemstack.getCount() <= itemstack.getMaxStackSize(); // Forge fix: make furnace respect stack sizes in furnace recipes
+                }
+            }
         } else {
-            ItemStack itemstack = FurnaceRecipes.instance().getSmeltingResult(this.furnaceItemStacks.get(0));
-            if (itemstack == ItemStack.EMPTY)
-                return false;
-            if (this.furnaceItemStacks.get(2) == ItemStack.EMPTY)
-                return true;
-            if (!this.furnaceItemStacks.get(2).isItemEqual(itemstack))
-                return false;
-            int result = furnaceItemStacks.get(2).getCount() + itemstack.getCount();
-            return result <= getInventoryStackLimit() && result <= this.furnaceItemStacks.get(2).getMaxStackSize();
+            return false;
         }
     }
 
-    /**
-     * Turn one item from the furnace source stack into the appropriate smelted
-     * item in the furnace result stack
-     */
-    private void smeltItem() {
-        if (this.canSmelt()) {
-            ItemStack itemstack = FurnaceRecipes.instance().getSmeltingResult(this.furnaceItemStacks.get(0));
-
-            if (this.furnaceItemStacks.get(2) == ItemStack.EMPTY) {
-                this.furnaceItemStacks.set(2, itemstack.copy());
-            } else if (this.furnaceItemStacks.get(2).getItem() == itemstack.getItem()) {
-                this.furnaceItemStacks.get(2).grow(itemstack.getCount());
+    private void smeltItem(@Nullable IRecipe recipe) {
+        if (recipe != null && this.canSmelt(recipe)) {
+            ItemStack itemstack = this.furnaceItemStacks.get(0);
+            ItemStack itemstack1 = recipe.getRecipeOutput();
+            ItemStack itemstack2 = this.furnaceItemStacks.get(2);
+            if (itemstack2.isEmpty()) {
+                this.furnaceItemStacks.set(2, itemstack1.copy());
+            } else if (itemstack2.getItem() == itemstack1.getItem()) {
+                itemstack2.grow(itemstack1.getCount());
             }
 
-            if (this.furnaceItemStacks.get(0).getItem() == Item.getItemFromBlock(Blocks.SPONGE)
-                    && this.furnaceItemStacks.get(1) != ItemStack.EMPTY
-                    && this.furnaceItemStacks.get(1).getItem() == Items.BUCKET) {
+            if (!this.world.isRemote) {
+                this.canUseRecipe(this.world, (EntityPlayerMP) null, recipe);
+            }
+
+            if (itemstack.getItem() == Blocks.WET_SPONGE.asItem() && !((ItemStack) this.furnaceItemStacks.get(1)).isEmpty() && ((ItemStack) this.furnaceItemStacks.get(1)).getItem() == Items.BUCKET) {
                 this.furnaceItemStacks.set(1, new ItemStack(Items.WATER_BUCKET));
             }
 
-            this.furnaceItemStacks.get(0).shrink(1);
-
-            if (this.furnaceItemStacks.get(0).getCount() <= 0) {
-                this.furnaceItemStacks.set(0, ItemStack.EMPTY);
-            }
+            itemstack.shrink(1);
         }
     }
 
     /**
-     * Returns the number of ticks that the supplied fuel item will keep the
-     * furnace burning, or 0 if the item isn't fuel
+     * Returns the number of ticks that the supplied fuel item will keep the furnace burning, or 0 if the item isn't fuel
      */
     private static int getItemBurnTime(ItemStack stack) {
-        if (stack == ItemStack.EMPTY) {
+        if (stack.isEmpty()) {
             return 0;
         } else {
             Item item = stack.getItem();
-
-            if (item instanceof ItemBlock && Block.getBlockFromItem(item) != Blocks.AIR) {
-                Block block = Block.getBlockFromItem(item);
-
-                if (block == Blocks.WOODEN_SLAB) {
-                    return 150;
-                }
-
-                if (block.getDefaultState().getMaterial() == Material.WOOD) {
-                    return 300;
-                }
-
-                if (block == Blocks.COAL_BLOCK) {
-                    return 16000;
-                }
-            }
-
-            if (item instanceof ItemTool && ((ItemTool) item).getItemTierName().equals("WOOD"))
-                return 200;
-            if (item instanceof ItemSword && ((ItemSword) item).getItemTierName().equals("WOOD"))
-                return 200;
-            if (item instanceof ItemHoe && ((ItemHoe) item).getMaterialName().equals("WOOD"))
-                return 200;
-            if (item == Items.STICK)
-                return 100;
-            if (item == Items.COAL)
-                return 1600;
-            if (item == Items.LAVA_BUCKET)
-                return 20000;
-            if (item == Item.getItemFromBlock(Blocks.SAPLING))
-                return 100;
-            if (item == Items.BLAZE_ROD)
-                return 2400;
-            return net.minecraftforge.fml.common.registry.GameRegistry.getFuelValue(stack);
+            int ret = stack.getBurnTime() / 3;
+            return net.minecraftforge.event.ForgeEventFactory.getItemBurnTime(stack, ret == -1 ? getBurnTimes().getOrDefault(item, 0) / 3 : ret);
         }
     }
 
     public static boolean isItemFuel(ItemStack stack) {
-        /**
-         * Returns the number of ticks that the supplied fuel item will keep the
-         * furnace burning, or 0 if the item isn't fuel
-         */
         return getItemBurnTime(stack) > 0;
     }
 
     /**
-     * Do not make give this method the name canInteractWith because it clashes
-     * with Container
+     * Don't rename this method to canInteractWith due to conflicts with Container
      */
     public boolean isUsableByPlayer(EntityPlayer player) {
-        return this.world.getTileEntity(this.pos) == this && player.getDistanceSq((double) this.pos.getX() + 0.5D, (double) this.pos.getY() + 0.5D,
-                (double) this.pos.getZ() + 0.5D) <= 64.0D;
+        if (this.world.getTileEntity(this.pos) != this) {
+            return false;
+        } else {
+            return !(player.getDistanceSq((double) this.pos.getX() + 0.5D, (double) this.pos.getY() + 0.5D, (double) this.pos.getZ() + 0.5D) > 64.0D);
+        }
     }
 
     public void openInventory(EntityPlayer player) {
@@ -374,8 +400,8 @@ public class DirtFurnaceTile extends TileEntity implements ITickable, ISidedInve
     }
 
     /**
-     * Returns true if automation is allowed to insert the given stack (ignoring
-     * stack size) into the given slot.
+     * Returns true if automation is allowed to insert the given stack (ignoring stack size) into the given slot. For
+     * guis use Slot.isItemValid
      */
     public boolean isItemValidForSlot(int index, ItemStack stack) {
         if (index == 2) {
@@ -384,37 +410,45 @@ public class DirtFurnaceTile extends TileEntity implements ITickable, ISidedInve
             return true;
         } else {
             ItemStack itemstack = this.furnaceItemStacks.get(1);
-            return isItemFuel(stack) || SlotFurnaceFuel.isBucket(stack)
-                    && (itemstack == ItemStack.EMPTY || itemstack.getItem() != Items.BUCKET);
+            return isItemFuel(stack) || SlotFurnaceFuel.isBucket(stack) && itemstack.getItem() != Items.BUCKET;
         }
     }
 
     public int[] getSlotsForFace(EnumFacing side) {
-        return side == EnumFacing.DOWN ? SLOTS_BOTTOM : (side == EnumFacing.UP ? SLOTS_TOP : SLOTS_SIDES);
+        if (side == EnumFacing.DOWN) {
+            return SLOTS_BOTTOM;
+        } else {
+            return side == EnumFacing.UP ? SLOTS_TOP : SLOTS_SIDES;
+        }
     }
 
     /**
-     * Returns true if automation can insert the given item in the given slot
-     * from the given side.
+     * Returns true if automation can insert the given item in the given slot from the given side.
      */
-    public boolean canInsertItem(int index, ItemStack itemStackIn, EnumFacing direction) {
+    public boolean canInsertItem(int index, ItemStack itemStackIn, @Nullable EnumFacing direction) {
         return this.isItemValidForSlot(index, itemStackIn);
     }
 
     /**
-     * Returns true if automation can extract the given item in the given slot
-     * from the given side.
+     * Returns true if automation can extract the given item in the given slot from the given side.
      */
     public boolean canExtractItem(int index, ItemStack stack, EnumFacing direction) {
         if (direction == EnumFacing.DOWN && index == 1) {
             Item item = stack.getItem();
-
             if (item != Items.WATER_BUCKET && item != Items.BUCKET) {
                 return false;
             }
         }
 
         return true;
+    }
+
+    public String getGuiID() {
+        return "minecraft:furnace";
+    }
+
+    public Container createContainer(InventoryPlayer playerInventory, EntityPlayer playerIn) {
+        return new ContainerFurnace(playerInventory, this);
     }
 
     public int getField(int id) {
@@ -446,6 +480,7 @@ public class DirtFurnaceTile extends TileEntity implements ITickable, ISidedInve
             case 3:
                 this.totalCookTime = value;
         }
+
     }
 
     public int getFieldCount() {
@@ -453,44 +488,83 @@ public class DirtFurnaceTile extends TileEntity implements ITickable, ISidedInve
     }
 
     public void clear() {
-        for (int i = 0; i < this.furnaceItemStacks.size(); ++i) {
-            this.furnaceItemStacks.set(i, ItemStack.EMPTY);
+        this.furnaceItemStacks.clear();
+    }
+
+    public void fillStackedContents(RecipeItemHelper helper) {
+        for (ItemStack itemstack : this.furnaceItemStacks) {
+            helper.accountStack(itemstack);
+        }
+
+    }
+
+    public void setRecipeUsed(IRecipe recipe) {
+        if (this.recipeUseCounts.containsKey(recipe.getId())) {
+            this.recipeUseCounts.put(recipe.getId(), this.recipeUseCounts.get(recipe.getId()) + 1);
+        } else {
+            this.recipeUseCounts.put(recipe.getId(), 1);
+        }
+
+    }
+
+    @Nullable
+    public IRecipe getRecipeUsed() {
+        return null;
+    }
+
+    public Map<ResourceLocation, Integer> getRecipeUseCounts() {
+        return this.recipeUseCounts;
+    }
+
+    public boolean canUseRecipe(World worldIn, EntityPlayerMP player, @Nullable IRecipe recipe) {
+        if (recipe != null) {
+            this.setRecipeUsed(recipe);
+            return true;
+        } else {
+            return false;
         }
     }
 
-    private net.minecraftforge.items.IItemHandler handlerTop = new net.minecraftforge.items.wrapper.SidedInvWrapper(this,
-            net.minecraft.util.EnumFacing.UP);
-    private net.minecraftforge.items.IItemHandler handlerBottom = new net.minecraftforge.items.wrapper.SidedInvWrapper(this,
-            net.minecraft.util.EnumFacing.DOWN);
-    private net.minecraftforge.items.IItemHandler handlerSide = new net.minecraftforge.items.wrapper.SidedInvWrapper(this,
-            net.minecraft.util.EnumFacing.WEST);
+    public void onCrafting(EntityPlayer player) {
+        if (!this.world.getGameRules().getBoolean("doLimitedCrafting")) {
+            List<IRecipe> list = Lists.<IRecipe>newArrayList();
 
-    @SuppressWarnings("unchecked")
+            for (ResourceLocation resourcelocation : this.recipeUseCounts.keySet()) {
+                IRecipe irecipe = player.world.getRecipeManager().getRecipe(resourcelocation);
+                if (irecipe != null) {
+                    list.add(irecipe);
+                }
+            }
+
+            player.unlockRecipes(list);
+        }
+
+        this.recipeUseCounts.clear();
+    }
+
+    net.minecraftforge.common.util.LazyOptional<? extends net.minecraftforge.items.IItemHandler>[] handlers =
+            net.minecraftforge.items.wrapper.SidedInvWrapper.create(this, EnumFacing.UP, EnumFacing.DOWN, EnumFacing.NORTH);
+
     @Override
-    public <T> T getCapability(net.minecraftforge.common.capabilities.Capability<T> capability,
-                               net.minecraft.util.EnumFacing facing) {
-        if (facing != null && capability == net.minecraftforge.items.CapabilityItemHandler.ITEM_HANDLER_CAPABILITY)
-            if (facing == EnumFacing.DOWN)
-                return (T) handlerBottom;
-            else if (facing == EnumFacing.UP)
-                return (T) handlerTop;
+    public <T> net.minecraftforge.common.util.LazyOptional<T> getCapability(net.minecraftforge.common.capabilities.Capability<T> capability, @Nullable EnumFacing facing) {
+        if (facing != null && capability == net.minecraftforge.items.CapabilityItemHandler.ITEM_HANDLER_CAPABILITY) {
+            if (facing == EnumFacing.UP)
+                return handlers[0].cast();
+            else if (facing == EnumFacing.DOWN)
+                return handlers[1].cast();
             else
-                return (T) handlerSide;
+                return handlers[2].cast();
+        }
         return super.getCapability(capability, facing);
     }
 
+    /**
+     * invalidates a tile entity
+     */
     @Override
-    public ITextComponent getDisplayName() {
-        return new TextComponentTranslation(this.getName());
-    }
-
-    @Override
-    public boolean isEmpty() {
-        for (ItemStack stack : this.furnaceItemStacks) {
-            if (!stack.isEmpty()) {
-                return false;
-            }
-        }
-        return true;
+    public void remove() {
+        super.remove();
+        for (int x = 0; x < handlers.length; x++)
+            handlers[x].invalidate();
     }
 }

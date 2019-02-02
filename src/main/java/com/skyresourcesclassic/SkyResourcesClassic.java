@@ -1,21 +1,25 @@
 package com.skyresourcesclassic;
 
+import com.skyresourcesclassic.proxy.ClientProxy;
 import com.skyresourcesclassic.proxy.CommonProxy;
+import com.skyresourcesclassic.proxy.IModProxy;
 import net.minecraft.item.ItemTier;
 import net.minecraftforge.common.util.EnumHelper;
 import net.minecraftforge.fluids.FluidRegistry;
+import net.minecraftforge.fml.DistExecutor;
 import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.common.SidedProxy;
-import net.minecraftforge.fml.common.event.FMLInitializationEvent;
-import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
-import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
+import net.minecraftforge.fml.config.ModConfig;
+import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
+import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
+import net.minecraftforge.fml.event.lifecycle.InterModEnqueueEvent;
+import net.minecraftforge.fml.event.lifecycle.InterModProcessEvent;
 import net.minecraftforge.fml.javafmlmod.FMLModLoadingContext;
+import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 @Mod(References.ModID)
 public class SkyResourcesClassic {
-    @SidedProxy(clientSide = "com.skyresourcesclassic.proxy.ClientProxy", serverSide = "com.skyresourcesclassic.proxy.ServerProxy")
-    public static CommonProxy proxy;
+    public static IModProxy proxy = DistExecutor.runForDist(() -> ClientProxy::new, () -> CommonProxy::new);
 
     @Mod.Instance
     public static SkyResourcesClassic instance;
@@ -24,22 +28,33 @@ public class SkyResourcesClassic {
 
     public static ItemTier materialCactusNeedle = EnumHelper.addItemTier("CACTUSNEEDLE", 0, 4, 5, 1, 5);
 
-    public void preInit(FMLPreInitializationEvent event) {
-        proxy.preInit(event);
+    public void commonSetup(final FMLCommonSetupEvent event) {
+        CommonProxy.setup();
+        logger = LogManager.getLogger(References.ModID);
     }
 
-    public void init(FMLInitializationEvent event) {
-        proxy.init(event);
+    public void clientSetup(final FMLClientSetupEvent event) {
+        CommonProxy.setup();
+        ClientProxy.clientSetup();
     }
 
-    public void postInit(FMLPostInitializationEvent event) {
-        proxy.postInit(event);
+    public void enque(InterModEnqueueEvent event) {
+        proxy.enque(event);
+    }
+
+    public void process(InterModProcessEvent event) {
+        proxy.process(event);
     }
 
     public SkyResourcesClassic() {
-        FMLModLoadingContext.get().getModEventBus().addListener(this::preInit);
-        FMLModLoadingContext.get().getModEventBus().addListener(this::init);
-        FMLModLoadingContext.get().getModEventBus().addListener(this::postInit);
+        FMLModLoadingContext.get().getModEventBus().addListener(this::clientSetup);
+        FMLModLoadingContext.get().getModEventBus().addListener(this::commonSetup);
+        FMLModLoadingContext.get().getModEventBus().addListener(this::enque);
+        FMLModLoadingContext.get().getModEventBus().addListener(this::process);
+
+        FMLModLoadingContext.get().registerConfig(ModConfig.Type.CLIENT, ConfigOptions.client_spec);
+        FMLModLoadingContext.get().registerConfig(ModConfig.Type.SERVER, ConfigOptions.server_spec);
+
         FluidRegistry.enableUniversalBucket();
     }
 }

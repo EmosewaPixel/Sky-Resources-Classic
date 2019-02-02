@@ -7,27 +7,30 @@ import com.skyresourcesclassic.plugin.ModPlugins;
 import com.skyresourcesclassic.registry.ModRenderers;
 import net.minecraftforge.client.model.obj.OBJLoader;
 import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.fml.common.event.FMLInitializationEvent;
-import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
+import net.minecraftforge.fml.event.lifecycle.InterModEnqueueEvent;
+import net.minecraftforge.fml.event.lifecycle.InterModProcessEvent;
 
 public class ClientProxy extends CommonProxy {
-    @Override
-    public void preInit(FMLPreInitializationEvent e) {
-        super.preInit(e);
+
+    public static void clientSetup() {
 
         OBJLoader.INSTANCE.addDomain(References.ModID);
 
         ModRenderers.preInit();
 
-
         ModPlugins.initRenderers();
     }
 
     @Override
-    public void init(FMLInitializationEvent e) {
+    public void enque(InterModEnqueueEvent e) {
         MinecraftForge.EVENT_BUS.register(new ClientEventHandler());
         new ModKeyBindings();
-        super.init(e);
+        super.enque(e);
         ModRenderers.init();
+    }
+
+    @Override
+    public void process(InterModProcessEvent e) {
+
     }
 }

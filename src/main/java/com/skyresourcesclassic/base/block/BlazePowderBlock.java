@@ -32,7 +32,7 @@ public class BlazePowderBlock extends BaseBlock {
                     && ConfigOptions.general.meltableBlazeBlocks) {
                 world.setBlockState(pos, Blocks.LAVA.getDefaultState(), 3);
             } else
-                world.scheduleUpdate(pos, this, tickRate(world));
+                world.tickableTileEntities(pos, this, tickRate(world));
         }
     }
 

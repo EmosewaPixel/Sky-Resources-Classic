@@ -21,10 +21,8 @@ import net.minecraft.util.*;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.World;
-import net.minecraft.world.chunk.BlockStateContainer;
 
 import javax.annotation.Nullable;
-import java.util.Random;
 
 public class BlockRockCrusher extends BlockContainer {
     private static final DirectionProperty FACING = BlockHorizontal.HORIZONTAL_FACING;

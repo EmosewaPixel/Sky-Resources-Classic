@@ -11,6 +11,7 @@ import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.ITextComponent;
+import net.minecraft.util.text.TextComponentString;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
@@ -47,10 +48,10 @@ public class ItemComponent extends Item {
     @OnlyIn(Dist.CLIENT)
     public void addInformation(ItemStack stack, @Nullable World worldIn, List<ITextComponent> tooltip, ITooltipFlag flagIn) {
         if (stack.getTranslationKey().equals("item.skyresourcesclassic.plant_matter")) {
-            tooltip.add(TextFormatting.DARK_GRAY + "Acts as bonemeal");
-            tooltip.add(TextFormatting.DARK_GRAY + "Grows instantly");
+            tooltip.add(new TextComponentString(TextFormatting.DARK_GRAY + "Acts as bonemeal"));
+            tooltip.add(new TextComponentString(TextFormatting.DARK_GRAY + "Grows instantly"));
         } else if (stack.getTranslationKey().equals("item.skyresourcesclassic.enriched_bonemeal")) {
-            tooltip.add(TextFormatting.DARK_GRAY + "Grows instantly");
+            tooltip.add(new TextComponentString(TextFormatting.DARK_GRAY + "Grows instantly"));
         }
     }
 

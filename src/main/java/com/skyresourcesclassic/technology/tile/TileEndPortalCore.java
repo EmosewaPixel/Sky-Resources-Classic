@@ -54,7 +54,7 @@ public class TileEndPortalCore extends TileItemInventory implements ITickable {
     void spawnFish() {
         List<EntitySilverfish> list = world.getEntitiesWithinAABB(EntitySilverfish.class, new AxisAlignedBB(
                 pos.getX() - 4, pos.getY(), pos.getZ() - 4, pos.getX() + 4, pos.getY() + 5F, pos.getZ() + 4));
-        if (!ConfigOptions.general.endWussMode && world.rand.nextInt(90) == 0 && list.size() < 16) {
+        if (!ConfigOptions.general.endWussMode.get() && world.rand.nextInt(90) == 0 && list.size() < 16) {
             EntitySilverfish fish = new EntitySilverfish(world);
             fish.setDropChance(EntityEquipmentSlot.MAINHAND, 0);
             fish.setDropChance(EntityEquipmentSlot.HEAD, 0);

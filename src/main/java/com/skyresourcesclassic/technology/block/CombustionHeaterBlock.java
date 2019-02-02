@@ -98,7 +98,7 @@ public class CombustionHeaterBlock extends BlockContainer {
             default:
                 heat = 6040;
         }
-        tooltip.add(TextFormatting.RED + "Max Heat: " + Integer.toString(heat));
+        tooltip.add(new TextComponentString(TextFormatting.RED + "Max Heat: " + Integer.toString(heat)));
     }
 
     @Override

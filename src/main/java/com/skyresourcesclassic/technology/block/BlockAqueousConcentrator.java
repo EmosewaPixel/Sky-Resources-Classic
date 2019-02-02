@@ -5,6 +5,7 @@ import com.skyresourcesclassic.SkyResourcesClassic;
 import com.skyresourcesclassic.registry.ModBlocks;
 import com.skyresourcesclassic.registry.ModGuiHandler;
 import com.skyresourcesclassic.technology.tile.TileAqueousConcentrator;
+import com.sun.istack.internal.Nullable;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockContainer;
 import net.minecraft.block.BlockHorizontal;
@@ -25,8 +26,6 @@ import net.minecraft.world.World;
 import net.minecraftforge.fluids.FluidActionResult;
 import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fluids.FluidUtil;
-
-import javax.annotation.Nullable;
 
 public class BlockAqueousConcentrator extends BlockContainer {
     private static final DirectionProperty FACING = BlockHorizontal.HORIZONTAL_FACING;
@@ -134,7 +133,7 @@ public class BlockAqueousConcentrator extends BlockContainer {
                 return true;
             }
 
-            player.openGui(SkyResourcesClassic.instance, ModGuiHandler.AqueousConcentratorGUI, world, pos.getX(), pos.getY(),
+            player.openGUI(SkyResourcesClassic.instance, ModGuiHandler.AqueousConcentratorGUI, world, pos.getX(), pos.getY(),
                     pos.getZ());
         }
         return true;
