@@ -1,6 +1,5 @@
 package com.skyresourcesclassic.base.item;
 
-import com.skyresourcesclassic.References;
 import com.skyresourcesclassic.recipe.ProcessRecipe;
 import com.skyresourcesclassic.recipe.ProcessRecipeManager;
 import com.skyresourcesclassic.registry.ModItemGroups;
@@ -12,9 +11,7 @@ import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.SoundEvents;
-import net.minecraft.item.EnumAction;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
+import net.minecraft.item.*;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.*;
 import net.minecraft.util.math.BlockPos;
@@ -26,6 +23,7 @@ import net.minecraft.world.World;
 import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.FluidTank;
+import net.minecraftforge.fluids.FluidUtil;
 import net.minecraftforge.fluids.capability.IFluidHandler;
 import net.minecraftforge.fluids.capability.IFluidTankProperties;
 
@@ -49,7 +47,7 @@ public class ItemWaterExtractor extends Item implements IFluidHandler {
     }
 
     @Override
-    public EnumAction getItemUseAction(ItemStack stack) {
+    public EnumAction getUseAction(ItemStack stack) {
         return EnumAction.BOW;
     }
 
@@ -71,104 +69,106 @@ public class ItemWaterExtractor extends Item implements IFluidHandler {
             if (!world.isRemote && timeLeft <= getMaxItemUseDuration(stack) - 25) {
                 Vec3d vec3d = player.getPositionVector().add(0, player.getEyeHeight(), 0);
                 Vec3d vec3d1 = player.getLookVec();
+                //Vec3d vec3d2 = vec3d.scale(5);// vec3d1 * 5;
                 Vec3d vec3d2 = vec3d.add(vec3d1.x * 5, vec3d1.y * 5, vec3d1.z * 5);
                 RayTraceResult rayTrace = world.rayTraceBlocks(vec3d, vec3d2, false, false, true);
-
-                if ((rayTrace != null)) {
+                if (rayTrace != null) {
                     BlockPos pos = rayTrace.getBlockPos();
-
                     EnumFacing blockHitSide = rayTrace.sideHit;
-
                     Block block = world.getBlockState(pos).getBlock();
-
                     ProcessRecipe recipe = ProcessRecipeManager.waterExtractorExtractRecipes.getRecipe(
-                            new ItemStack(block), 0, false, false);
-
+                            new ItemStack(block, 1), 0, false, false);
                     if (recipe != null) {
-                        IBlockState recipeOut = Block.getBlockFromItem(recipe.getOutputs().get(0).getItem())
-                                .getDefaultState();
-                        getCompound(stack).setInt("amount", getCompound(stack).getInt("amount")
-                                + tank.fill(recipe.getFluidOutputs().get(0).copy(), true));
-                        tank.getFluid().amount = getCompound(stack).getInt("amount");
-                        world.setBlockState(pos, recipe.getOutputs().get(0) == ItemStack.EMPTY
-                                ? Blocks.AIR.getDefaultState() : recipeOut, 3);
-                        world.playSound(null, player.posX, player.posY, player.posZ,
-                                SoundEvents.ENTITY_PLAYER_SPLASH, SoundCategory.NEUTRAL, 1.0F,
-                                1.0F / (random.nextFloat() * 0.4F + 1.2F));
+                        for (int x = -1; x <= 1; x++) {
+                            for (int y = -1; y <= 1; y++) {
+                                for (int z = -1; z <= 1; z++) {
+                                    BlockPos blockPos = new BlockPos(pos.getX() + x, pos.getY() + y, pos.getZ() + z);
+                                    Block radiusBlock = world.getBlockState(blockPos).getBlock();
+                                    if (block == radiusBlock) {
+                                        ProcessRecipe radiusBlockRecipe = ProcessRecipeManager.waterExtractorExtractRecipes.getRecipe(
+                                                new ItemStack(radiusBlock, 1), 0, false, false);
+                                        if (radiusBlockRecipe != null) {
+                                            IBlockState recipeOut = Block.getBlockFromItem(radiusBlockRecipe.getOutputs().get(0).getItem())
+                                                    .getDefaultState();
+                                            int newAmount = 0;
+                                            if (getCompound(stack).getInt("amount") + tank.fill(radiusBlockRecipe.getFluidOutputs().get(0).copy(), true) <= maxAmount)
+                                                newAmount = getCompound(stack).getInt("amount") +
+                                                        tank.fill(radiusBlockRecipe.getFluidOutputs().get(0).copy(), true);
+                                            else newAmount = maxAmount;
+                                            getCompound(stack).setInt("amount", newAmount);
+                                            tank.getFluid().amount = getCompound(stack).getInt("amount");
+                                            world.setBlockState(blockPos, radiusBlockRecipe.getOutputs().get(0) == ItemStack.EMPTY
+                                                    ? Blocks.AIR.getDefaultState() : recipeOut, 3);
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                        world.playSound(null, player.posX, player.posY, player.posZ, SoundEvents.ENTITY_PLAYER_SPLASH, SoundCategory.NEUTRAL,
+                                1.0F, 1.0F / (random.nextFloat() * 0.4F + 1.2F));
                         return;
                     }
                     if (world.getBlockState(pos.add(blockHitSide.getDirectionVec())) == Blocks.WATER.getDefaultState()
                             && getCompound(stack).getInt("amount") < maxAmount) {
                         world.removeBlock(pos.add(blockHitSide.getDirectionVec()));
-                        getCompound(stack).setInt("amount", getCompound(stack).getInt("amount") + 1000);
-                        world.playSound(null, player.posX, player.posY, player.posZ,
-                                SoundEvents.ENTITY_PLAYER_SPLASH, SoundCategory.NEUTRAL, 1.0F,
-                                1.0F / (random.nextFloat() * 0.4F + 1.2F));
+                        int newAmount = 0;
+                        if (getCompound(stack).getInt("amount") + 1000 <= maxAmount)
+                            newAmount = getCompound(stack).getInt("amount") + 1000;
+                        else newAmount = maxAmount;
+                        getCompound(stack).setInt("amount", newAmount);
+                        world.playSound(null, player.posX, player.posY, player.posZ, SoundEvents.ENTITY_PLAYER_SPLASH, SoundCategory.NEUTRAL,
+                                1.0F, 1.0F / (random.nextFloat() * 0.4F + 1.2F));
                     }
-
                 }
             }
         }
     }
 
     @Override
-    public EnumActionResult onItemUse(EntityPlayer playerIn, World world, BlockPos pos, EnumHand hand, EnumFacing side,
-                                      float hitX, float hitY, float hitZ) {
-        IBlockState iblockstate = world.getBlockState(pos);
-        Block block = iblockstate.getBlock();
-        ItemStack stack = playerIn.getHeldItem(hand);
+    public EnumActionResult onItemUse(ItemUseContext context) {
+        IBlockState blockState = context.getWorld().getBlockState(context.getPos());
+        Block block = blockState.getBlock();
+        ItemStack stack = context.getItem();
         tank.setFluid(new FluidStack(FluidRegistry.WATER, getCompound(stack).getInt("amount")));
-        if (world.getTileEntity(pos) instanceof IFluidHandler) {
-            IFluidHandler tile = (IFluidHandler) world.getTileEntity(pos);
-            getCompound(stack).setInt("amount",
-                    stack.getTag().getInt("amount") - tile.fill(tank.getFluid(), true));
+        if (context.getWorld().getTileEntity(context.getPos()) instanceof IFluidHandler) {
+            IFluidHandler tile = (IFluidHandler) context.getWorld().getTileEntity(context.getPos();
+            getCompound(stack).setInt("amount", stack.getTag().getInt("amount") - tile.fill(tank.getFluid(), true));
             tank.getFluid().amount = getCompound(stack).getInt("amount");
             return EnumActionResult.SUCCESS;
         }
 
-        ProcessRecipe recipe = ProcessRecipeManager.waterExtractorInsertRecipes.getRecipe(new ArrayList<>(
-                        Arrays.asList(new ItemStack(block),
-                                tank.getFluid().copy())),
-                0, false, false);
-
+        ProcessRecipe recipe = ProcessRecipeManager.waterExtractorInsertRecipes.getRecipe(
+                new ArrayList<Object>(Arrays.asList(new ItemStack(block, 1),
+                        tank.getFluid().copy())), 0, false, false);
         if (recipe != null) {
-            IBlockState recipeOut = Block.getBlockFromItem(recipe.getOutputs().get(0).getItem())
-                    .getDefaultState();
-            world.setBlockState(pos, recipeOut, 3);
+            IBlockState recipeOut = Block.getBlockFromItem(recipe.getOutputs().get(0).getItem()).getDefaultState();
+            context.getWorld().setBlockState(context.getPos(), recipeOut, 3);
             getCompound(stack).setInt("amount",
                     stack.getTag().getInt("amount") - recipe.getFluidInputs().get(0).amount);
             tank.getFluid().amount = getCompound(stack).getInt("amount");
-            world.playSound(null, playerIn.posX, playerIn.posY, playerIn.posZ,
-                    SoundEvents.ENTITY_PLAYER_SPLASH, SoundCategory.NEUTRAL, 1.0F,
-                    1.0F / (random.nextFloat() * 0.4F + 1.2F));
-
+            context.getWorld().playSound((EntityPlayer) null, context.getPlayer().posX, context.getPlayer().posY, context.getPlayer().posZ, SoundEvents.ENTITY_PLAYER_SPLASH, SoundCategory.NEUTRAL,
+                    1.0F, 1.0F / (random.nextFloat() * 0.4F + 1.2F));
             return EnumActionResult.SUCCESS;
         }
 
-        // Place water
-        if (getCompound(stack).getInt("amount") >= 1000 && playerIn.isSneaking()) {
-            if (block == Blocks.SNOW && iblockstate.get(BlockSnow.LAYERS).intValue() < 1) {
+        //Placement of water
+        if (getCompound(stack).getInt("amount") >= 1000 && context.getPlayer().isSneaking()) {
+            EnumFacing side = context.getFace();
+            BlockPos pos = context.getPos();
+            if (block == Blocks.SNOW && blockState.get(BlockSnow.LAYERS).intValue() < 1) {
                 side = EnumFacing.UP;
-            } else if (!block.isReplaceable(world, pos)) {
-                pos = pos.offset(side);
+            } else if (!block.isReplaceable(context.getWorld().getBlockState(context.getPos()), new BlockItemUseContext(context))) {
+                pos = context.getPos().offset(context.getFace());
             }
 
-            if (!playerIn.canPlayerEdit(pos, side, stack) || stack.getCount() == 0) {
+            if (!context.getPlayer().canPlayerEdit(context.getPos(), side, stack) || stack.getCount() == 0) {
                 return EnumActionResult.FAIL;
             } else {
-                if (world.mayPlace(Blocks.WATER, pos, false, side, null)) {
-                    IBlockState iblockstate1 = Blocks.WATER.getStateForPlacement(world, pos, side, hitX, hitY, hitZ, 0,
-                            playerIn);
+                if (FluidUtil.tryPlaceFluid(context.getPlayer(), context.getWorld(), pos, tank, tank.getFluid())) {
 
-                    world.setBlockState(pos, iblockstate1, 3);
                     getCompound(stack).setInt("amount", getCompound(stack).getInt("amount") - 1000);
-                    tank.getFluid().amount = getCompound(stack).getInt("amount");
-                    world.playSound(null, playerIn.posX, playerIn.posY, playerIn.posZ,
-                            SoundEvents.ENTITY_PLAYER_SPLASH, SoundCategory.NEUTRAL, 1.0F,
-                            1.0F / (random.nextFloat() * 0.4F + 1.2F));
                     return EnumActionResult.SUCCESS;
                 }
-
                 return EnumActionResult.FAIL;
             }
         }

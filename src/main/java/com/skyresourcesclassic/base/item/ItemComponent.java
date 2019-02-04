@@ -2,13 +2,11 @@ package com.skyresourcesclassic.base.item;
 
 import net.minecraft.block.IGrowable;
 import net.minecraft.client.util.ITooltipFlag;
-import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.ItemUseContext;
 import net.minecraft.util.EnumActionResult;
-import net.minecraft.util.EnumFacing;
-import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TextComponentString;
@@ -25,16 +23,15 @@ public class ItemComponent extends Item {
         super(new Item.Builder().group(tab));
     }
 
-    public EnumActionResult onItemUse(EntityPlayer playerIn, World worldIn, BlockPos pos, EnumHand hand,
-                                      EnumFacing facing, float hitX, float hitY, float hitZ) {
-        if (!playerIn.canPlayerEdit(pos.offset(facing), facing, playerIn.getHeldItem(hand))) {
+    public EnumActionResult onItemUse(ItemUseContext context) {
+        if (!context.getPlayer().canPlayerEdit(context.getPos().offset(context.getFace()), context.getFace(), context.getItem())) {
             return EnumActionResult.FAIL;
         } else {
-            if (playerIn.getHeldItem(hand).getTranslationKey().equals("item.skyresourcesclassic.plant_matter")
-                    || playerIn.getHeldItem(hand).getTranslationKey().equals("item.skyresourcesclassic.enriched_bonemeal")) {
-                if (applyBonemeal(playerIn.getHeldItem(hand), worldIn, pos)) {
-                    if (!worldIn.isRemote) {
-                        worldIn.playEvent(2005, pos, 0);
+            if (context.getItem().getTranslationKey().equals("item.skyresourcesclassic.plant_matter")
+                    || context.getItem().getTranslationKey().equals("item.skyresourcesclassic.enriched_bonemeal")) {
+                if (applyBonemeal(context.getItem(), context.getWorld(), context.getPos())) {
+                    if (!context.getWorld().isRemote) {
+                        context.getWorld().playEvent(2005, context.getPos(), 0);
                     }
 
                     return EnumActionResult.SUCCESS;
