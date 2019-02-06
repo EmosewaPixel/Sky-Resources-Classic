@@ -7,16 +7,16 @@
     "XYX",
     "XZX"
   ],
-  "type": "forge:ore_shaped",
+  "type": "minecraft:crafting_shaped",
   "key": {
     "X": {
-      "tag": "#forge:ingots/steel"
+      "tag": "forge:ingots/steel"
     },
     "Y": {
-      "tag": "#forge:circuits/basic"
+      "tag": "forge:circuits/basic"
     },
     "Z": {
-      "tag": "#forge:dusts/coal"
+      "tag": "forge:dusts/coal"
     }
   }
 }

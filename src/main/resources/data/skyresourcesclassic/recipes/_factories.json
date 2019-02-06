@@ -1,5 +1,5 @@
 {
     "conditions": {
-        "ore_condition": "com.skyresourcesclassic.recipe.Conditions.OreCondition"
+        "tag_condition": "com.skyresourcesclassic.recipe.Conditions.OreCondition"
     }
 }

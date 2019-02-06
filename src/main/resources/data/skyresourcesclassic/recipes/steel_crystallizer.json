@@ -7,10 +7,10 @@
     "XZX",
     "X X"
   ],
-  "type": "forge:ore_shaped",
+  "type": "minecraft:crafting_shaped",
   "key": {
     "X": {
-      "tag": "#forge:ingots/steel"
+      "tag": "forge:ingots/steel"
     },
     "Y": {
       "item": "skyresourcesclassic:frozen_iron_cooling_component"

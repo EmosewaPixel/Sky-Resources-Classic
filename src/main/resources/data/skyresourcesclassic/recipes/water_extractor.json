@@ -6,10 +6,10 @@
     "XXX",
     " XX"
   ],
-  "type": "forge:ore_shaped",
+  "type": "minecraft:crafting_shaped",
   "key": {
     "X": {
-      "tag": "#fminecraft:planks"
+      "tag": "fminecraft:planks"
     }
   }
 }

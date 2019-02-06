@@ -8,10 +8,10 @@
     "XXX",
     " X "
   ],
-  "type": "forge:ore_shaped",
+  "type": "minecraft:crafting_shaped",
   "key": {
     "X": {
-      "tag": "#minecraft:leaves"
+      "tag": "minecraft:leaves"
     }
   }
 }

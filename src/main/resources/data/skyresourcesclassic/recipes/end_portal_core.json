@@ -19,7 +19,7 @@
       "item": "minecraft:ender_eye"
     },
     "Z": {
-      "tag": "#forge:ingots/frozen_iron"
+      "tag": "forge:ingots/frozen_iron"
     }
   }
 }

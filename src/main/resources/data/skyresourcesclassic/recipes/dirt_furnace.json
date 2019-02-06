@@ -6,10 +6,10 @@
     "X",
     "Y"
   ],
-  "type": "forge:ore_shaped",
+  "type": "minecraft:crafting_shaped",
   "key": {
     "X": {
-      "tag": "#forge:dirt"
+      "tag": "forge:dirt"
     },
     "Y": {
       "item": "skyresourcesclassic:wood_heat_component"

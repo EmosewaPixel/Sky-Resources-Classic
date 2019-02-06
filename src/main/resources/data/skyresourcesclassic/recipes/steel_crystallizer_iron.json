@@ -3,7 +3,7 @@
     {
       "type": "forge:not",
       "value": {
-        "type": "ore_condition",
+        "type": "tag_condition",
         "ore": "ingotSteel"
       }
     }
@@ -16,10 +16,10 @@
     "XZX",
     "X X"
   ],
-  "type": "forge:ore_shaped",
+  "type": "minecraft:crafting_shaped",
   "key": {
     "X": {
-      "tag": "#forge:ingots/iron"
+      "tag": "forge:ingots/iron"
     },
     "Y": {
       "item": "skyresourcesclassic:frozen_iron_cooling_component"

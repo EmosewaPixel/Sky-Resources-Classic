@@ -7,10 +7,10 @@
     "XZX",
     "XXX"
   ],
-  "type": "forge:ore_shaped",
+  "type": "minecraft:crafting_shaped",
   "key": {
     "X": {
-      "tag": "#forge:ingots/frozen_iron"
+      "tag": "forge:ingots/frozen_iron"
     },
     "Z": {
       "item": "skyresourcesclassic:mini_freezer"

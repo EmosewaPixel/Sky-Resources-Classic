@@ -7,10 +7,10 @@
     "X X",
     "X X"
   ],
-  "type": "forge:ore_shaped",
+  "type": "minecraft:crafting_shaped",
   "key": {
     "X": {
-      "tag": "#forge:cobblestone"
+      "tag": "forge:cobblestone"
     },
     "Y": {
       "item": "skyresourcesclassic:wood_heat_component"

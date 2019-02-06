@@ -7,10 +7,10 @@
     "X X",
     "XXX"
   ],
-  "type": "forge:ore_shaped",
+  "type": "minecraft:crafting_shaped",
   "key": {
     "X": {
-      "tag": "#minecraft:logs"
+      "tag": "minecraft:logs"
     },
     "Y": {
       "item": "skyresourcesclassic:wood_heat_component"

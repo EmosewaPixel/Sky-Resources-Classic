@@ -7,10 +7,10 @@
     "X X",
     "XXX"
   ],
-  "type": "forge:ore_shaped",
+  "type": "minecraft:crafting_shaped",
   "key": {
     "X": {
-      "tag": "#forge:ingots/iron"
+      "tag": "forge:ingots/iron"
     },
     "Y": {
       "item": "skyresourcesclassic:iron_heat_component"
