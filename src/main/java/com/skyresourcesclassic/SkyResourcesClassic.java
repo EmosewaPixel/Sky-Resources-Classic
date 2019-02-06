@@ -3,8 +3,6 @@ package com.skyresourcesclassic;
 import com.skyresourcesclassic.proxy.ClientProxy;
 import com.skyresourcesclassic.proxy.CommonProxy;
 import com.skyresourcesclassic.proxy.IModProxy;
-import net.minecraft.item.ItemTier;
-import net.minecraftforge.common.util.EnumHelper;
 import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fml.DistExecutor;
 import net.minecraftforge.fml.common.Mod;
@@ -21,12 +19,9 @@ import org.apache.logging.log4j.Logger;
 public class SkyResourcesClassic {
     public static IModProxy proxy = DistExecutor.runForDist(() -> ClientProxy::new, () -> CommonProxy::new);
 
-    @Mod.Instance
     public static SkyResourcesClassic instance;
 
     public static Logger logger;
-
-    public static ItemTier materialCactusNeedle = EnumHelper.addItemTier("CACTUSNEEDLE", 0, 4, 5, 1, 5);
 
     public void commonSetup(final FMLCommonSetupEvent event) {
         CommonProxy.setup();

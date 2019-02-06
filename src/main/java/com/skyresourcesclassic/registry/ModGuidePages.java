@@ -48,7 +48,7 @@ public class ModGuidePages {
 
         SkyResourcesGuide.addPage("dirtFurnace", "guide.skyresourcesclassic.stage2", new ItemStack(ModBlocks.dirtFurnace));
 
-        if (ConfigOptions.general.meltableBlazeBlocks)
+        if (ConfigOptions.general.meltableBlazeBlocks.get())
             SkyResourcesGuide.addPage("lavaBlaze", "guide.skyresourcesclassic.stage2", new ItemStack(ModBlocks.blazePowderBlock));
         else
             SkyResourcesGuide.addPage("lavaBlaze1", "guide.skyresourcesclassic.stage2", new ItemStack(ModBlocks.blazePowderBlock));

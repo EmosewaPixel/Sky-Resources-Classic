@@ -69,7 +69,7 @@ public class CondenserTile extends TileBase implements ITickable {
 
     private int getTimeToCondense(FluidCrystalBlock block) {
         return (int) (ModFluids.crystalFluidInfos()[ModBlocks.crystalFluidBlocks.indexOf(block)].rarity
-                * ConfigOptions.condenser.condenserProcessTimeBase
+                * ConfigOptions.condenser.condenserProcessTimeBase.get()
                 * (ModFluids.crystalFluidInfos()[ModBlocks.crystalFluidBlocks
                 .indexOf(block)].type == FluidRegisterInfo.CrystalFluidType.NORMAL ? 1 : 20)
                 * (1F / tier));

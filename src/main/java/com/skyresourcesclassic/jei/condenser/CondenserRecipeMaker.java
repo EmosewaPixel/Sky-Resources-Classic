@@ -24,7 +24,7 @@ public class CondenserRecipeMaker {
                 ingot.setCount(1);
                 CondenserRecipeJEI addRecipe = new CondenserRecipeJEI(ingot,
                         new FluidStack(ModFluids.crystalFluids.get(i), 1000),
-                        ModFluids.crystalFluidInfos()[i].rarity * ConfigOptions.condenser.condenserProcessTimeBase
+                        ModFluids.crystalFluidInfos()[i].rarity * ConfigOptions.condenser.condenserProcessTimeBase.get()
                                 * (ModFluids.crystalFluidInfos()[i].type == FluidRegisterInfo.CrystalFluidType.MOLTEN ? 20 : 1));
                 recipes.add(addRecipe);
             }

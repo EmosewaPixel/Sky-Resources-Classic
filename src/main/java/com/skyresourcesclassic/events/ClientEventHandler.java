@@ -16,7 +16,7 @@ public class ClientEventHandler {
     public void onPlayerTickEvent(TickEvent.PlayerTickEvent event) {
         if (event.player.world.isRemote) {
             EntityPlayer player = event.player;
-            if (ConfigOptions.guide.allowGuide
+            if (ConfigOptions.guide.allowGuide.get()
                     && Minecraft.getInstance().player != null
                     && Minecraft.getInstance().player.getGameProfile().getId().equals(player.getGameProfile().getId())
                     && player.ticksExisted > 100 && player.ticksExisted < 150

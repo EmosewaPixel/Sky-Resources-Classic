@@ -7,12 +7,17 @@ import com.skyresourcesclassic.base.entity.EntityHeavyExplosiveSnowball;
 import com.skyresourcesclassic.base.entity.EntityHeavySnowball;
 import com.skyresourcesclassic.plugin.forestry.tile.TileBeeAttractor;
 import com.skyresourcesclassic.technology.tile.*;
+import net.minecraft.entity.EntityType;
+import net.minecraft.entity.projectile.EntitySnowball;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.common.registry.EntityRegistry;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 
 public final class ModEntities {
+    public static EntityType<EntityHeavySnowball> HEAVY_SNOWBALL = EntityType.register("heavy_snowball", EntityType.Builder.create(EntityHeavySnowball.class, EntityHeavySnowball::new));
+    public static EntityType<EntityHeavyExplosiveSnowball> EXPLOSIVE_HEAVY_SNOWBALL = EntityType.register("explosive_heavy_snowball", EntityType.Builder.create(EntityHeavyExplosiveSnowball.class, EntityHeavyExplosiveSnowball::new));
+
     public static void init() {
         registerTileEntity(TileCombustionHeater.class, "::combustionHeatertile");
         registerTileEntity(FluidDropperTile.class, ":fluidDroppertile");

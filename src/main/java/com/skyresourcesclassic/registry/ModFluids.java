@@ -32,7 +32,7 @@ public class ModFluids {
         addCrystalFluid("ardite", 0xFFDE9000, 7, CrystalFluidType.MOLTEN);
         addCrystalFluid("osmium", 0xFF7F13C2, 5, CrystalFluidType.NORMAL);
         addCrystalFluid("draconium", 0xFF9E6DCF, 10,
-                ConfigOptions.general.draconiumType == 0 ? CrystalFluidType.NORMAL : CrystalFluidType.MOLTEN);
+                ConfigOptions.general.draconiumType.get() == 0 ? CrystalFluidType.NORMAL : CrystalFluidType.MOLTEN);
         addCrystalFluid("titanium", 0xFFBABABA, 7, CrystalFluidType.NORMAL);
         addCrystalFluid("tungsten", 0xFF464659, 7, CrystalFluidType.NORMAL);
         addCrystalFluid("chrome", 0xFFD6D6D6, 9, CrystalFluidType.NORMAL);

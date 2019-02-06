@@ -33,10 +33,6 @@ public class ModCrafting {
         Tag<Item> steelIngot = TagVariables.STEEL_INGOT.getEntries().size() > 0 ? TagVariables.STEEL_INGOT
                 : TagVariables.ELECTRICAL_STEEL_INGOT.getEntries().size() > 0 ? TagVariables.ELECTRICAL_STEEL_INGOT : Tags.Items.INGOTS_IRON;
 
-        GameRegistry.addSmelting(ModBlocks.dryCactus, new ItemStack(Items.LIGHT_GRAY_DYE), 0.2F);
-
-        GameRegistry.addSmelting(new ItemStack(ModItems.itemComponent[8]), new ItemStack(Items.CHARCOAL), 0.1F);
-
         ProcessRecipeManager.infusionRecipes.addRecipe(new ItemStack(Blocks.ACACIA_SAPLING), 10,
                 new ArrayList<>(Arrays.asList(new ItemStack(ModItems.itemComponent[0], 10),
                         new ItemStack(ModBlocks.cactusFruitNeedle))));
@@ -295,7 +291,7 @@ public class ModCrafting {
         ProcessRecipeManager.rockGrinderRecipes.addRecipe(new ItemStack(ModItems.itemComponent[13]), 1.5f, "logWood");
 
         for (int i = 0; i < ModItems.gemList.size(); i++) {
-            if (ConfigOptions.general.allowAllGemTypes || new ItemTags.Wrapper(new ResourceLocation("forge", "gem/" + ModItems.gemList.get(i).name)).getEntries().size() > 0)
+            if (ConfigOptions.general.allowAllGemTypes.get() || new ItemTags.Wrapper(new ResourceLocation("forge", "gem/" + ModItems.gemList.get(i).name)).getEntries().size() > 0)
                 ProcessRecipeManager.rockGrinderRecipes.addRecipe(new ItemStack(ModItems.dirtyGem[i]),
                         ModItems.gemList.get(i).rarity, ModItems.gemList.get(i).block);
         }

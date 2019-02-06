@@ -56,7 +56,7 @@ public class LifeInjectorTile extends TileItemInventory implements ITickable {
 
                     ItemStack stack = getInventory().getStackInSlot(0);
                     if (stack != ItemStack.EMPTY && stack.getItem() instanceof ItemHealthGem) {
-                        if (stack.getTag().getInt("health") + dmg <= ConfigOptions.health.healthGemMaxHealth) {
+                        if (stack.getTag().getInt("health") + dmg <= ConfigOptions.health.healthGemMaxHealth.get()) {
                             entity.attackEntityFrom(DamageSource.MAGIC, dmg);
                             stack.getTag().setInt("health",
                                     stack.getTag().getInt("health") + 2);

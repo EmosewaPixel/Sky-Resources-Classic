@@ -116,7 +116,7 @@ public class GuideGUI extends GuiScreen {
     public void onGuiClosed() {
         super.onGuiClosed();
 
-        if (ConfigOptions.guide.rememberGuide) {
+        if (ConfigOptions.guide.rememberGuide.get()) {
             lastGuideCat = currentCategory;
             lastGuidePage = currentPage.pageId;
             lastGuideSearch = this.searchBox.getText();
@@ -129,7 +129,7 @@ public class GuideGUI extends GuiScreen {
         new GuideLinkPageButton(null, null, null);
         new GuideImageButton("", null, null);
         if (currentPage == null) {
-            if (ConfigOptions.guide.rememberGuide) {
+            if (ConfigOptions.guide.rememberGuide.get()) {
                 currentCategory = lastGuideCat;
                 GuidePage lastPage = SkyResourcesGuide.getPage(lastGuidePage);
                 currentPage = lastPage == null ? SkyResourcesGuide.getPage("basics") : lastPage;

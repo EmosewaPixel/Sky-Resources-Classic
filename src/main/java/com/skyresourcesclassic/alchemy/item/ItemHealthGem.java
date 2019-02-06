@@ -21,21 +21,17 @@ import javax.annotation.Nullable;
 import java.util.List;
 
 public class ItemHealthGem extends Item implements IHealthBoostItem {
-    private final int maxHealth = ConfigOptions.health.healthGemMaxHealth;
+    private final int maxHealth = ConfigOptions.health.healthGemMaxHealth.get();
 
     public ItemHealthGem() {
-        super();
+        super(new Item.Builder().group(ModItemGroups.tabAlchemy).maxStackSize(1));
 
-        setUnlocalizedName(References.ModID + ".item_health_gem");
         setRegistryName("Item_health_gem");
-
-        this.set(ModItemGroups.tabAlchemy);
-        this.setMaxStackSize(1);
     }
 
     @Override
     public int getHealthBoost(ItemStack stack) {
-        return (int) (getCompound(stack).getInt("health") * ConfigOptions.health.healthGemPercentage);
+        return (int) (getCompound(stack).getInt("health") * ConfigOptions.health.healthGemPercentage.get());
     }
 
     public int getHealthInjected(ItemStack stack) {

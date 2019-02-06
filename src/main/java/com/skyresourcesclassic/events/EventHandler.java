@@ -134,7 +134,7 @@ public class EventHandler {
 
     @SubscribeEvent
     public void onKeyInput(KeyInputEvent event) {
-        if (ModKeyBindings.guideKey.isPressed() && ConfigOptions.guide.allowGuide) {
+        if (ModKeyBindings.guideKey.isPressed() && ConfigOptions.guide.allowGuide.get()) {
             EntityPlayerSP player = Minecraft.getInstance().player;
 
             if (player.world.isRemote) {

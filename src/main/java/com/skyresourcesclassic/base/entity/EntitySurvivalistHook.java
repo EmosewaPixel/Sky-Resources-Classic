@@ -33,7 +33,7 @@ import java.util.List;
 
 public class EntitySurvivalistHook extends EntityFishHook {
     private static final DataParameter<Integer> DATA_HOOKED_ENTITY = EntityDataManager
-            .<Integer>createKey(EntityFishHook.class, DataSerializers.VARINT);
+            .createKey(EntityFishHook.class, DataSerializers.VARINT);
     private boolean inGround;
     private int ticksInGround = 0;
     private EntityPlayer angler;

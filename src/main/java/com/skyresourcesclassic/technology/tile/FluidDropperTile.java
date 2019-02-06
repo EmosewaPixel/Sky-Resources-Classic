@@ -54,7 +54,7 @@ public class FluidDropperTile extends TileBase implements ITickable, IFluidHandl
 
     public FluidDropperTile() {
         super("fluidDropper");
-        tank = new FluidTank(ConfigOptions.fluidDropper.fluidDropperCapacity);
+        tank = new FluidTank(ConfigOptions.fluidDropper.fluidDropperCapacity.get());
     }
 
     @Override
@@ -96,7 +96,7 @@ public class FluidDropperTile extends TileBase implements ITickable, IFluidHandl
                 if (tile != null && tile.hasCapability(CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY, dir)) {
                     IFluidHandler fluidHand = tile.getCapability(CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY, dir);
 
-                    int amt = this.fill(fluidHand.drain(ConfigOptions.fluidDropper.fluidDropperCapacity - tank.getFluidAmount(), true),
+                    int amt = this.fill(fluidHand.drain(ConfigOptions.fluidDropper.fluidDropperCapacity.get() - tank.getFluidAmount(), true),
                             true);
                     if (amt > 0)
                         return;

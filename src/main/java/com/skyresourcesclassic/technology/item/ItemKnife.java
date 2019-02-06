@@ -15,9 +15,9 @@ import net.minecraft.entity.ai.attributes.AttributeModifier;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Enchantments;
 import net.minecraft.inventory.EntityEquipmentSlot;
+import net.minecraft.item.IItemTier;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.ItemTier;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
@@ -28,12 +28,12 @@ import java.util.Collections;
 public class ItemKnife extends Item {
     private float damageVsEntity;
 
-    private ItemTier toolMaterial;
+    private IItemTier toolMaterial;
 
-    public ItemKnife(ItemTier material, String name) {
-        super(new Item.Builder().group(ModItemGroups.tabMain).maxStackSize(1).setNoRepair().addToolType(ToolType.get("knife"), material.getHarvestLevel()).defaultMaxDamage((int) (material.getMaxUses() * ConfigOptions.knife.knifeBaseDurability)));
+    public ItemKnife(IItemTier material, String name) {
+        super(new Item.Builder().group(ModItemGroups.tabMain).maxStackSize(1).setNoRepair().addToolType(ToolType.get("knife"), material.getHarvestLevel()).defaultMaxDamage((int) (material.getMaxUses() * ConfigOptions.knife.knifeBaseDurability.get())));
         toolMaterial = material;
-        this.damageVsEntity = ConfigOptions.knife.knifeBaseDamage + material.getAttackDamage();
+        this.damageVsEntity = (float) (ConfigOptions.knife.knifeBaseDamage.get() + material.getAttackDamage());
         setRegistryName(name);
 
         ItemHelper.addKnife(this);

@@ -64,7 +64,7 @@ public class TileCombustionHeater extends TileItemInventory implements ITickable
     private int getHeatPerTick(ItemStack stack) {
         int fuelTime = getBurnTime(stack);
         if (fuelTime > 0) {
-            return (int) Math.cbrt((float) fuelTime * ConfigOptions.combustion.combustionHeatMultiplier);
+            return (int) Math.cbrt((float) fuelTime * ConfigOptions.combustion.combustionHeatMultiplier.get());
         }
 
         return 0;

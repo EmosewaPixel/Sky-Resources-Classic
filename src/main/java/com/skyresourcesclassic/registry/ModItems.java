@@ -129,7 +129,7 @@ public class ModItems {
         cactusFruit = registerItem(new ModItemFood(3, 2F, false, "cactus_fruit"));
         fleshySnowNugget = registerItem(
                 new ModItemFood(4, 1.5F, false, "fleshy_snow_nugget"));
-        cactusKnife = registerItem(new ItemKnife(SkyResourcesClassic.materialCactusNeedle,
+        cactusKnife = registerItem(new ItemKnife(ModItemTiers.CACTUSNEEDLE,
                 "cactus_cutting_knife"));
         stoneKnife = registerItem(
                 new ItemKnife(ItemTier.STONE, "stone_cutting_knife"));

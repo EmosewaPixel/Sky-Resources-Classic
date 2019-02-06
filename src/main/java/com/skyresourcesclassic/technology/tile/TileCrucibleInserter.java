@@ -31,7 +31,7 @@ public class TileCrucibleInserter extends TileItemInventory {
                 if (tile == null)
                     return false;
 
-                if (tile.getItemAmount() + amount <= ConfigOptions.crucible.crucibleCapacity && recipe != null) {
+                if (tile.getItemAmount() + amount <= ConfigOptions.crucible.crucibleCapacity.get() && recipe != null) {
                     ItemStack input = (ItemStack) recipe.getInputs().get(0);
 
                     if (tile.getTank().getFluid() == null || tile.getTank().getFluid().getFluid() == null) {
@@ -60,7 +60,7 @@ public class TileCrucibleInserter extends TileItemInventory {
                 if (tile == null)
                     return stack;
 
-                if (tile.getItemAmount() + amount <= ConfigOptions.crucible.crucibleCapacity && recipe != null) {
+                if (tile.getItemAmount() + amount <= ConfigOptions.crucible.crucibleCapacity.get() && recipe != null) {
                     ItemStack input = (ItemStack) recipe.getInputs().get(0);
 
                     if (tile.getTank().getFluid() == null || tile.getTank().getFluid().getFluid() == null) {

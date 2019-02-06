@@ -28,7 +28,7 @@ import java.util.List;
 public class CrucibleTile extends TileEntity implements ITickable, IFluidHandler {
     FluidTank tank;
 
-    public static int tankCapacity = ConfigOptions.crucible.crucibleCapacity;
+    public static int tankCapacity = ConfigOptions.crucible.crucibleCapacity.get();
 
     public ItemStack itemIn = ItemStack.EMPTY;
     public int itemAmount;
@@ -95,7 +95,7 @@ public class CrucibleTile extends TileEntity implements ITickable, IFluidHandler
                 ProcessRecipe recipe = ProcessRecipeManager.crucibleRecipes.getRecipe(stack, 0, false, false);
 
                 int amount = recipe == null ? 0 : recipe.getFluidOutputs().get(0).amount;
-                if (itemAmount + amount <= ConfigOptions.crucible.crucibleCapacity && recipe != null) {
+                if (itemAmount + amount <= ConfigOptions.crucible.crucibleCapacity.get() && recipe != null) {
                     ItemStack input = (ItemStack) recipe.getInputs().get(0);
 
                     if (tank.getFluid() == null || tank.getFluid().getFluid() == null) {
