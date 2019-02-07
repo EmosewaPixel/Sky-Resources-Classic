@@ -5,6 +5,7 @@ import com.skyresourcesclassic.alchemy.fluid.FluidCrystalBlock;
 import com.skyresourcesclassic.alchemy.fluid.FluidRegisterInfo;
 import com.skyresourcesclassic.base.tile.TileBase;
 import com.skyresourcesclassic.registry.ModBlocks;
+import com.skyresourcesclassic.registry.ModEntities;
 import com.skyresourcesclassic.registry.ModFluids;
 import com.skyresourcesclassic.registry.ModItems;
 import net.minecraft.block.Block;
@@ -24,7 +25,7 @@ import java.util.Random;
 
 public class CrystallizerTile extends TileBase implements ITickable {
     public CrystallizerTile(int tier) {
-        super("crystallizer");
+        super("crystallizer", ModEntities.CRYSTALLIZER);
         this.tier=tier;
     }
 

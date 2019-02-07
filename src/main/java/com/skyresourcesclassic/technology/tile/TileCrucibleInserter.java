@@ -6,13 +6,14 @@ import com.skyresourcesclassic.base.tile.TileItemInventory;
 import com.skyresourcesclassic.ConfigOptions;
 import com.skyresourcesclassic.recipe.ProcessRecipe;
 import com.skyresourcesclassic.recipe.ProcessRecipeManager;
+import com.skyresourcesclassic.registry.ModEntities;
 import net.minecraft.item.ItemStack;
 
 import javax.annotation.Nonnull;
 
 public class TileCrucibleInserter extends TileItemInventory {
     public TileCrucibleInserter() {
-        super("crucibleInserter", 1);
+        super("crucibleInserter", ModEntities.CRUCIBLE_INSERTER, 1);
         this.setInventory(new ItemHandlerSpecial(1) {
             protected void onContentsChanged(int slot) {
                 super.onContentsChanged(slot);

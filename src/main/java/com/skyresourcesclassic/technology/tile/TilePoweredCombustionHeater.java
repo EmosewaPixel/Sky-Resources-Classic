@@ -3,6 +3,7 @@ package com.skyresourcesclassic.technology.tile;
 import com.skyresourcesclassic.base.tile.TileGenericPower;
 import com.skyresourcesclassic.recipe.ProcessRecipe;
 import com.skyresourcesclassic.recipe.ProcessRecipeManager;
+import com.skyresourcesclassic.registry.ModEntities;
 import com.skyresourcesclassic.technology.block.CombustionHeaterBlock;
 import net.minecraft.block.state.BlockFaceShape;
 import net.minecraft.block.state.IBlockState;
@@ -26,7 +27,7 @@ import java.util.List;
 public class TilePoweredCombustionHeater extends TileGenericPower implements ITickable {
 
     public TilePoweredCombustionHeater(int tier) {
-        super("combustionHeaterPowered", 100000, 2000, 0);
+        super("combustionHeaterPowered", ModEntities.POWERED_COMBUSTION_HEATER, 100000, 2000, 0);
         this.tier = tier;
     }
 

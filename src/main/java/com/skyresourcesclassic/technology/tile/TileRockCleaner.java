@@ -3,6 +3,7 @@ package com.skyresourcesclassic.technology.tile;
 import com.skyresourcesclassic.base.tile.TileGenericPower;
 import com.skyresourcesclassic.recipe.ProcessRecipe;
 import com.skyresourcesclassic.recipe.ProcessRecipeManager;
+import com.skyresourcesclassic.registry.ModEntities;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
@@ -11,6 +12,7 @@ import net.minecraft.util.ITickable;
 import net.minecraft.util.NonNullList;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.util.Constants;
+import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.FluidTank;
@@ -22,7 +24,7 @@ import java.util.List;
 
 public class TileRockCleaner extends TileGenericPower implements ITickable, IFluidHandler {
     public TileRockCleaner() {
-        super("rockCleaner", 100000, 2000, 0, 4, new Integer[]{1, 2, 3}, new Integer[]{0});
+        super("rockCleaner", ModEntities.ROCK_CLEABER, 100000, 2000, 0, 4, new Integer[]{1, 2, 3}, new Integer[]{0});
         tank = new FluidTank(4000);
     }
 
@@ -122,7 +124,7 @@ public class TileRockCleaner extends TileGenericPower implements ITickable, IFlu
     @Override
     public void read(NBTTagCompound compound) {
         super.read(compound);
-        bufferListRead(compound.getTag("buffer"));
+        bufferListRead((NBTTagCompound) compound.getTag("buffer"));
         curProgress = compound.getInt("progress");
 
         tank.readFromNBT(compound);
@@ -134,7 +136,7 @@ public class TileRockCleaner extends TileGenericPower implements ITickable, IFlu
             if (!stack.isEmpty()) {
                 NBTTagCompound itemTag = new NBTTagCompound();
                 stack.write(itemTag);
-                nbtTagList.appendTag(itemTag);
+                nbtTagList.add(itemTag);
             }
         }
         NBTTagCompound nbt = new NBTTagCompound();
@@ -145,7 +147,7 @@ public class TileRockCleaner extends TileGenericPower implements ITickable, IFlu
     private void bufferListRead(NBTTagCompound nbt) {
         NBTTagList tagList = nbt.getList("Items", Constants.NBT.TAG_COMPOUND);
         for (int i = 0; i < tagList.size(); i++) {
-            NBTTagCompound itemTags = tagList.getTagAt(i);
+            NBTTagCompound itemTags = (NBTTagCompound) tagList.getTag(i);
             bufferStacks.add(new ItemStack(itemTags));
         }
     }
@@ -183,17 +185,9 @@ public class TileRockCleaner extends TileGenericPower implements ITickable, IFlu
     }
 
     @Override
-    public boolean hasCapability(Capability<?> capability, EnumFacing facing) {
+    public <T> LazyOptional<T> getCapability(Capability<T> capability, EnumFacing facing) {
         if (capability == CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY) {
-            return true;
-        }
-        return super.hasCapability(capability, facing);
-    }
-
-    @Override
-    public <T> T getCapability(Capability<T> capability, EnumFacing facing) {
-        if (capability == CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY) {
-            return (T) this;
+            return LazyOptional.of(() -> this).cast();
         }
         return super.getCapability(capability, facing);
     }

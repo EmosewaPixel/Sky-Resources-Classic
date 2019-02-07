@@ -4,10 +4,12 @@ import com.skyresourcesclassic.base.tile.TileGenericPower;
 import com.skyresourcesclassic.recipe.ProcessRecipe;
 import com.skyresourcesclassic.recipe.ProcessRecipeManager;
 import com.skyresourcesclassic.registry.ModBlocks;
+import com.skyresourcesclassic.registry.ModEntities;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ITickable;
 import net.minecraftforge.common.capabilities.Capability;
+import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.FluidTank;
@@ -19,7 +21,7 @@ import java.util.Arrays;
 
 public class TileAqueousConcentrator extends TileGenericPower implements ITickable, IFluidHandler {
     public TileAqueousConcentrator() {
-        super("aqueousConcentrator", 100000, 2000, 0, 2, new Integer[]{1}, new Integer[]{0});
+        super("aqueous_concentrator", ModEntities.AQUEOUS_CONCENTRATOR, 100000, 2000, 0, 2, new Integer[]{1}, new Integer[]{0});
         tank = new FluidTank(4000);
     }
 
@@ -148,17 +150,9 @@ public class TileAqueousConcentrator extends TileGenericPower implements ITickab
     }
 
     @Override
-    public boolean hasCapability(Capability<?> capability, EnumFacing facing) {
+    public <T> LazyOptional<T> getCapability(Capability<T> capability, EnumFacing facing) {
         if (capability == CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY) {
-            return true;
-        }
-        return super.hasCapability(capability, facing);
-    }
-
-    @Override
-    public <T> T getCapability(Capability<T> capability, EnumFacing facing) {
-        if (capability == CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY) {
-            return (T) this;
+            return LazyOptional.of(() -> this).cast();
         }
         return super.getCapability(capability, facing);
     }

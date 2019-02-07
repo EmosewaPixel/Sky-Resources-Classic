@@ -2,6 +2,7 @@ package com.skyresourcesclassic.technology.tile;
 
 import com.skyresourcesclassic.base.IHeatSource;
 import com.skyresourcesclassic.base.tile.TileGenericPower;
+import com.skyresourcesclassic.registry.ModEntities;
 import com.skyresourcesclassic.technology.block.BlockHeater;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.util.ITickable;
@@ -11,7 +12,7 @@ import net.minecraftforge.energy.IEnergyStorage;
 
 public class TilePoweredHeater extends TileGenericPower implements ITickable, IEnergyStorage, IHeatSource {
     public TilePoweredHeater(int tier) {
-        super("poweredHeater", 100000, 2000, 0);
+        super("poweredHeater", ModEntities.POWERED_HEATER, 100000, 2000, 0);
         this.tier = tier;
     }
 

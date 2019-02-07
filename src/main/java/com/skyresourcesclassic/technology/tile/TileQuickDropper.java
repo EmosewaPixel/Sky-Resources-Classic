@@ -1,13 +1,14 @@
 package com.skyresourcesclassic.technology.tile;
 
 import com.skyresourcesclassic.base.tile.TileItemInventory;
+import com.skyresourcesclassic.registry.ModEntities;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ITickable;
 
 public class TileQuickDropper extends TileItemInventory implements ITickable {
     public TileQuickDropper() {
-        super("quickDropper", 1);
+        super("quickDropper", ModEntities.QUICK_DROPPER, 1);
     }
 
     @Override

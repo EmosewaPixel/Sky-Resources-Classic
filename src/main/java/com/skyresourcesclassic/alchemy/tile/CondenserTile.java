@@ -7,6 +7,7 @@ import com.skyresourcesclassic.alchemy.fluid.FluidRegisterInfo;
 import com.skyresourcesclassic.base.HeatSources;
 import com.skyresourcesclassic.base.tile.TileBase;
 import com.skyresourcesclassic.registry.ModBlocks;
+import com.skyresourcesclassic.registry.ModEntities;
 import com.skyresourcesclassic.registry.ModFluids;
 import net.minecraft.block.Block;
 import net.minecraft.entity.Entity;
@@ -21,7 +22,7 @@ import java.util.Random;
 
 public class CondenserTile extends TileBase implements ITickable {
     public CondenserTile(int tier) {
-        super("condenser");
+        super("condenser", ModEntities.CONDENSER);
         this.tier = tier;
     }
 

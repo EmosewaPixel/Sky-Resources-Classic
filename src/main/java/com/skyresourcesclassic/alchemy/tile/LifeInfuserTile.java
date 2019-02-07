@@ -7,6 +7,7 @@ import com.skyresourcesclassic.base.tile.TileItemInventory;
 import com.skyresourcesclassic.recipe.ProcessRecipe;
 import com.skyresourcesclassic.recipe.ProcessRecipeManager;
 import com.skyresourcesclassic.registry.ModBlocks;
+import com.skyresourcesclassic.registry.ModEntities;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.item.EntityItem;
@@ -20,7 +21,7 @@ import java.util.*;
 
 public class LifeInfuserTile extends TileItemInventory implements ITickable {
     public LifeInfuserTile() {
-        super("lifeInfuser", 3, null, new Integer[]{1, 2});
+        super("lifeInfuser", ModEntities.LIFE_INFUSER,3, null, new Integer[]{1, 2});
         this.setInventory(new ItemHandlerSpecial(3, null, new Integer[]{1, 2}) {
             protected void onContentsChanged(int slot) {
                 super.onContentsChanged(slot);
@@ -52,20 +53,17 @@ public class LifeInfuserTile extends TileItemInventory implements ITickable {
         BlockPos[] pillarPoses = new BlockPos[]{pos.north(1).west(1), pos.north(1).east(1), pos.south(1).west(1),
                 pos.south(1).east(1)};
         for (BlockPos pos : pillarPoses) {
-            ItemStack stack = new ItemStack(world.getBlockState(pos).getBlock(), 1,
-                    world.getBlockState(pos).getBlock().damageDropped(world.getBlockState(pos)));
+            ItemStack stack = new ItemStack(world.getBlockState(pos).getBlock());
             if (!isTag(stack, "logWood"))
                 return false;
-            stack = new ItemStack(world.getBlockState(pos.down()).getBlock(), 1,
-                    world.getBlockState(pos.down()).getBlock().damageDropped(world.getBlockState(pos.down())));
+            stack = new ItemStack(world.getBlockState(pos.down()).getBlock());
             if (!isTag(stack, "logWood"))
                 return false;
         }
         for (int x = -1; x < 2; x++) {
             for (int z = -1; z < 2; z++) {
                 BlockPos posCheck = new BlockPos(x, 0, z).add(pos);
-                ItemStack stack = new ItemStack(world.getBlockState(posCheck.up()).getBlock(), 1, world
-                        .getBlockState(posCheck.up()).getBlock().damageDropped(world.getBlockState(posCheck.up())));
+                ItemStack stack = new ItemStack(world.getBlockState(posCheck.up()).getBlock());
                 if (x == 0 && z == 0) {
                     if (world.getBlockState(posCheck.up()).getBlock() != ModBlocks.darkMatterBlock)
                         return false;

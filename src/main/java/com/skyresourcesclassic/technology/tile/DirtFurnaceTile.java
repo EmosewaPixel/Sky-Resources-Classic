@@ -2,6 +2,7 @@ package com.skyresourcesclassic.technology.tile;
 
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
+import com.skyresourcesclassic.registry.ModEntities;
 import net.minecraft.block.BlockFurnace;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
@@ -19,7 +20,6 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.tags.Tag;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.*;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.text.ITextComponent;
@@ -119,7 +119,7 @@ public class DirtFurnaceTile extends TileEntity implements ITickable, ISidedInve
     }
 
     public DirtFurnaceTile() {
-        super(TileEntityType.FURNACE);
+        super(ModEntities.DIRT_FURNACE);
     }
 
     /**

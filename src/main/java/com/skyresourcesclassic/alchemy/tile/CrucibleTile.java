@@ -4,6 +4,7 @@ import com.skyresourcesclassic.ConfigOptions;
 import com.skyresourcesclassic.base.HeatSources;
 import com.skyresourcesclassic.recipe.ProcessRecipe;
 import com.skyresourcesclassic.recipe.ProcessRecipeManager;
+import com.skyresourcesclassic.registry.ModEntities;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -14,7 +15,7 @@ import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ITickable;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraftforge.common.capabilities.Capability;
-import net.minecraftforge.common.capabilities.OptionalCapabilityInstance;
+import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.FluidTank;
 import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
@@ -67,6 +68,7 @@ public class CrucibleTile extends TileEntity implements ITickable, IFluidHandler
     }
 
     public CrucibleTile() {
+        super(ModEntities.CRUCIBLE);
         tank = new FluidTank(tankCapacity);
     }
 
@@ -147,7 +149,7 @@ public class CrucibleTile extends TileEntity implements ITickable, IFluidHandler
         tank.readFromNBT(compound);
 
         itemAmount = compound.getInt("amount");
-        NBTTagCompound stackTag = compound.getTag("Item");
+        NBTTagCompound stackTag = (NBTTagCompound) compound.getTag("Item");
         if (stackTag != null)
             itemIn = new ItemStack(stackTag);
     }
@@ -165,17 +167,9 @@ public class CrucibleTile extends TileEntity implements ITickable, IFluidHandler
     }
 
     @Override
-    public boolean hasCapability(Capability<?> capability, EnumFacing facing) {
-        if (capability == CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY) {
-            return true;
-        }
-        return super.hasCapability(capability, facing);
-    }
-
-    @Override
-    public <T> OptionalCapabilityInstance<T> getCapability(@Nonnull Capability<T> cap, @Nullable EnumFacing side) {
+    public <T> LazyOptional<T> getCapability(@Nonnull Capability<T> cap, @Nullable EnumFacing side) {
         if (cap == CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY) {
-            return OptionalCapabilityInstance.empty();
+            return LazyOptional.empty();
         }
         return super.getCapability(cap, side);
     }

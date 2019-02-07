@@ -1,22 +1,24 @@
 package com.skyresourcesclassic.base.tile;
 
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.EnumFacing;
 import net.minecraftforge.common.capabilities.Capability;
+import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.energy.CapabilityEnergy;
 import net.minecraftforge.energy.IEnergyStorage;
 
 public class TileGenericPower extends TileItemInventory implements IEnergyStorage {
 
-    public TileGenericPower(String name, int maxPower, int maxIn, int maxOut) {
-        super(name, 0);
+    public TileGenericPower(String name, TileEntityType type, int maxPower, int maxIn, int maxOut) {
+        super(name, type, 0);
         maxEnergy = maxPower;
         maxReceive = maxIn;
         maxExtract = maxOut;
     }
 
-    public TileGenericPower(String name, int maxPower, int maxIn, int maxOut, int invSlots, Integer[] noInsert, Integer[] noExtract) {
-        super(name, invSlots, noInsert, noExtract);
+    public TileGenericPower(String name, TileEntityType type, int maxPower, int maxIn, int maxOut, int invSlots, Integer[] noInsert, Integer[] noExtract) {
+        super(name, type, invSlots, noInsert, noExtract);
         maxEnergy = maxPower;
         maxReceive = maxIn;
         maxExtract = maxOut;
@@ -93,17 +95,9 @@ public class TileGenericPower extends TileItemInventory implements IEnergyStorag
     }
 
     @Override
-    public boolean hasCapability(Capability<?> capability, EnumFacing facing) {
+    public <T> LazyOptional<T> getCapability(Capability<T> capability, EnumFacing facing) {
         if (capability == CapabilityEnergy.ENERGY) {
-            return true;
-        }
-        return super.hasCapability(capability, facing);
-    }
-
-    @Override
-    public <T> T getCapability(Capability<T> capability, EnumFacing facing) {
-        if (capability == CapabilityEnergy.ENERGY) {
-            return (T) this;
+            return LazyOptional.of(() -> this).cast();
         }
         return super.getCapability(capability, facing);
     }

@@ -3,6 +3,7 @@ package com.skyresourcesclassic.technology.tile;
 import com.skyresourcesclassic.base.tile.TileItemInventory;
 import com.skyresourcesclassic.ConfigOptions;
 import com.skyresourcesclassic.registry.ModBlocks;
+import com.skyresourcesclassic.registry.ModEntities;
 import net.minecraft.entity.monster.EntitySilverfish;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.init.Blocks;
@@ -19,7 +20,7 @@ import java.util.List;
 public class TileEndPortalCore extends TileItemInventory implements ITickable {
 
     public TileEndPortalCore() {
-        super("endPortalCore", 1, null, new Integer[]{0});
+        super("endPortalCore", ModEntities.END_PORTAL_CORE, 1, null, new Integer[]{0});
     }
 
     @Override

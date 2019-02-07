@@ -1,6 +1,7 @@
 package com.skyresourcesclassic.technology.tile;
 
 import com.skyresourcesclassic.base.tile.TileGenericPower;
+import com.skyresourcesclassic.registry.ModEntities;
 import com.skyresourcesclassic.registry.ModItems;
 import net.minecraft.entity.EntityList;
 import net.minecraft.entity.EntityLiving;
@@ -11,6 +12,7 @@ import net.minecraft.util.ITickable;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.common.capabilities.Capability;
+import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.eventbus.api.Event;
 import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fluids.FluidStack;
@@ -26,7 +28,7 @@ public class TileWildlifeAttractor extends TileGenericPower implements ITickable
     private int matterLeft = 0;
 
     public TileWildlifeAttractor() {
-        super("wildlifeAttractor", 100000, 2000, 0, 1, null, new Integer[]{0});
+        super("wildlifeAttractor", ModEntities.WILDLIFE_ATTRACTOR, 100000, 2000, 0, 1, null, new Integer[]{0});
         tank = new FluidTank(4000);
     }
 
@@ -57,7 +59,7 @@ public class TileWildlifeAttractor extends TileGenericPower implements ITickable
         return matterLeft;
     }
 
-    private EntityLiving[] wildlifeAttractorAnimalIDs = {"minecraft:sheep", "minecraft:cow",
+    private String[] wildlifeAttractorAnimalIDs = {"minecraft:sheep", "minecraft:cow",
             "minecraft:chicken", "minecraft:pig", "minecraft:rabbit", "minecraft:squid", "minecraft:horse",
             "minecraft:parrot"};
 
@@ -112,15 +114,7 @@ public class TileWildlifeAttractor extends TileGenericPower implements ITickable
     }
 
     @Override
-    public boolean hasCapability(Capability<?> capability, EnumFacing facing) {
-        if (capability == CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY) {
-            return true;
-        }
-        return super.hasCapability(capability, facing);
-    }
-
-    @Override
-    public <T> T getCapability(Capability<T> capability, EnumFacing facing) {
+    public <T> LazyOptional<T> getCapability(Capability<T> capability, EnumFacing facing) {
         if (capability == CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY) {
             return (T) this;
         }

@@ -1,7 +1,8 @@
 package com.skyresourcesclassic.technology.tile;
 
-import com.skyresourcesclassic.base.tile.TileBase;
 import com.skyresourcesclassic.ConfigOptions;
+import com.skyresourcesclassic.base.tile.TileBase;
+import com.skyresourcesclassic.registry.ModEntities;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
@@ -9,6 +10,7 @@ import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ITickable;
 import net.minecraft.util.SoundCategory;
 import net.minecraftforge.common.capabilities.Capability;
+import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.FluidTank;
 import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
@@ -53,7 +55,7 @@ public class FluidDropperTile extends TileBase implements ITickable, IFluidHandl
     }
 
     public FluidDropperTile() {
-        super("fluidDropper");
+        super("fluidDropper", ModEntities.FLUID_DROPPER);
         tank = new FluidTank(ConfigOptions.fluidDropper.fluidDropperCapacity.get());
     }
 
@@ -61,7 +63,7 @@ public class FluidDropperTile extends TileBase implements ITickable, IFluidHandl
     public NBTTagCompound write(NBTTagCompound compound) {
         super.write(compound);
 
-        tank.write(compound);
+        tank.writeToNBT(compound);
         return compound;
     }
 
@@ -106,17 +108,9 @@ public class FluidDropperTile extends TileBase implements ITickable, IFluidHandl
     }
 
     @Override
-    public boolean hasCapability(Capability<?> capability, EnumFacing facing) {
+    public <T> LazyOptional<T> getCapability(Capability<T> capability, EnumFacing facing) {
         if (capability == CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY) {
-            return true;
-        }
-        return super.hasCapability(capability, facing);
-    }
-
-    @Override
-    public <T> T getCapability(Capability<T> capability, EnumFacing facing) {
-        if (capability == CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY) {
-            return (T) this;
+            return LazyOptional.of(() -> this).cast();
         }
         return super.getCapability(capability, facing);
     }

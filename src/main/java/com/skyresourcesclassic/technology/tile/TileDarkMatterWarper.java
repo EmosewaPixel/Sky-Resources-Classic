@@ -1,6 +1,7 @@
 package com.skyresourcesclassic.technology.tile;
 
 import com.skyresourcesclassic.base.tile.TileItemInventory;
+import com.skyresourcesclassic.registry.ModEntities;
 import com.skyresourcesclassic.registry.ModItems;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.monster.*;
@@ -20,7 +21,7 @@ import java.util.List;
 
 public class TileDarkMatterWarper extends TileItemInventory implements ITickable {
     public TileDarkMatterWarper() {
-        super("darkMatterWarper", 1, null, new Integer[]{0});
+        super("darkMatterWarper", ModEntities.DARK_MATTER_WARPER, 1, null, new Integer[]{0});
     }
 
     private int burnTime;

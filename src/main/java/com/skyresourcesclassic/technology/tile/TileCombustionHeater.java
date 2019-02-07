@@ -4,6 +4,7 @@ import com.skyresourcesclassic.ConfigOptions;
 import com.skyresourcesclassic.base.tile.TileItemInventory;
 import com.skyresourcesclassic.recipe.ProcessRecipe;
 import com.skyresourcesclassic.recipe.ProcessRecipeManager;
+import com.skyresourcesclassic.registry.ModEntities;
 import com.skyresourcesclassic.technology.block.CombustionHeaterBlock;
 import net.minecraft.block.state.BlockFaceShape;
 import net.minecraft.entity.Entity;
@@ -26,7 +27,7 @@ import java.util.List;
 
 public class TileCombustionHeater extends TileItemInventory implements ITickable {
     public TileCombustionHeater(int tier) {
-        super("combustionHeater", 1, null, new Integer[]{0});
+        super("combustionHeater", ModEntities.COMBUSTION_HEATER,1, null, new Integer[]{0});
         this.tier = tier;
     }
 

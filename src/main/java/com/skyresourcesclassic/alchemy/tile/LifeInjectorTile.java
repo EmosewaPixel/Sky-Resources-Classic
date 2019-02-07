@@ -1,8 +1,9 @@
 package com.skyresourcesclassic.alchemy.tile;
 
+import com.skyresourcesclassic.ConfigOptions;
 import com.skyresourcesclassic.alchemy.item.ItemHealthGem;
 import com.skyresourcesclassic.base.tile.TileItemInventory;
-import com.skyresourcesclassic.ConfigOptions;
+import com.skyresourcesclassic.registry.ModEntities;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -15,7 +16,7 @@ import java.util.List;
 public class LifeInjectorTile extends TileItemInventory implements ITickable {
 
     public LifeInjectorTile() {
-        super("lifeInjector", 1);
+        super("lifeInjector", ModEntities.LIFE_INJECTOR, 1);
     }
 
     private int cooldown;

@@ -1,12 +1,13 @@
 package com.skyresourcesclassic.technology.tile;
 
+import com.skyresourcesclassic.registry.ModEntities;
 import com.skyresourcesclassic.technology.block.BlockFreezer;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.util.ITickable;
 
 public class FreezerTile extends MiniFreezerTile implements ITickable {
     public FreezerTile() {
-        super(6, new Integer[]{3, 4, 5}, new Integer[]{0, 1, 2});
+        super(6, ModEntities.FREEZER, new Integer[]{3, 4, 5}, new Integer[]{0, 1, 2});
     }
 
     public float getFreezerSpeed() {

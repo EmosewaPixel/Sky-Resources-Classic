@@ -3,21 +3,21 @@ package com.skyresourcesclassic.technology.tile;
 import com.skyresourcesclassic.base.tile.TileItemInventory;
 import com.skyresourcesclassic.recipe.ProcessRecipe;
 import com.skyresourcesclassic.recipe.ProcessRecipeManager;
+import com.skyresourcesclassic.registry.ModEntities;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.ITickable;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class MiniFreezerTile extends TileItemInventory implements ITickable {
     public MiniFreezerTile() {
-        super("freezer", 2, new Integer[]{1}, new Integer[]{0});
+        super("freezer", ModEntities.MINI_FREEZER, 2, new Integer[]{1}, new Integer[]{0});
     }
 
-    public MiniFreezerTile(int slots, Integer[] noInsert, Integer[] noExtract) {
-        super("freezer", 6, noInsert, noExtract);
+    public MiniFreezerTile(int slots, TileEntityType type, Integer[] noInsert, Integer[] noExtract) {
+        super("freezer", type, 6, noInsert, noExtract);
     }
 
     private float[] timeFreeze;

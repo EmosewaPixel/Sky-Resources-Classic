@@ -12,8 +12,8 @@ import net.minecraft.util.text.TextComponentTranslation;
 public class TileBase extends TileEntity {
     private String name;
 
-    public TileBase(String name) {
-        super(TileEntityType.FURNACE);
+    public TileBase(String name, TileEntityType type) {
+        super(type);
         this.name = name;
     }
 

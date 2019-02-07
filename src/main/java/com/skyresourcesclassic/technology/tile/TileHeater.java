@@ -2,6 +2,7 @@ package com.skyresourcesclassic.technology.tile;
 
 import com.skyresourcesclassic.base.IHeatSource;
 import com.skyresourcesclassic.base.tile.TileItemInventory;
+import com.skyresourcesclassic.registry.ModEntities;
 import com.skyresourcesclassic.technology.block.BlockHeater;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.item.ItemStack;
@@ -14,7 +15,7 @@ import net.minecraftforge.event.ForgeEventFactory;
 
 public class TileHeater extends TileItemInventory implements ITickable, IHeatSource {
     public TileHeater(int tier) {
-        super("heater", 1, null, new Integer[]{0});
+        super("heater", ModEntities.HEATER, 1, null, new Integer[]{0});
         this.tier = tier;
     }
 

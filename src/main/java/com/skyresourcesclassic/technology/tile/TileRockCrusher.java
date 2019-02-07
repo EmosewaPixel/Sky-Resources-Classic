@@ -4,6 +4,7 @@ import com.skyresourcesclassic.base.gui.ItemHandlerSpecial;
 import com.skyresourcesclassic.base.tile.TileGenericPower;
 import com.skyresourcesclassic.recipe.ProcessRecipe;
 import com.skyresourcesclassic.recipe.ProcessRecipeManager;
+import com.skyresourcesclassic.registry.ModEntities;
 import com.skyresourcesclassic.technology.item.ItemRockGrinder;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.init.Enchantments;
@@ -18,7 +19,7 @@ import java.util.Collections;
 
 public class TileRockCrusher extends TileGenericPower implements ITickable {
     public TileRockCrusher() {
-        super("rockCrusher", 100000, 2000, 0, 5, new Integer[]{2, 3, 4}, new Integer[]{0, 1});
+        super("rockCrusher", ModEntities.ROCK_CRUSHER, 100000, 2000, 0, 5, new Integer[]{2, 3, 4}, new Integer[]{0, 1});
         this.setInventory(new ItemHandlerSpecial(5, new Integer[]{2, 3, 4}, new Integer[]{0, 1}) {
             protected void onContentsChanged(int slot) {
                 super.onContentsChanged(slot);
@@ -154,7 +155,7 @@ public class TileRockCrusher extends TileGenericPower implements ITickable {
     @Override
     public void read(NBTTagCompound compound) {
         super.read(compound);
-        bufferListRead(compound.getTag("buffer"));
+        bufferListRead((NBTTagCompound) compound.getTag("buffer"));
         curProgress = compound.getInt("progress");
     }
 
