@@ -151,7 +151,7 @@ public class CrucibleTile extends TileEntity implements ITickable, IFluidHandler
         itemAmount = compound.getInt("amount");
         NBTTagCompound stackTag = (NBTTagCompound) compound.getTag("Item");
         if (stackTag != null)
-            itemIn = new ItemStack(stackTag);
+            itemIn = ItemStack.read(stackTag);
     }
 
     int getHeatSourceVal() {

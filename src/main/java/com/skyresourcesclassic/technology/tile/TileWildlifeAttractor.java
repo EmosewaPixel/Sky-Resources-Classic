@@ -116,7 +116,7 @@ public class TileWildlifeAttractor extends TileGenericPower implements ITickable
     @Override
     public <T> LazyOptional<T> getCapability(Capability<T> capability, EnumFacing facing) {
         if (capability == CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY) {
-            return (T) this;
+            return LazyOptional.of(() -> this).cast();
         }
         return super.getCapability(capability, facing);
     }
