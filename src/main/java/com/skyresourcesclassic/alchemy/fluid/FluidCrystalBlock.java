@@ -1,32 +1,24 @@
 package com.skyresourcesclassic.alchemy.fluid;
 
-import com.skyresourcesclassic.References;
+import net.minecraft.block.Block;
+import net.minecraft.block.BlockFlowingFluid;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
-import net.minecraft.item.Item;
+import net.minecraft.fluid.FlowingFluid;
 import net.minecraft.util.BlockRenderLayer;
-import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
-import net.minecraftforge.fluids.BlockFluidClassic;
-import net.minecraftforge.fluids.Fluid;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
 
 import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-import java.util.Random;
 
-public class FluidCrystalBlock extends BlockFluidClassic {
+public class FluidCrystalBlock extends BlockFlowingFluid {
 
-    public FluidCrystalBlock(Fluid fluid, Material material, String unlocalizedName,
+    public FluidCrystalBlock(FlowingFluid fluid, Material material,
                              String registryName) {
-        super(fluid, material);
-        this.setUnlocalizedName(References.ModID + "." + unlocalizedName);
+        super(fluid, Block.Builder.create(material));
         this.setRegistryName(registryName);
-        this.setTickRandomly(true);
     }
 
     @Override
@@ -41,22 +33,11 @@ public class FluidCrystalBlock extends BlockFluidClassic {
                 {pos.add(1, 0, 0), pos.add(-1, 0, 0), pos.add(0, 0, 1), pos.add(0, 0, -1)};
         for (BlockPos pos2 : checkPos) {
             if (world.getBlockState(pos2).getBlock() == this) {
-                if (!isSourceBlock(world, pos2))
+                if (!getFluidState(world.getBlockState(pos2)).isSource())
                     return false;
             }
         }
         return !(world.getBlockState(pos.add(0, 1, 0)).getBlock() == this
                 || world.getBlockState(pos.add(0, -1, 0)).getBlock() == this);
-    }
-
-    @Override
-    public AxisAlignedBB getSelectedBoundingBox(IBlockState blockState, World worldIn, BlockPos pos) {
-        return NULL_AABB;
-    }
-
-    @Nullable
-    public AxisAlignedBB getCollisionBoundingBox(IBlockState blockState, World worldIn,
-                                                 BlockPos pos) {
-        return NULL_AABB;
     }
 }

@@ -20,13 +20,14 @@ import net.minecraft.util.ITickable;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.items.CapabilityItemHandler;
+import net.minecraftforge.items.IItemHandler;
 
 import java.util.Random;
 
 public class CrystallizerTile extends TileBase implements ITickable {
     public CrystallizerTile(int tier) {
         super("crystallizer", ModEntities.CRYSTALLIZER);
-        this.tier=tier;
+        this.tier = tier;
     }
 
     private int timeCondense;
@@ -49,7 +50,7 @@ public class CrystallizerTile extends TileBase implements ITickable {
                 FluidRegisterInfo.CrystalFluidType type = ModFluids.crystalFluidInfos()[ModBlocks.crystalFluidBlocks.indexOf(crystalBlock)].type;
 
                 if (tier != 1 || type == FluidRegisterInfo.CrystalFluidType.NORMAL) {
-                    if (crystalBlock.isSourceBlock(world, pos.up())
+                    if (crystalBlock.getFluidState(getBlockAbove().getDefaultState()).isSource()
                             && crystalBlock.isNotFlowing(world, pos.up(), world.getBlockState(pos.up())))
                         timeCondense++;
                     else
@@ -104,9 +105,9 @@ public class CrystallizerTile extends TileBase implements ITickable {
             TileEntity tile = world.getTileEntity(facingPos);
 
             if (tile != null) {
-                if (tile.hasCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, EnumFacing.UP)) {
+                if (tile.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, EnumFacing.UP).isPresent()) {
                     output = RandomHelper.fillInventory(
-                            tile.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, EnumFacing.UP), output);
+                            (IItemHandler) tile.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, EnumFacing.UP), output);
                 } else if (tile instanceof IInventory) {
                     output = RandomHelper.fillInventory((IInventory) tile, output);
                 }

@@ -9,6 +9,7 @@ import net.minecraftforge.client.model.obj.OBJLoader;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.event.lifecycle.InterModEnqueueEvent;
 import net.minecraftforge.fml.event.lifecycle.InterModProcessEvent;
+import net.minecraftforge.fml.javafmlmod.FMLModLoadingContext;
 
 public class ClientProxy extends CommonProxy {
 
@@ -23,7 +24,7 @@ public class ClientProxy extends CommonProxy {
 
     @Override
     public void enque(InterModEnqueueEvent e) {
-        MinecraftForge.EVENT_BUS.register(new ClientEventHandler());
+        FMLModLoadingContext.get().getModEventBus().register(new ClientEventHandler());
         new ModKeyBindings();
         super.enque(e);
         ModRenderers.init();

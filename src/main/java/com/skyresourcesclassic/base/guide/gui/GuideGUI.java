@@ -15,6 +15,7 @@ import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.text.translation.I18n;
 import net.minecraftforge.fml.client.GuiScrollingList;
+import org.lwjgl.glfw.GLFW;
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.input.Mouse;
 
@@ -287,7 +288,7 @@ public class GuideGUI extends GuiScreen {
             curIndex = 0;
             removeLinkButtons();
             addLinkButtons();
-        } else if (keyCode == Keyboard.KEY_ESCAPE) {
+        } else if (keyCode == GLFW.GLFW_KEY_ESCAPE) {
             if (currentImage == null) {
                 super.keyTyped(typedChar, keyCode);
             } else

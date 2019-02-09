@@ -5,12 +5,12 @@ import com.skyresourcesclassic.recipe.ProcessRecipe;
 import com.skyresourcesclassic.recipe.ProcessRecipeManager;
 import com.skyresourcesclassic.registry.ModBlocks;
 import com.skyresourcesclassic.registry.ModEntities;
+import net.minecraft.init.Fluids;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ITickable;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.util.LazyOptional;
-import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.FluidTank;
 import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
@@ -118,7 +118,7 @@ public class TileAqueousConcentrator extends TileGenericPower implements ITickab
 
     @Override
     public int fill(FluidStack resource, boolean doFill) {
-        if (concentratorMode() && resource != null && resource.getFluid() == FluidRegistry.WATER) {
+        if (concentratorMode() && resource != null && resource.getFluid() == Fluids.WATER) {
             int filled = tank.fill(resource, doFill);
 
             return filled;

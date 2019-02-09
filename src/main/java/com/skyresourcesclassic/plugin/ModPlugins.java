@@ -9,7 +9,7 @@ import com.skyresourcesclassic.plugin.integdyn.IntegratedDynamicsPlugin;
 import com.skyresourcesclassic.plugin.tconstruct.TConPlugin;
 import com.skyresourcesclassic.plugin.techreborn.TechRebornPlugin;
 import com.skyresourcesclassic.plugin.theoneprobe.TOPPlugin;
-import net.minecraftforge.fml.common.Loader;
+import net.minecraftforge.fml.ModList;
 
 import java.util.ArrayList;
 
@@ -17,24 +17,24 @@ public class ModPlugins {
     public static ArrayList<IModPlugin> plugins = new ArrayList<IModPlugin>();
 
     public static void preInit() {
-        if (Loader.isModLoaded("forestry"))
+        if (ModList.get().isLoaded("forestry"))
             plugins.add(new ForestryPlugin());
-        if (Loader.isModLoaded("tconstruct"))
-            plugins.add(new TConPlugin());
-        if (Loader.isModLoaded("techreborn"))
-            plugins.add(new TechRebornPlugin());
-        if (Loader.isModLoaded("armorplus"))
-            plugins.add(new ArmorPlusPlugin());
-        if (Loader.isModLoaded("integrateddynamics"))
-            plugins.add(new IntegratedDynamicsPlugin());
-        if (Loader.isModLoaded("bigreactors"))
-            plugins.add(new ExtremeReactorsPlugin());
-        if (Loader.isModLoaded("actuallyadditions"))
-            plugins.add(new ActAddPlugin());
-        if (Loader.isModLoaded("crafttweaker"))
-            plugins.add(new CraftTweakerPlugin());
-        if (Loader.isModLoaded("theoneprobe"))
-            plugins.add(new TOPPlugin());
+        if (ModList.get().isLoaded(("tconstruct"))
+        plugins.add(new TConPlugin());
+        if (ModList.get().isLoaded(("techreborn"))
+        plugins.add(new TechRebornPlugin());
+        if (ModList.get().isLoaded(("armorplus"))
+        plugins.add(new ArmorPlusPlugin());
+        if (ModList.get().isLoaded(("integrateddynamics"))
+        plugins.add(new IntegratedDynamicsPlugin());
+        if (ModList.get().isLoaded(("bigreactors"))
+        plugins.add(new ExtremeReactorsPlugin());
+        if (ModList.get().isLoaded(("actuallyadditions"))
+        plugins.add(new ActAddPlugin());
+        if (ModList.get().isLoaded(("crafttweaker"))
+        plugins.add(new CraftTweakerPlugin());
+        if (ModList.get().isLoaded(("theoneprobe"))
+        plugins.add(new TOPPlugin());
 
         for (IModPlugin p : plugins) {
             p.preInit();

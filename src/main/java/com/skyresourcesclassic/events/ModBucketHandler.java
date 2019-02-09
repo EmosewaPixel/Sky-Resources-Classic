@@ -1,6 +1,8 @@
 package com.skyresourcesclassic.events;
 
 import net.minecraft.block.Block;
+import net.minecraft.block.BlockFlowingFluid;
+import net.minecraft.fluid.Fluid;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.RayTraceResult;
@@ -8,14 +10,12 @@ import net.minecraft.world.World;
 import net.minecraftforge.event.entity.player.FillBucketEvent;
 import net.minecraftforge.eventbus.api.Event;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fluids.BlockFluidBase;
-import net.minecraftforge.fluids.Fluid;
 
 import java.util.HashMap;
 import java.util.Map;
 
 public class ModBucketHandler {
-    public Map<Fluid, Item> buckets = new HashMap<Fluid, Item>();
+    public Map<Fluid, Item> buckets = new HashMap<>();
 
     public static void registerBuckets() {
     }
@@ -36,8 +36,8 @@ public class ModBucketHandler {
         if (pos != null && pos.getBlockPos() != null
                 && world.getBlockState(pos.getBlockPos()) != null) {
             Block block = world.getBlockState(pos.getBlockPos()).getBlock();
-            if (block instanceof BlockFluidBase) {
-                Fluid fluid = ((BlockFluidBase) block).getFluid();
+            if (block instanceof BlockFlowingFluid) {
+                Fluid fluid = world.getFluidState(pos.getBlockPos()).getFluid();
                 if (buckets.containsKey(fluid)) {
                     Item bucket = buckets.get(fluid);
                     if (bucket != null) {

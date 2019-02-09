@@ -2,7 +2,7 @@ package com.skyresourcesclassic.base.guide;
 
 import com.skyresourcesclassic.jei.JEIPlugin;
 import net.minecraft.item.ItemStack;
-import net.minecraftforge.fml.common.Loader;
+import net.minecraftforge.fml.ModList;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,7 +19,7 @@ public class GuideRecipeButton extends GuidePageButton {
 
     @Override
     public boolean onClicked() {
-        if (Loader.isModLoaded("jei")) {
+        if (ModList.get().isLoaded("jei")) {
             JEIPlugin.openRecipesGui(this.stackDisplay);
         }
         return true;

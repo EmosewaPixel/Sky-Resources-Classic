@@ -2,6 +2,7 @@ package com.skyresourcesclassic.events;
 
 import com.skyresourcesclassic.ConfigOptions;
 import com.skyresourcesclassic.RandomHelper;
+import com.skyresourcesclassic.References;
 import com.skyresourcesclassic.SkyResourcesClassic;
 import com.skyresourcesclassic.alchemy.effects.IHealthBoostItem;
 import com.skyresourcesclassic.base.ModKeyBindings;
@@ -12,7 +13,7 @@ import com.skyresourcesclassic.registry.ModGuiHandler;
 import com.skyresourcesclassic.registry.ModItems;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockCauldron;
-import net.minecraft.block.BlockSnow;
+import net.minecraft.block.BlockSnowLayer;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.EntityPlayerSP;
 import net.minecraft.entity.SharedMonsterAttributes;
@@ -33,7 +34,7 @@ import net.minecraftforge.fml.common.gameevent.TickEvent.PlayerTickEvent;
 
 import java.util.List;
 
-@Mod.EventBusSubscriber
+@Mod.EventBusSubscriber(modid = References.ModID, bus = Mod.EventBusSubscriber.Bus.MOD)
 public class EventHandler {
     @SubscribeEvent
     public void onPlayerRightClick(RightClickBlock event) {
@@ -51,24 +52,23 @@ public class EventHandler {
                     RandomHelper.spawnItemInWorld(event.getWorld(), new ItemStack(Items.SNOWBALL), event.getPos());
                     event.getEntityPlayer().addPotionEffect(
                             new PotionEffect(MobEffects.MINING_FATIGUE, event.getWorld().rand.nextInt(80) + 20, 1));
-                    int layer = event.getWorld().getBlockState(event.getPos()).get(BlockSnow.LAYERS);
+                    int layer = event.getWorld().getBlockState(event.getPos()).get(BlockSnowLayer.LAYERS);
 
                     if (layer == 1)
                         event.getWorld().removeBlock(event.getPos());
                     else
-                        event.getWorld().setBlockState(event.getPos(), Blocks.SNOW.getDefaultState().with(BlockSnow.LAYERS, layer - 1));
+                        event.getWorld().setBlockState(event.getPos(), Blocks.SNOW.getDefaultState().with(BlockSnowLayer.LAYERS, layer - 1));
                 } else if (block == Blocks.SNOW) {
                     RandomHelper.spawnItemInWorld(event.getWorld(), new ItemStack(Items.SNOWBALL), event.getPos());
                     event.getEntityPlayer().addPotionEffect(
                             new PotionEffect(MobEffects.MINING_FATIGUE, event.getWorld().rand.nextInt(80) + 20, 1));
 
-                    event.getWorld().setBlockState(event.getPos(), Blocks.SNOW.getDefaultState().with(BlockSnow.LAYERS, 7));
+                    event.getWorld().setBlockState(event.getPos(), Blocks.SNOW.getDefaultState().with(BlockSnowLayer.LAYERS, 7));
                 }
             } else if (block != null && !equip.isEmpty()) {
                 if (block == Blocks.CAULDRON) {
 
-                    int i = ((Integer) event.getWorld().getBlockState(event.getPos()).get(BlockCauldron.LEVEL))
-                            .intValue();
+                    int i = event.getWorld().getBlockState(event.getPos()).get(BlockCauldron.LEVEL).intValue();
                     ItemStack item = event.getEntityPlayer().getHeldItem(EnumHand.MAIN_HAND);
 
                     if (i > 0) {
@@ -87,8 +87,7 @@ public class EventHandler {
                             if (validIn) {
                                 item.shrink(1);
                                 if (event.getWorld().rand.nextFloat() < 0.16F)
-                                    new BlockCauldron().setWaterLevel(event.getWorld(), event.getPos(),
-                                            event.getWorld().getBlockState(event.getPos()), i - 1);
+                                    event.getWorld().setBlockState(event.getPos(), Blocks.CAULDRON.getDefaultState().with(BlockCauldron.LEVEL, i - 1));
                                 if (item.getCount() == 0)
                                     event.getEntityPlayer().setHeldItem(EnumHand.MAIN_HAND, ItemStack.EMPTY);
                             }

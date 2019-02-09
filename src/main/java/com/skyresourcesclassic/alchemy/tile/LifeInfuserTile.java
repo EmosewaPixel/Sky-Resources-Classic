@@ -13,15 +13,17 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.init.Particles;
 import net.minecraft.item.ItemStack;
+import net.minecraft.tags.ItemTags;
 import net.minecraft.util.ITickable;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
-import net.minecraftforge.oredict.OreDictionary;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
 
 public class LifeInfuserTile extends TileItemInventory implements ITickable {
     public LifeInfuserTile() {
-        super("lifeInfuser", ModEntities.LIFE_INFUSER,3, null, new Integer[]{1, 2});
+        super("lifeInfuser", ModEntities.LIFE_INFUSER, 3, null, new Integer[]{1, 2});
         this.setInventory(new ItemHandlerSpecial(3, null, new Integer[]{1, 2}) {
             protected void onContentsChanged(int slot) {
                 super.onContentsChanged(slot);
@@ -37,8 +39,6 @@ public class LifeInfuserTile extends TileItemInventory implements ITickable {
             }
         });
     }
-
-    private static final Map<String, List<ItemStack>> oreMap = new HashMap<>();
 
     @Override
     public void tick() {
@@ -79,24 +79,7 @@ public class LifeInfuserTile extends TileItemInventory implements ITickable {
         if (stack == ItemStack.EMPTY || stack.getItem() == null)
             return false;
 
-        List<ItemStack> tags;
-        if (oreMap.containsKey(entry))
-            tags = oreMap.get(entry);
-        else {
-            tags = OreDictionary.getOres(entry);
-            oreMap.put(entry, tags);
-        }
-
-        for (ItemStack ostack : tags) {
-            ItemStack cstack = ostack.copy();
-            if (cstack.getDamage() == Short.MAX_VALUE)
-                cstack.setDamage(stack.getDamage());
-
-            if (stack.isItemEqual(cstack))
-                return true;
-        }
-
-        return false;
+        return new ItemTags.Wrapper(new ResourceLocation(entry)).getAllElements().contains(stack.getItem());
     }
 
     private void craftItem() {

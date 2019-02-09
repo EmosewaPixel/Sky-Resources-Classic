@@ -2,8 +2,9 @@ package com.skyresourcesclassic.recipe;
 
 import com.skyresourcesclassic.ItemHelper;
 import net.minecraft.item.ItemStack;
+import net.minecraft.tags.ItemTags;
+import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fluids.FluidStack;
-import net.minecraftforge.oredict.OreDictionary;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -115,10 +116,8 @@ public class ProcessRecipe {
             float ratio = -1;
             for (Object o2 : recipe.inputs) {
                 if (o2 instanceof String) {
-                    int[] ids = OreDictionary.getO((ItemStack) i);
-                    for (int id : ids)
-                        if (id == OreDictionary.getOreID(o2.toString()))
-                            valid = true;
+                    if (new ItemTags.Wrapper(new ResourceLocation(o2.toString())).getAllElements().contains(i))
+                        valid = true;
                 } else if (o2 instanceof ItemStack) {
                     ItemStack i2 = (ItemStack) o2;
                     if (ItemHelper.itemStacksEqualOD(i, i2) && items.get(i) >= i2.getCount()
@@ -148,10 +147,8 @@ public class ProcessRecipe {
             boolean valid = false;
             for (Object i2 : recipe.inputs) {
                 if (i instanceof ItemStack && i2 instanceof String) {
-                    int[] ids = OreDictionary.getOreIDs((ItemStack) i);
-                    for (int id : ids)
-                        if (id == OreDictionary.getOreID(i2.toString()))
-                            valid = true;
+                    if (new ItemTags.Wrapper(new ResourceLocation(i2.toString())).getAllElements().contains(i))
+                        valid = true;
                 } else if (i instanceof ItemStack && i2 instanceof ItemStack)
                     if (ItemHelper.itemStacksEqualOD((ItemStack) i, (ItemStack) i2)
                             && (forceEqual ? ((ItemStack) i).getCount() == ((ItemStack) i2).getCount()

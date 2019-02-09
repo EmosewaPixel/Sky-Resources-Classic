@@ -33,8 +33,7 @@ public class CommonProxy implements IModProxy {
     public void enque(InterModEnqueueEvent e) {
         MinecraftForge.EVENT_BUS.register(events);
         MinecraftForge.EVENT_BUS.register(new ModBucketHandler());
-        NetworkRegistry.INSTANCE.registerGuiHandler(SkyResourcesClassic.instance, new ModGuiHandler());
-        ModEntities.init();
+        NetworkRegister.INSTANCE.registerGuiHandler(SkyResourcesClassic.instance, new ModGuiHandler());
         ModCrafting.init();
 
         ModPlugins.init();

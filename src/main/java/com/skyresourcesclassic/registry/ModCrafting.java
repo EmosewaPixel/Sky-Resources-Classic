@@ -21,9 +21,7 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.storage.loot.LootTableList;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.Tags;
-import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fluids.FluidStack;
-import net.minecraftforge.fml.common.registry.GameRegistry;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -300,28 +298,28 @@ public class ModCrafting {
             ProcessRecipeManager.crucibleRecipes.addRecipe(new FluidStack(ModFluids.crystalFluids.get(i), 1000), 0,
                     new ItemStack(ModItems.metalCrystal[ModFluids.crystalFluidInfos()[i].crystalIndex]));
         }
-        ProcessRecipeManager.crucibleRecipes.addRecipe(new FluidStack(FluidRegistry.LAVA, 200), 0,
+        ProcessRecipeManager.crucibleRecipes.addRecipe(new FluidStack(Fluids.LAVA, 200), 0,
                 new ItemStack(Blocks.NETHERRACK));
 
-        ProcessRecipeManager.crucibleRecipes.addRecipe(new FluidStack(FluidRegistry.LAVA, 1000), 0,
+        ProcessRecipeManager.crucibleRecipes.addRecipe(new FluidStack(Fluids.LAVA, 1000), 0,
                 new ItemStack(ModBlocks.blazePowderBlock));
 
         ProcessRecipeManager.waterExtractorExtractRecipes.addRecipe(
                 new ArrayList<>(
-                        Arrays.asList(new ItemStack(ModBlocks.dryCactus), new FluidStack(FluidRegistry.WATER, 50))),
+                        Arrays.asList(new ItemStack(ModBlocks.dryCactus), new FluidStack(Fluids.WATER, 50))),
                 0, new ItemStack(Blocks.CACTUS));
         ProcessRecipeManager.waterExtractorExtractRecipes.addRecipe(
-                new ArrayList<>(Arrays.asList(ItemStack.EMPTY, new FluidStack(FluidRegistry.WATER, 50))), 0,
+                new ArrayList<>(Arrays.asList(ItemStack.EMPTY, new FluidStack(Fluids.WATER, 50))), 0,
                 new ItemStack(Blocks.SNOW));
         ProcessRecipeManager.waterExtractorExtractRecipes.addRecipe(
-                new ArrayList<>(Arrays.asList(ItemStack.EMPTY, new FluidStack(FluidRegistry.WATER, 20))), 0,
+                new ArrayList<>(Arrays.asList(ItemStack.EMPTY, new FluidStack(Fluids.WATER, 20))), 0,
                 "treeLeaves");
 
         ProcessRecipeManager.waterExtractorInsertRecipes.addRecipe(new ItemStack(Blocks.CLAY), 0, new ArrayList<>(
-                Arrays.asList(new ItemStack(Blocks.DIRT), new FluidStack(FluidRegistry.WATER, 200))));
+                Arrays.asList(new ItemStack(Blocks.DIRT), new FluidStack(Fluids.WATER, 200))));
 
         ProcessRecipeManager.waterExtractorInsertRecipes.addRecipe(new ItemStack(Blocks.CACTUS), 0, new ArrayList<>(
-                Arrays.asList(new ItemStack(ModBlocks.dryCactus), new FluidStack(FluidRegistry.WATER, 1200))));
+                Arrays.asList(new ItemStack(ModBlocks.dryCactus), new FluidStack(Fluids.WATER, 1200))));
 
         ProcessRecipeManager.freezerRecipes.addRecipe(new ItemStack(ModItems.heavySnowball), 40,
                 new ItemStack(Items.SNOWBALL, 4));

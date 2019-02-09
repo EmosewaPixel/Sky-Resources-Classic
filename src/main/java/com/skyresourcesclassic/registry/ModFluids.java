@@ -2,16 +2,20 @@ package com.skyresourcesclassic.registry;
 
 import com.skyresourcesclassic.ConfigOptions;
 import com.skyresourcesclassic.References;
+import com.skyresourcesclassic.alchemy.fluid.CrystalFluid.Flowing;
+import com.skyresourcesclassic.alchemy.fluid.CrystalFluid.Source;
 import com.skyresourcesclassic.alchemy.fluid.FluidRegisterInfo;
 import com.skyresourcesclassic.alchemy.fluid.FluidRegisterInfo.CrystalFluidType;
+import net.minecraft.fluid.FlowingFluid;
+import net.minecraft.fluid.Fluid;
 import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.fluids.Fluid;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class ModFluids {
-    public static List<Fluid> crystalFluids;
+    public static List<FlowingFluid> crystalFluids;
+    public static List<FlowingFluid> flowingCrystalFluids;
 
     private static List<FluidRegisterInfo> crystalFluidInfos = new ArrayList<>();
 
@@ -43,6 +47,7 @@ public class ModFluids {
         addCrystalFluid("mithril", 0xFF45BCCC, 10, CrystalFluidType.NORMAL);
 
         registerCrystalFluid();
+        registerFlowingCrystalFluid();
     }
 
     public static FluidRegisterInfo getFluidInfo(int index) {
@@ -63,27 +68,27 @@ public class ModFluids {
         crystalFluids = new ArrayList<>();
         for (int i = 0; i < crystalFluidInfos().length; i++) {
             String type = (crystalFluidInfos()[i].type == CrystalFluidType.MOLTEN ? "molten_" : "") + "crystal_fluid";
-            final int val = i;
-            Fluid fluid = new Fluid(crystalFluidInfos()[i].name + "_" + type, getStill("blocks/" + type + "_still"),
-                    getFlowing("blocks/" + type + "_flow")) {
-                @Override
-                public int getColor() {
-                    return crystalFluidInfos()[val].color;
-                }
-            };
+            FlowingFluid fluid = register("blocks/" + crystalFluidInfos()[i].name + type + "_still", new Source(i));
             crystalFluids.add(fluid);
         }
     }
 
-    private static ResourceLocation getStill(String name) {
-        return new ResourceLocation(References.ModID, name);
-    }
-
-    private static ResourceLocation getFlowing(String name) {
-        return new ResourceLocation(References.ModID, name);
+    private static void registerFlowingCrystalFluid() {
+        crystalFluids = new ArrayList<>();
+        for (int i = 0; i < crystalFluidInfos().length; i++) {
+            String type = (crystalFluidInfos()[i].type == CrystalFluidType.MOLTEN ? "molten_" : "") + "crystal_fluid";
+            FlowingFluid fluid = register("blocks/" + crystalFluidInfos()[i].name + type + "_flow", new Flowing(i));
+            flowingCrystalFluids.add(fluid);
+        }
     }
 
     public static FluidRegisterInfo[] crystalFluidInfos() {
         return crystalFluidInfos.toArray(new FluidRegisterInfo[crystalFluidInfos.size()]);
+    }
+
+    private static FlowingFluid register(String locationIn, FlowingFluid fluidIn) {
+        Fluid.REGISTRY.put(new ResourceLocation(References.ModID, locationIn), fluidIn);
+
+        return fluidIn;
     }
 }

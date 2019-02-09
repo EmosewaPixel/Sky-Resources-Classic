@@ -13,10 +13,12 @@ import net.minecraft.block.Block;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.init.Particles;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.tags.ItemTags;
 import net.minecraft.util.ITickable;
-import net.minecraftforge.oredict.OreDictionary;
+import net.minecraft.util.ResourceLocation;
 
 import java.util.Random;
 
@@ -44,11 +46,11 @@ public class CondenserTile extends TileBase implements ITickable {
             FluidRegisterInfo.CrystalFluidType fluidType = ModFluids.crystalFluidInfos()[ModBlocks.crystalFluidBlocks
                     .indexOf(crystalBlock)].type;
 
-            String oreDictCheck = "ingot" + RandomHelper.capatilizeString(type);
+            String tagCheck = "forge:ingot" + RandomHelper.capatilizeString(type);
 
-            if ((tier != 1 || fluidType == FluidRegisterInfo.CrystalFluidType.NORMAL) && crystalBlock.isSourceBlock(world, pos.up())
+            if ((tier != 1 || fluidType == FluidRegisterInfo.CrystalFluidType.NORMAL) && crystalBlock.getFluidState(getBlockAbove().getDefaultState()).isSource()
                     && crystalBlock.isNotFlowing(world, pos.up(), world.getBlockState(pos.up()))
-                    && OreDictionary.getOres(oreDictCheck).size() > 0
+                    && new ItemTags.Wrapper(new ResourceLocation(tagCheck)).getAllElements().size() > 0
                     && HeatSources.isValidHeatSource(pos.down(), world)) {
                 this.world.spawnParticle(Particles.SMOKE, pos.getX() + rand.nextFloat(),
                         pos.getY() + 1.5D, pos.getZ() + rand.nextFloat(), 0.0D, 0.0D, 0.0D);
@@ -59,9 +61,8 @@ public class CondenserTile extends TileBase implements ITickable {
 
             if (timeCondense >= getTimeToCondense(crystalBlock)) {
                 world.removeBlock(pos.up());
-                ItemStack stack = OreDictionary.getOres(oreDictCheck).get(0).copy();
-                stack.setCount(1);
-                Entity entity = new EntityItem(world, pos.getX() + 0.5F, pos.getY() + 1.5F, pos.getZ() + 0.5F, stack);
+                Item item = new ItemTags.Wrapper(new ResourceLocation(tagCheck)).getAllElements().iterator().next();
+                Entity entity = new EntityItem(world, pos.getX() + 0.5F, pos.getY() + 1.5F, pos.getZ() + 0.5F, new ItemStack(item));
                 world.spawnEntity(entity);
                 timeCondense = 0;
             }

@@ -5,6 +5,7 @@ import com.skyresourcesclassic.registry.ModEntities;
 import com.skyresourcesclassic.registry.ModItems;
 import net.minecraft.entity.EntityList;
 import net.minecraft.entity.EntityLiving;
+import net.minecraft.init.Fluids;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.EnumFacing;
@@ -14,7 +15,6 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.eventbus.api.Event;
-import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.FluidTank;
 import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
@@ -43,7 +43,7 @@ public class TileWildlifeAttractor extends TileGenericPower implements ITickable
                         matterLeft = 320;
                     }
                 }
-                if (tank.getFluidAmount() >= fluidUsage && tank.getFluid().getFluid() == FluidRegistry.WATER
+                if (tank.getFluidAmount() >= fluidUsage && tank.getFluid().getFluid() == Fluids.WATER
                         && energy >= powerUsage && matterLeft > 0) {
                     spawnRandomAnimal();
                     tank.drain(fluidUsage, true);
@@ -96,7 +96,7 @@ public class TileWildlifeAttractor extends TileGenericPower implements ITickable
 
     @Override
     public int fill(FluidStack resource, boolean doFill) {
-        if (resource != null && resource.getFluid() == FluidRegistry.WATER) {
+        if (resource != null && resource.getFluid() == Fluids.WATER) {
             return tank.fill(resource, doFill);
         }
 

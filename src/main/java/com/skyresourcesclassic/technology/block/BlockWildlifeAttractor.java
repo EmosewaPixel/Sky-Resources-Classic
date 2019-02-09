@@ -9,6 +9,7 @@ import net.minecraft.block.BlockContainer;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Fluids;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumBlockRenderType;
@@ -18,7 +19,6 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.World;
 import net.minecraftforge.fluids.FluidActionResult;
-import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fluids.FluidUtil;
 
 public class BlockWildlifeAttractor extends BlockContainer {
@@ -42,7 +42,7 @@ public class BlockWildlifeAttractor extends BlockContainer {
                                     EnumFacing side, float hitX, float hitY, float hitZ) {
         if (!world.isRemote) {
             if (!player.getHeldItem(hand).isEmpty() && FluidUtil.getFluidContained(player.getHeldItem(hand)) != null
-                    && FluidUtil.getFluidContained(player.getHeldItem(hand)).getFluid() == FluidRegistry.WATER) {
+                    && FluidUtil.getFluidContained(player.getHeldItem(hand)).getFluid() == Fluids.WATER) {
                 TileWildlifeAttractor tile = (TileWildlifeAttractor) world.getTileEntity(pos);
                 FluidActionResult result = FluidUtil
                         .tryEmptyContainer(player.getHeldItem(hand), tile.getTank(), 1000, player, true);

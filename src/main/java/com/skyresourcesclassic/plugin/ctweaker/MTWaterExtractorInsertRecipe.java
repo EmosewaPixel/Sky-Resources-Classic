@@ -4,7 +4,7 @@ import com.skyresourcesclassic.recipe.ProcessRecipe;
 import com.skyresourcesclassic.recipe.ProcessRecipeManager;
 import crafttweaker.annotations.ZenRegister;
 import crafttweaker.api.item.IItemStack;
-import net.minecraftforge.fluids.FluidRegistry;
+import net.minecraft.init.Fluids;
 import net.minecraftforge.fluids.FluidStack;
 import stanhebben.zenscript.annotations.ZenClass;
 import stanhebben.zenscript.annotations.ZenMethod;
@@ -21,7 +21,7 @@ public class MTWaterExtractorInsertRecipe extends MTRecipeBase {
                 new ProcessRecipe(
                         Arrays.asList(CraftTweakerPlugin.toStack(output)),
                         Arrays.asList(CraftTweakerPlugin.toStack(input),
-                                new FluidStack(FluidRegistry.WATER, waterIn)), 0, "waterextractor-insert"),
+                                new FluidStack(Fluids.WATER, waterIn)), 0, "waterextractor-insert"),
                 ProcessRecipeManager.waterExtractorInsertRecipes);
     }
 

@@ -4,23 +4,24 @@ import com.skyresourcesclassic.recipe.ProcessRecipe;
 import com.skyresourcesclassic.recipe.ProcessRecipeManager;
 import com.skyresourcesclassic.registry.ModItemGroups;
 import net.minecraft.block.Block;
-import net.minecraft.block.BlockSnow;
+import net.minecraft.block.BlockSnowLayer;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
+import net.minecraft.init.Fluids;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.item.*;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.*;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.RayTraceFluidMode;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TextComponentString;
 import net.minecraft.world.World;
-import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.FluidTank;
 import net.minecraftforge.fluids.FluidUtil;
@@ -42,7 +43,7 @@ public class ItemWaterExtractor extends Item implements IFluidHandler {
 
     public ItemWaterExtractor() {
         super(new Item.Builder().maxStackSize(1).group(ModItemGroups.tabMain));
-        tank = new FluidTank(new FluidStack(FluidRegistry.WATER, 0), maxAmount);
+        tank = new FluidTank(new FluidStack(Fluids.WATER, 0), maxAmount);
         setRegistryName("water_extractor");
     }
 
@@ -71,7 +72,7 @@ public class ItemWaterExtractor extends Item implements IFluidHandler {
                 Vec3d vec3d1 = player.getLookVec();
                 //Vec3d vec3d2 = vec3d.scale(5);// vec3d1 * 5;
                 Vec3d vec3d2 = vec3d.add(vec3d1.x * 5, vec3d1.y * 5, vec3d1.z * 5);
-                RayTraceResult rayTrace = world.rayTraceBlocks(vec3d, vec3d2, false, false, true);
+                RayTraceResult rayTrace = world.rayTraceBlocks(vec3d, vec3d2, RayTraceFluidMode.SOURCE_ONLY, false, true);
                 if (rayTrace != null) {
                     BlockPos pos = rayTrace.getBlockPos();
                     EnumFacing blockHitSide = rayTrace.sideHit;
@@ -129,9 +130,9 @@ public class ItemWaterExtractor extends Item implements IFluidHandler {
         IBlockState blockState = context.getWorld().getBlockState(context.getPos());
         Block block = blockState.getBlock();
         ItemStack stack = context.getItem();
-        tank.setFluid(new FluidStack(FluidRegistry.WATER, getCompound(stack).getInt("amount")));
+        tank.setFluid(new FluidStack(Fluids.WATER, getCompound(stack).getInt("amount")));
         if (context.getWorld().getTileEntity(context.getPos()) instanceof IFluidHandler) {
-            IFluidHandler tile = (IFluidHandler) context.getWorld().getTileEntity(context.getPos();
+            IFluidHandler tile = (IFluidHandler) context.getWorld().getTileEntity(context.getPos());
             getCompound(stack).setInt("amount", stack.getTag().getInt("amount") - tile.fill(tank.getFluid(), true));
             tank.getFluid().amount = getCompound(stack).getInt("amount");
             return EnumActionResult.SUCCESS;
@@ -155,7 +156,7 @@ public class ItemWaterExtractor extends Item implements IFluidHandler {
         if (getCompound(stack).getInt("amount") >= 1000 && context.getPlayer().isSneaking()) {
             EnumFacing side = context.getFace();
             BlockPos pos = context.getPos();
-            if (block == Blocks.SNOW && blockState.get(BlockSnow.LAYERS).intValue() < 1) {
+            if (block == Blocks.SNOW && blockState.get(BlockSnowLayer.LAYERS).intValue() < 1) {
                 side = EnumFacing.UP;
             } else if (!block.isReplaceable(context.getWorld().getBlockState(context.getPos()), new BlockItemUseContext(context))) {
                 pos = context.getPos().offset(context.getFace());

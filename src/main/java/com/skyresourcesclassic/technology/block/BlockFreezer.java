@@ -8,7 +8,6 @@ import net.minecraft.block.BlockContainer;
 import net.minecraft.block.BlockHorizontal;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
-import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.BlockItemUseContext;
 import net.minecraft.item.ItemStack;
@@ -18,10 +17,8 @@ import net.minecraft.state.IProperty;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.*;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.World;
-import net.minecraft.world.chunk.BlockStateContainer;
 
 public class BlockFreezer extends BlockContainer {
     public static final DirectionProperty FACING = BlockHorizontal.HORIZONTAL_FACING;
@@ -65,7 +62,7 @@ public class BlockFreezer extends BlockContainer {
     public boolean onBlockActivated(IBlockState state, World world, BlockPos pos, EntityPlayer player, EnumHand hand,
                                     EnumFacing side, float hitX, float hitY, float hitZ) {
         if (!world.isRemote) {
-            BlockPos bottomPos = state.getProperties().get(PART) == EnumPartType.BOTTOM ? pos : pos.down();
+            BlockPos bottomPos = state.get(PART) == EnumPartType.BOTTOM ? pos : pos.down();
             player.openGui(SkyResourcesClassic.instance, ModGuiHandler.FreezerGUI, world, bottomPos.getX(), bottomPos.getY(),
                     bottomPos.getZ());
         }

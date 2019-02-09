@@ -2,7 +2,6 @@ package com.skyresourcesclassic.base.entity;
 
 import com.skyresourcesclassic.registry.ModEntities;
 import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.EntityType;
 import net.minecraft.entity.monster.EntityBlaze;
 import net.minecraft.entity.projectile.EntityThrowable;
 import net.minecraft.init.Particles;
@@ -23,7 +22,7 @@ public class EntityHeavyExplosiveSnowball extends EntityThrowable {
     }
 
     public EntityHeavyExplosiveSnowball(double x, double y, double z, World worldIn) {
-        super(ModEntities.EXPLOSIVE_HEAVY_SNOWBALL, x, y, z,  worldIn);
+        super(ModEntities.EXPLOSIVE_HEAVY_SNOWBALL, x, y, z, worldIn);
     }
 
     @OnlyIn(Dist.CLIENT)

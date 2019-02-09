@@ -5,10 +5,7 @@ import com.skyresourcesclassic.base.HeatSources;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
-import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.projectile.EntitySnowball;
 import net.minecraft.init.Blocks;
-import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
@@ -22,7 +19,7 @@ public class BlazePowderBlock extends BaseBlock {
     }
 
     @Override
-    public void tick(IBlockState state,World world, BlockPos pos, Random rand) {
+    public void tick(IBlockState state, World world, BlockPos pos, Random rand) {
         super.tick(state, world, pos, rand);
         if (!world.isRemote) {
 
@@ -32,12 +29,12 @@ public class BlazePowderBlock extends BaseBlock {
                     && ConfigOptions.general.meltableBlazeBlocks.get()) {
                 world.setBlockState(pos, Blocks.LAVA.getDefaultState(), 3);
             } else
-                world.tickableTileEntities(pos, this, tickRate(world));
+                world.getPendingBlockTicks().scheduleTick(pos, this, tickRate(world));
         }
     }
 
     @Override
     public void onBlockAdded(IBlockState state1, World world, BlockPos pos, IBlockState state2) {
-        world.scheduleUpdate(pos, this, tickRate(world));
+        world.getPendingBlockTicks().scheduleTick(pos, this, tickRate(world));
     }
 }

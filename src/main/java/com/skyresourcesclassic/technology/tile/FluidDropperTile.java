@@ -95,8 +95,8 @@ public class FluidDropperTile extends TileBase implements ITickable, IFluidHandl
         if (this.getRedstoneSignal() == 0) {
             for (EnumFacing dir : checkPoses) {
                 TileEntity tile = world.getTileEntity(this.pos.add(dir.getDirectionVec()));
-                if (tile != null && tile.hasCapability(CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY, dir)) {
-                    IFluidHandler fluidHand = tile.getCapability(CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY, dir);
+                if (tile != null && tile.getCapability(CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY, dir).isPresent()) {
+                    IFluidHandler fluidHand = (IFluidHandler) tile.getCapability(CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY, dir);
 
                     int amt = this.fill(fluidHand.drain(ConfigOptions.fluidDropper.fluidDropperCapacity.get() - tank.getFluidAmount(), true),
                             true);
