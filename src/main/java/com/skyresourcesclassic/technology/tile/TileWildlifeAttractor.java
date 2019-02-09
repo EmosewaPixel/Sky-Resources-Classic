@@ -3,14 +3,13 @@ package com.skyresourcesclassic.technology.tile;
 import com.skyresourcesclassic.base.tile.TileGenericPower;
 import com.skyresourcesclassic.registry.ModEntities;
 import com.skyresourcesclassic.registry.ModItems;
-import net.minecraft.entity.EntityList;
 import net.minecraft.entity.EntityLiving;
+import net.minecraft.entity.EntityType;
 import net.minecraft.init.Fluids;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ITickable;
-import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.util.LazyOptional;
@@ -67,7 +66,7 @@ public class TileWildlifeAttractor extends TileGenericPower implements ITickable
         if (world.rand.nextInt(600) == 0) {
             String randomID = wildlifeAttractorAnimalIDs[world.rand
                     .nextInt(wildlifeAttractorAnimalIDs.length)];
-            EntityLiving e = (EntityLiving) EntityList.createEntityByIDFromName(new ResourceLocation(randomID), world);
+            EntityLiving e = (EntityLiving) EntityType.getById(randomID).spawnEntity(world, null, null, null, getPos().up(), false, false);
             e.setLocationAndAngles(pos.getX() + 0.5f, pos.getY() + 1f, pos.getZ() + 0.5f,
                     world.rand.nextFloat() * 360.0F, 0.0F);
 
