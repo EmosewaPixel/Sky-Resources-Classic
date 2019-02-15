@@ -250,7 +250,7 @@ public class DirtFurnaceTile extends TileEntity implements ITickable, ISidedInve
     /**
      * Furnace isBurning
      */
-    private boolean isBurning() {
+    public boolean isBurning() {
         return this.furnaceBurnTime > 0;
     }
 

@@ -1,13 +1,16 @@
 package com.skyresourcesclassic.alchemy.block;
 
-import com.skyresourcesclassic.SkyResourcesClassic;
+import com.skyresourcesclassic.alchemy.gui.container.ContainerLifeInfuser;
 import com.skyresourcesclassic.alchemy.tile.LifeInfuserTile;
-import com.skyresourcesclassic.registry.ModGuiHandler;
+import com.skyresourcesclassic.registry.ModBlocks;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockContainer;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.EntityPlayerMP;
+import net.minecraft.entity.player.InventoryPlayer;
+import net.minecraft.inventory.Container;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.BlockRenderLayer;
@@ -15,10 +18,16 @@ import net.minecraft.util.EnumBlockRenderType;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.text.ITextComponent;
+import net.minecraft.util.text.TextComponentTranslation;
 import net.minecraft.world.IBlockReader;
+import net.minecraft.world.IInteractionObject;
 import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
+import net.minecraftforge.fml.network.NetworkHooks;
+
+import javax.annotation.Nullable;
 
 public class LifeInfuserBlock extends BlockContainer {
     public LifeInfuserBlock(String name, float hardness, float resistance) {
@@ -57,10 +66,42 @@ public class LifeInfuserBlock extends BlockContainer {
     @Override
     public boolean onBlockActivated(IBlockState state, World world, BlockPos pos, EntityPlayer player,
                                     EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
-        if (!world.isRemote) {
-            player.openGui(SkyResourcesClassic.instance, ModGuiHandler.LifeInfuserGUI, world,
-                    pos.getX(), pos.getY(), pos.getZ());
-        }
+        if (!world.isRemote)
+            NetworkHooks.openGui((EntityPlayerMP) player, new LifeInfuserInterface(pos), null);
         return true;
+    }
+
+    public class LifeInfuserInterface implements IInteractionObject {
+        private BlockPos pos;
+
+        private LifeInfuserInterface(BlockPos pos) {
+            this.pos = pos;
+        }
+
+        @Override
+        public Container createContainer(InventoryPlayer playerInventory, EntityPlayer playerIn) {
+            return new ContainerLifeInfuser(playerInventory, (LifeInfuserTile) playerIn.world.getTileEntity(pos));
+        }
+
+        @Override
+        public String getGuiID() {
+            return "skyresourcesclassic:life_infuser_gui";
+        }
+
+        @Override
+        public ITextComponent getName() {
+            return new TextComponentTranslation(ModBlocks.lifeInfuser.getTranslationKey() + ".name", new Object[0]);
+        }
+
+        @Override
+        public boolean hasCustomName() {
+            return false;
+        }
+
+        @Nullable
+        @Override
+        public ITextComponent getCustomName() {
+            return null;
+        }
     }
 }

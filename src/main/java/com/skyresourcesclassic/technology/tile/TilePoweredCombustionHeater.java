@@ -4,7 +4,7 @@ import com.skyresourcesclassic.base.tile.TileGenericPower;
 import com.skyresourcesclassic.recipe.ProcessRecipe;
 import com.skyresourcesclassic.recipe.ProcessRecipeManager;
 import com.skyresourcesclassic.registry.ModEntities;
-import com.skyresourcesclassic.technology.block.CombustionHeaterBlock;
+import com.skyresourcesclassic.technology.block.BlockCombustionHeater;
 import net.minecraft.block.state.BlockFaceShape;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.Entity;
@@ -37,9 +37,9 @@ public class TilePoweredCombustionHeater extends TileGenericPower implements ITi
     private int tier;
 
     public int getMaxHeat() {
-        if (!(world.getBlockState(pos).getBlock() instanceof CombustionHeaterBlock))
+        if (!(world.getBlockState(pos).getBlock() instanceof BlockCombustionHeater))
             return 0;
-        CombustionHeaterBlock block = (CombustionHeaterBlock) world.getBlockState(pos).getBlock();
+        BlockCombustionHeater block = (BlockCombustionHeater) world.getBlockState(pos).getBlock();
 
         return block.getMaximumHeat();
     }

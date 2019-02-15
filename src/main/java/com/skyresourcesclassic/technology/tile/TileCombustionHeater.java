@@ -5,7 +5,7 @@ import com.skyresourcesclassic.base.tile.TileItemInventory;
 import com.skyresourcesclassic.recipe.ProcessRecipe;
 import com.skyresourcesclassic.recipe.ProcessRecipeManager;
 import com.skyresourcesclassic.registry.ModEntities;
-import com.skyresourcesclassic.technology.block.CombustionHeaterBlock;
+import com.skyresourcesclassic.technology.block.BlockCombustionHeater;
 import net.minecraft.block.state.BlockFaceShape;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.item.EntityItem;
@@ -38,15 +38,15 @@ public class TileCombustionHeater extends TileItemInventory implements ITickable
     private int tier;
 
     public int getMaxHeat() {
-        if (!(world.getBlockState(pos).getBlock() instanceof CombustionHeaterBlock))
+        if (!(world.getBlockState(pos).getBlock() instanceof BlockCombustionHeater))
             return 0;
-        CombustionHeaterBlock block = (CombustionHeaterBlock) world.getBlockState(pos).getBlock();
+        BlockCombustionHeater block = (BlockCombustionHeater) world.getBlockState(pos).getBlock();
 
         return block.getMaximumHeat();
     }
 
     private int getMaxHeatPerTick() {
-        if (!(world.getBlockState(pos).getBlock() instanceof CombustionHeaterBlock))
+        if (!(world.getBlockState(pos).getBlock() instanceof BlockCombustionHeater))
             return 0;
 
         switch (tier) {

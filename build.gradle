@@ -40,7 +40,7 @@ minecraft {
 }
 
 dependencies {
-    minecraft 'net.minecraftforge.test:forge:1.13-24.0.172-1.13-pre'
+    minecraft 'net.minecraftforge:forge:1.13.2-25.0.10'
 }
 
 processResources {

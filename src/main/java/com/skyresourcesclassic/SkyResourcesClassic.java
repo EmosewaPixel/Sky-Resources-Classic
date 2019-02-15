@@ -11,13 +11,14 @@ import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fml.DistExecutor;
+import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.config.ModConfig;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.InterModEnqueueEvent;
 import net.minecraftforge.fml.event.lifecycle.InterModProcessEvent;
-import net.minecraftforge.fml.javafmlmod.FMLModLoadingContext;
+import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.registries.IForgeRegistry;
 import net.minecraftforge.registries.IForgeRegistryEntry;
 import org.apache.logging.log4j.LogManager;
@@ -50,13 +51,13 @@ public class SkyResourcesClassic {
     }
 
     public SkyResourcesClassic() {
-        FMLModLoadingContext.get().getModEventBus().addListener(this::clientSetup);
-        FMLModLoadingContext.get().getModEventBus().addListener(this::commonSetup);
-        FMLModLoadingContext.get().getModEventBus().addListener(this::enque);
-        FMLModLoadingContext.get().getModEventBus().addListener(this::process);
+        FMLJavaModLoadingContext.get().getModEventBus().addListener(this::clientSetup);
+        FMLJavaModLoadingContext.get().getModEventBus().addListener(this::commonSetup);
+        FMLJavaModLoadingContext.get().getModEventBus().addListener(this::enque);
+        FMLJavaModLoadingContext.get().getModEventBus().addListener(this::process);
 
-        FMLModLoadingContext.get().registerConfig(ModConfig.Type.CLIENT, ConfigOptions.client_spec);
-        FMLModLoadingContext.get().registerConfig(ModConfig.Type.SERVER, ConfigOptions.server_spec);
+        ModLoadingContext.get().registerConfig(ModConfig.Type.CLIENT, ConfigOptions.client_spec);
+        ModLoadingContext.get().registerConfig(ModConfig.Type.SERVER, ConfigOptions.server_spec);
 
         FluidRegistry.enableUniversalBucket();
     }

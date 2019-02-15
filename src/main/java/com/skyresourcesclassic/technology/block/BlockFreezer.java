@@ -1,7 +1,6 @@
 package com.skyresourcesclassic.technology.block;
 
-import com.skyresourcesclassic.SkyResourcesClassic;
-import com.skyresourcesclassic.registry.ModGuiHandler;
+import com.skyresourcesclassic.technology.gui.container.FreezerInterface;
 import com.skyresourcesclassic.technology.tile.FreezerTile;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockContainer;
@@ -9,6 +8,7 @@ import net.minecraft.block.BlockHorizontal;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.item.BlockItemUseContext;
 import net.minecraft.item.ItemStack;
 import net.minecraft.state.DirectionProperty;
@@ -19,6 +19,7 @@ import net.minecraft.util.*;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.network.NetworkHooks;
 
 public class BlockFreezer extends BlockContainer {
     public static final DirectionProperty FACING = BlockHorizontal.HORIZONTAL_FACING;
@@ -47,11 +48,6 @@ public class BlockFreezer extends BlockContainer {
 
 
     @Override
-    public int damageDropped(IBlockState blockstate) {
-        return 0;
-    }
-
-    @Override
     public void harvestBlock(World world, EntityPlayer player, BlockPos pos, IBlockState state, TileEntity tileEntity, ItemStack stack) {
         FreezerTile te = (FreezerTile) world.getTileEntity(pos);
         te.dropInventory();
@@ -63,8 +59,7 @@ public class BlockFreezer extends BlockContainer {
                                     EnumFacing side, float hitX, float hitY, float hitZ) {
         if (!world.isRemote) {
             BlockPos bottomPos = state.get(PART) == EnumPartType.BOTTOM ? pos : pos.down();
-            player.openGui(SkyResourcesClassic.instance, ModGuiHandler.FreezerGUI, world, bottomPos.getX(), bottomPos.getY(),
-                    bottomPos.getZ());
+            NetworkHooks.openGui((EntityPlayerMP) player, new FreezerInterface(bottomPos), null);
         }
         return true;
     }

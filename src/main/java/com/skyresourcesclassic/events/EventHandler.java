@@ -3,13 +3,12 @@ package com.skyresourcesclassic.events;
 import com.skyresourcesclassic.ConfigOptions;
 import com.skyresourcesclassic.RandomHelper;
 import com.skyresourcesclassic.References;
-import com.skyresourcesclassic.SkyResourcesClassic;
 import com.skyresourcesclassic.alchemy.effects.IHealthBoostItem;
 import com.skyresourcesclassic.base.ModKeyBindings;
+import com.skyresourcesclassic.base.guide.gui.GuideGUI;
 import com.skyresourcesclassic.recipe.ProcessRecipe;
 import com.skyresourcesclassic.recipe.ProcessRecipeManager;
 import com.skyresourcesclassic.registry.ModBlocks;
-import com.skyresourcesclassic.registry.ModGuiHandler;
 import com.skyresourcesclassic.registry.ModItems;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockCauldron;
@@ -135,11 +134,8 @@ public class EventHandler {
     public void onKeyInput(KeyInputEvent event) {
         if (ModKeyBindings.guideKey.isPressed() && ConfigOptions.guide.allowGuide.get()) {
             EntityPlayerSP player = Minecraft.getInstance().player;
-
-            if (player.world.isRemote) {
-                player.openGui(SkyResourcesClassic.instance, ModGuiHandler.GuideGUI, player.world, player.getPosition().getX(),
-                        player.getPosition().getY(), player.getPosition().getZ());
-            }
+            if (player.world.isRemote)
+                Minecraft.getInstance().displayGuiScreen(new GuideGUI());
         }
     }
 

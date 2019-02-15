@@ -88,7 +88,7 @@ public class ModBlocks {
         heavySnow = registerBlock(new BaseBlock(Material.CLAY, "heavy_snow", 0.5F, 0.5F, SoundType.SNOW), ModItemGroups.tabMain);
         heavySnow2 = registerBlock(new BaseBlock(Material.CLAY, "heavy_snow2", 1F, 1F, SoundType.SNOW), ModItemGroups.tabMain);
 
-        registerBlock(combustionHeater[0] = new CombustionHeaterBlock("wooden", 2.0F, 5.0F, 1), ModItemGroups.tabTech);
+        registerBlock(combustionHeater[0] = new BlockCombustionHeater("wooden", 2.0F, 5.0F, 1), ModItemGroups.tabTech);
         registerBlock(heatProvider[0] = new BlockHeater("wooden", 2.0F, 5.0F, 1), ModItemGroups.tabTech);
         for (MachineTierInfo tier : tiers) {
             registerBlock(
@@ -97,7 +97,7 @@ public class ModBlocks {
                     crystallizer[tier.id - 1] = new CrystallizerBlock(tier.name, tier.hardness, tier.resistance, tier.id), ModItemGroups.tabAlchemy);
             if (tier.id != 1) {
                 registerBlock(
-                        combustionHeater[tier.id - 1] = new CombustionHeaterBlock(tier.name, tier.hardness, tier.resistance, tier.id), ModItemGroups.tabTech);
+                        combustionHeater[tier.id - 1] = new BlockCombustionHeater(tier.name, tier.hardness, tier.resistance, tier.id), ModItemGroups.tabTech);
                 registerBlock(
                         heatProvider[tier.id - 1] = new BlockHeater(tier.name, tier.hardness, tier.resistance, tier.id), ModItemGroups.tabTech);
             }

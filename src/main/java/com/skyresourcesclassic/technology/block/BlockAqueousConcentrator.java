@@ -1,9 +1,8 @@
 package com.skyresourcesclassic.technology.block;
 
 import com.skyresourcesclassic.RandomHelper;
-import com.skyresourcesclassic.SkyResourcesClassic;
 import com.skyresourcesclassic.registry.ModBlocks;
-import com.skyresourcesclassic.registry.ModGuiHandler;
+import com.skyresourcesclassic.technology.gui.container.AqueousMachineInterface;
 import com.skyresourcesclassic.technology.tile.TileAqueousConcentrator;
 import com.sun.istack.internal.Nullable;
 import net.minecraft.block.Block;
@@ -13,6 +12,7 @@ import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.init.Fluids;
 import net.minecraft.item.BlockItemUseContext;
 import net.minecraft.item.Item;
@@ -26,6 +26,7 @@ import net.minecraft.world.IBlockReader;
 import net.minecraft.world.World;
 import net.minecraftforge.fluids.FluidActionResult;
 import net.minecraftforge.fluids.FluidUtil;
+import net.minecraftforge.fml.network.NetworkHooks;
 
 public class BlockAqueousConcentrator extends BlockContainer {
     private static final DirectionProperty FACING = BlockHorizontal.HORIZONTAL_FACING;
@@ -133,8 +134,8 @@ public class BlockAqueousConcentrator extends BlockContainer {
                 return true;
             }
 
-            player.openGUI(SkyResourcesClassic.instance, ModGuiHandler.AqueousConcentratorGUI, world, pos.getX(), pos.getY(),
-                    pos.getZ());
+            NetworkHooks.openGui((EntityPlayerMP) player, new AqueousMachineInterface(pos), null);
+
         }
         return true;
     }

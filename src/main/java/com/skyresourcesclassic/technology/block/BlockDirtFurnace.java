@@ -1,8 +1,7 @@
 package com.skyresourcesclassic.technology.block;
 
-import com.skyresourcesclassic.SkyResourcesClassic;
 import com.skyresourcesclassic.registry.ModBlocks;
-import com.skyresourcesclassic.registry.ModGuiHandler;
+import com.skyresourcesclassic.technology.gui.container.ContainerDirtFurnace;
 import com.skyresourcesclassic.technology.tile.DirtFurnaceTile;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockContainer;
@@ -11,6 +10,8 @@ import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.EntityPlayerMP;
+import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.init.Particles;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.inventory.Container;
@@ -24,8 +25,12 @@ import net.minecraft.state.IProperty;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.*;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.text.ITextComponent;
+import net.minecraft.util.text.TextComponentTranslation;
 import net.minecraft.world.IBlockReader;
+import net.minecraft.world.IInteractionObject;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.network.NetworkHooks;
 
 import javax.annotation.Nullable;
 import java.util.Random;
@@ -114,9 +119,9 @@ public class BlockDirtFurnace extends BlockContainer {
     @Override
     public boolean onBlockActivated(IBlockState state, World world, BlockPos pos, EntityPlayer player, EnumHand hand,
                                     EnumFacing side, float hitX, float hitY, float hitZ) {
-        if (!world.isRemote) {
-            player.openGui(SkyResourcesClassic.instance, ModGuiHandler.FurnaceGUI, world, pos.getX(), pos.getY(), pos.getZ());
-        }
+        if (!world.isRemote)
+            NetworkHooks.openGui((EntityPlayerMP) player, new DirtFurnaceInterface(pos), null);
+
         return true;
     }
 
@@ -192,5 +197,39 @@ public class BlockDirtFurnace extends BlockContainer {
 
     protected void fillStateContainer(net.minecraft.state.StateContainer.Builder<Block, IBlockState> builder) {
         builder.add(new IProperty[]{FACING});
+    }
+
+    public class DirtFurnaceInterface implements IInteractionObject {
+        private BlockPos pos;
+
+        private DirtFurnaceInterface(BlockPos pos) {
+            this.pos = pos;
+        }
+
+        @Override
+        public Container createContainer(InventoryPlayer playerInventory, EntityPlayer playerIn) {
+            return new ContainerDirtFurnace(playerInventory, (DirtFurnaceTile) playerIn.world.getTileEntity(pos));
+        }
+
+        @Override
+        public String getGuiID() {
+            return "skyresourcesclassic:dirt_furnace_gui";
+        }
+
+        @Override
+        public ITextComponent getName() {
+            return new TextComponentTranslation(ModBlocks.dirtFurnace.getTranslationKey() + ".name", new Object[0]);
+        }
+
+        @Override
+        public boolean hasCustomName() {
+            return false;
+        }
+
+        @Nullable
+        @Override
+        public ITextComponent getCustomName() {
+            return null;
+        }
     }
 }

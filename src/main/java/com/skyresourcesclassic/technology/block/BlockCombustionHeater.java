@@ -28,8 +28,8 @@ import javax.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CombustionHeaterBlock extends BlockContainer {
-    public CombustionHeaterBlock(String material, float hardness, float resistance, int tier) {
+public class BlockCombustionHeater extends BlockContainer {
+    public BlockCombustionHeater(String material, float hardness, float resistance, int tier) {
         super(Block.Builder.create(Material.WOOD).hardnessAndResistance(hardness, resistance));
         this.setRegistryName(material + "_combustion_heater");
         this.tier = tier;

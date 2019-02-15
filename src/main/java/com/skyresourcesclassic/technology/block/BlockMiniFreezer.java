@@ -1,7 +1,6 @@
 package com.skyresourcesclassic.technology.block;
 
-import com.skyresourcesclassic.SkyResourcesClassic;
-import com.skyresourcesclassic.registry.ModGuiHandler;
+import com.skyresourcesclassic.technology.gui.container.FreezerInterface;
 import com.skyresourcesclassic.technology.tile.MiniFreezerTile;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockContainer;
@@ -9,6 +8,7 @@ import net.minecraft.block.BlockHorizontal;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.item.BlockItemUseContext;
 import net.minecraft.item.ItemStack;
 import net.minecraft.state.DirectionProperty;
@@ -19,6 +19,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.shapes.VoxelShape;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.network.NetworkHooks;
 
 public class BlockMiniFreezer extends BlockContainer {
     private static final VoxelShape shape = Block.makeCuboidShape(0.125D, 0D, 0.125D, 0.875D, 1.0D, 0.875D);
@@ -66,9 +67,9 @@ public class BlockMiniFreezer extends BlockContainer {
     @Override
     public boolean onBlockActivated(IBlockState state, World world, BlockPos pos, EntityPlayer player, EnumHand hand,
                                     EnumFacing side, float hitX, float hitY, float hitZ) {
-        if (!world.isRemote) {
-            player.openGui(SkyResourcesClassic.instance, ModGuiHandler.FreezerGUI, world, pos.getX(), pos.getY(), pos.getZ());
-        }
+        if (!world.isRemote)
+            NetworkHooks.openGui((EntityPlayerMP) player, new FreezerInterface(pos), null);
+
         return true;
     }
 

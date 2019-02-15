@@ -17,9 +17,6 @@ import java.util.Map;
 public class ModBucketHandler {
     public Map<Fluid, Item> buckets = new HashMap<>();
 
-    public static void registerBuckets() {
-    }
-
     @SubscribeEvent
     public void onBucketFill(FillBucketEvent event) {
         ItemStack result = fillCustomBucket(event.getWorld(),
