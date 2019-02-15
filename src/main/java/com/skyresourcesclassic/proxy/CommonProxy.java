@@ -6,9 +6,15 @@ import com.skyresourcesclassic.events.EventHandler;
 import com.skyresourcesclassic.events.ModBucketHandler;
 import com.skyresourcesclassic.plugin.ModPlugins;
 import com.skyresourcesclassic.registry.*;
+import net.minecraft.client.gui.GuiScreen;
+import net.minecraftforge.fml.ExtensionPoint;
+import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.event.lifecycle.InterModEnqueueEvent;
 import net.minecraftforge.fml.event.lifecycle.InterModProcessEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
+import net.minecraftforge.fml.network.FMLPlayMessages;
+
+import java.util.function.Function;
 
 public class CommonProxy implements IModProxy {
     private EventHandler events = new EventHandler();
@@ -32,7 +38,7 @@ public class CommonProxy implements IModProxy {
         FMLJavaModLoadingContext.get().getModEventBus().register(events);
         FMLJavaModLoadingContext.get().getModEventBus().register(new ModBucketHandler());
         ModCrafting.init();
-        ModExtensionPoints.init();
+        ModLoadingContext.get().registerExtensionPoint(ExtensionPoint.GUIFACTORY, () -> (Function<FMLPlayMessages.OpenContainer, GuiScreen>) new ModGuiHandler());
         ModPlugins.init();
     }
 
