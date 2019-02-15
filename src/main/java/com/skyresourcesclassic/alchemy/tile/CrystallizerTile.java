@@ -26,7 +26,7 @@ import java.util.Random;
 
 public class CrystallizerTile extends TileBase implements ITickable {
     public CrystallizerTile(int tier) {
-        super("crystallizer", ModEntities.CRYSTALLIZER);
+        super("crystallizer", ModEntities.crystallizerType(tier));
         this.tier = tier;
     }
 

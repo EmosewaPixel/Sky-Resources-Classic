@@ -24,7 +24,7 @@ import java.util.Random;
 
 public class CondenserTile extends TileBase implements ITickable {
     public CondenserTile(int tier) {
-        super("condenser", ModEntities.CONDENSER);
+        super("condenser", ModEntities.condeserType(tier));
         this.tier = tier;
     }
 

@@ -70,9 +70,7 @@ public class SkyResourcesClassic {
 
     @SubscribeEvent
     public void onTERegistry(final RegistryEvent.Register<TileEntityType<?>> event) {
-        registerType(event.getRegistry(), ModEntities.CONDENSER, "condenser");
         registerType(event.getRegistry(), ModEntities.CRUCIBLE, "crucible");
-        registerType(event.getRegistry(), ModEntities.CRYSTALLIZER, "crystallizer");
         registerType(event.getRegistry(), ModEntities.LIFE_INFUSER, "life_infuser");
         registerType(event.getRegistry(), ModEntities.LIFE_INJECTOR, "life_injector");
         registerType(event.getRegistry(), ModEntities.DIRT_FURNACE, "dirt_furnace");
@@ -81,17 +79,21 @@ public class SkyResourcesClassic {
         registerType(event.getRegistry(), ModEntities.MINI_FREEZER, "mini_freezer");
         registerType(event.getRegistry(), ModEntities.AQUEOUS_CONCENTRATOR, "aqueous_concentrator");
         registerType(event.getRegistry(), ModEntities.COMBUSTION_COLLECTOR, "combustion_collector");
-        registerType(event.getRegistry(), ModEntities.COMBUSTION_HEATER, "combustion_heater");
         registerType(event.getRegistry(), ModEntities.CRUCIBLE_INSERTER, "crucible_inserter");
         registerType(event.getRegistry(), ModEntities.DARK_MATTER_WARPER, "dark_matter_warper");
         registerType(event.getRegistry(), ModEntities.END_PORTAL_CORE, "end_portal_core");
-        registerType(event.getRegistry(), ModEntities.HEATER, "heater");
-        registerType(event.getRegistry(), ModEntities.POWERED_COMBUSTION_HEATER, "powered_combustion_heater");
-        registerType(event.getRegistry(), ModEntities.POWERED_HEATER, "powered_heater");
         registerType(event.getRegistry(), ModEntities.QUICK_DROPPER, "quick_dropper");
         registerType(event.getRegistry(), ModEntities.ROCK_CLEABER, "rock_cleaner");
         registerType(event.getRegistry(), ModEntities.ROCK_CRUSHER, "rock_crusher");
         registerType(event.getRegistry(), ModEntities.WILDLIFE_ATTRACTOR, "wildlife_attractor");
+        for (int i = 1; i < 5; i++) {
+            registerType(event.getRegistry(), ModEntities.condeserType(i), "condenser" + i);
+            registerType(event.getRegistry(), ModEntities.crystallizerType(i), "crystallizer" + i);
+            registerType(event.getRegistry(), ModEntities.heaterType(i), "heater" + i);
+            registerType(event.getRegistry(), ModEntities.heaterType(i), "powered_heater" + i);
+            registerType(event.getRegistry(), ModEntities.combustionHeaterType(i), "combustion_heater" + i);
+            registerType(event.getRegistry(), ModEntities.combustionHeaterType(i), "powered_combustion_heater" + i);
+        }
     }
 
     private static <T extends TileEntityType<?>> T registerType(IForgeRegistry<TileEntityType<?>> registry, T tileEntityType, String name) {

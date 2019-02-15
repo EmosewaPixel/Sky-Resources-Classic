@@ -27,7 +27,7 @@ import java.util.List;
 public class TilePoweredCombustionHeater extends TileGenericPower implements ITickable {
 
     public TilePoweredCombustionHeater(int tier) {
-        super("combustionHeaterPowered", ModEntities.POWERED_COMBUSTION_HEATER, 100000, 2000, 0);
+        super("combustionHeaterPowered", ModEntities.combustionHeaterType(tier), 100000, 2000, 0);
         this.tier = tier;
     }
 

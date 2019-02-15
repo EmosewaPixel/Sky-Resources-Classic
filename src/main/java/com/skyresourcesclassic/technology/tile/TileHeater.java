@@ -15,7 +15,7 @@ import net.minecraftforge.event.ForgeEventFactory;
 
 public class TileHeater extends TileItemInventory implements ITickable, IHeatSource {
     public TileHeater(int tier) {
-        super("heater", ModEntities.HEATER, 1, null, new Integer[]{0});
+        super("heater", ModEntities.heaterType(tier), 1, null, new Integer[]{0});
         this.tier = tier;
     }
 

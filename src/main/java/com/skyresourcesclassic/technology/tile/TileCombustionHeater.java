@@ -27,7 +27,7 @@ import java.util.List;
 
 public class TileCombustionHeater extends TileItemInventory implements ITickable {
     public TileCombustionHeater(int tier) {
-        super("combustionHeater", ModEntities.COMBUSTION_HEATER,1, null, new Integer[]{0});
+        super("combustionHeater", ModEntities.combustionHeaterType(tier), 1, null, new Integer[]{0});
         this.tier = tier;
     }
 

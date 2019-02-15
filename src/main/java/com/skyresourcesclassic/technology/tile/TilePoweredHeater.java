@@ -12,7 +12,7 @@ import net.minecraftforge.energy.IEnergyStorage;
 
 public class TilePoweredHeater extends TileGenericPower implements ITickable, IEnergyStorage, IHeatSource {
     public TilePoweredHeater(int tier) {
-        super("poweredHeater", ModEntities.POWERED_HEATER, 100000, 2000, 0);
+        super("poweredHeater", ModEntities.heaterType(tier), 100000, 2000, 0);
         this.tier = tier;
     }
 
