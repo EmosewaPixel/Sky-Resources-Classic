@@ -23,7 +23,7 @@ import java.util.Arrays;
 
 public class ItemInfusionStone extends Item {
     public ItemInfusionStone(int durability, String name) {
-        super(new Item.Builder().defaultMaxDamage(durability).maxStackSize(1).group(ModItemGroups.tabAlchemy));
+        super(new Item.Properties().defaultMaxDamage(durability).maxStackSize(1).group(ModItemGroups.tabAlchemy));
         setRegistryName(name);
 
         ItemHelper.addInfusionStone(this);

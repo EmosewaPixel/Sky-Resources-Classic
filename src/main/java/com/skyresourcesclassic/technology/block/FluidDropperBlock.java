@@ -11,7 +11,7 @@ import net.minecraft.world.IBlockReader;
 
 public class FluidDropperBlock extends BlockContainer {
     public FluidDropperBlock(String name, float hardness, float resistance) {
-        super(Block.Builder.create(Material.ROCK).hardnessAndResistance(hardness, resistance));
+        super(Block.Properties.create(Material.ROCK).hardnessAndResistance(hardness, resistance));
         this.setRegistryName(name);
     }
 

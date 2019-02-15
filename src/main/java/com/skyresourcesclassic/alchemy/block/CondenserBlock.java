@@ -11,7 +11,7 @@ import net.minecraft.world.IBlockReader;
 
 public class CondenserBlock extends BlockContainer {
     public CondenserBlock(String material, float hardness, float resistance, int tier) {
-        super(Block.Builder.create(Material.ROCK).hardnessAndResistance(hardness, resistance));
+        super(Block.Properties.create(Material.ROCK).hardnessAndResistance(hardness, resistance));
         this.setRegistryName(material + "_condenser");
         this.tier = tier;
     }

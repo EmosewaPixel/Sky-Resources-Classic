@@ -8,7 +8,7 @@ public class BaseBlock extends Block {
 
     public BaseBlock(Material material, String name, float hardness, float resistance,
                      SoundType stepSound) {
-        super(Block.Builder.create(material).hardnessAndResistance(hardness, resistance).sound(stepSound));
+        super(Block.Properties.create(material).hardnessAndResistance(hardness, resistance).sound(stepSound));
         this.setRegistryName(name);
     }
 }

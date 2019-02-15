@@ -37,7 +37,7 @@ public class BlockRockCleaner extends BlockContainer {
     public static final DirectionProperty FACING = BlockHorizontal.HORIZONTAL_FACING;
 
     public BlockRockCleaner(String name, float hardness, float resistance) {
-        super(Block.Builder.create(Material.ROCK).hardnessAndResistance(hardness, resistance));
+        super(Block.Properties.create(Material.ROCK).hardnessAndResistance(hardness, resistance));
         this.setRegistryName(name);
     }
 

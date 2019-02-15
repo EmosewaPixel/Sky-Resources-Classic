@@ -31,7 +31,7 @@ import javax.annotation.Nullable;
 
 public class LifeInfuserBlock extends BlockContainer {
     public LifeInfuserBlock(String name, float hardness, float resistance) {
-        super(Block.Builder.create(Material.WOOD).hardnessAndResistance(hardness, resistance));
+        super(Block.Properties.create(Material.WOOD).hardnessAndResistance(hardness, resistance));
         this.setRegistryName(name);
     }
 

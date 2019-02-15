@@ -34,7 +34,7 @@ public class BlockRockCrusher extends BlockContainer {
     private static final DirectionProperty FACING = BlockHorizontal.HORIZONTAL_FACING;
 
     public BlockRockCrusher(String name, float hardness, float resistance) {
-        super(Block.Builder.create(Material.ROCK).hardnessAndResistance(hardness, resistance));
+        super(Block.Properties.create(Material.ROCK).hardnessAndResistance(hardness, resistance));
         this.setRegistryName(name);
     }
 

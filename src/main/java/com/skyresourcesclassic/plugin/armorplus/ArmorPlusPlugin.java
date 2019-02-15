@@ -1,6 +1,5 @@
 package com.skyresourcesclassic.plugin.armorplus;
 
-import com.skyresourcesclassic.base.guide.SkyResourcesGuide;
 import com.skyresourcesclassic.plugin.IModPlugin;
 import com.skyresourcesclassic.recipe.ProcessRecipeManager;
 import com.skyresourcesclassic.registry.ModItems;
@@ -25,8 +24,6 @@ public class ArmorPlusPlugin implements IModPlugin {
         ProcessRecipeManager.combustionRecipes.addRecipe(new ItemStack(crystal), 1200,
                 new ArrayList<Object>(Arrays.asList(new ItemStack(ModItems.metalCrystal[0], 16),
                         new ItemStack(Blocks.OBSIDIAN), new ItemStack(Items.LAVA_BUCKET))));
-
-        SkyResourcesGuide.addPage("armorplus", "guide.skyresourcesclassic.misc", new ItemStack(crystal));
     }
 
     public void postInit() {

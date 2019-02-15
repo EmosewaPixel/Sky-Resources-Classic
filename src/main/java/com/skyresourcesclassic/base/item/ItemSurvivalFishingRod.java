@@ -18,7 +18,7 @@ import net.minecraft.world.World;
 public class ItemSurvivalFishingRod extends ItemFishingRod {
 
     public ItemSurvivalFishingRod(String name) {
-        super(new Item.Builder().group(ModItemGroups.tabMain).defaultMaxDamage(32));
+        super(new Item.Properties().group(ModItemGroups.tabMain).defaultMaxDamage(32));
         setRegistryName(name);
     }
 

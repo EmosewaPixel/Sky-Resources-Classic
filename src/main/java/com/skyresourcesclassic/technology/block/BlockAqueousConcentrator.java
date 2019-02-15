@@ -32,7 +32,7 @@ public class BlockAqueousConcentrator extends BlockContainer {
     private static final DirectionProperty FACING = BlockHorizontal.HORIZONTAL_FACING;
 
     public BlockAqueousConcentrator(String name, float hardness, float resistance) {
-        super(Block.Builder.create(Material.GROUND).hardnessAndResistance(hardness, resistance));
+        super(Block.Properties.create(Material.GROUND).hardnessAndResistance(hardness, resistance));
         this.setRegistryName(name);
         this.setDefaultState(this.stateContainer.getBaseState().with(FACING, EnumFacing.NORTH));
     }

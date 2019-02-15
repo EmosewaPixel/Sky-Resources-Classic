@@ -32,7 +32,7 @@ import javax.annotation.Nullable;
 
 public class BlockWildlifeAttractor extends BlockContainer {
     public BlockWildlifeAttractor(String name, float hardness, float resistance) {
-        super(Block.Builder.create(Material.GRASS).hardnessAndResistance(hardness, resistance));
+        super(Block.Properties.create(Material.GRASS).hardnessAndResistance(hardness, resistance));
         this.setRegistryName(name);
     }
 

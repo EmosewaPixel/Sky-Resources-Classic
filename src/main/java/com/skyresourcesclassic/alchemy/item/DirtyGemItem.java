@@ -6,7 +6,7 @@ import net.minecraft.item.Item;
 public class DirtyGemItem extends Item {
 
     public DirtyGemItem(String gem) {
-        super(new Item.Builder().group(ModItemGroups.tabTech));
+        super(new Item.Properties().group(ModItemGroups.tabTech));
 
         setRegistryName("dirty_" + gem);
     }

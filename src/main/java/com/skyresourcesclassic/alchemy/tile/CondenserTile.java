@@ -46,7 +46,7 @@ public class CondenserTile extends TileBase implements ITickable {
             FluidRegisterInfo.CrystalFluidType fluidType = ModFluids.crystalFluidInfos()[ModBlocks.crystalFluidBlocks
                     .indexOf(crystalBlock)].type;
 
-            String tagCheck = "forge:ingot" + RandomHelper.capatilizeString(type);
+            String tagCheck = "forge:ingot" + RandomHelper.capitalizeString(type);
 
             if ((tier != 1 || fluidType == FluidRegisterInfo.CrystalFluidType.NORMAL) && crystalBlock.getFluidState(getBlockAbove().getDefaultState()).isSource()
                     && crystalBlock.isNotFlowing(world, pos.up(), world.getBlockState(pos.up()))

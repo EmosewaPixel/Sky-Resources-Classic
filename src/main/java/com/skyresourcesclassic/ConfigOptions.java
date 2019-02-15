@@ -13,7 +13,6 @@ public class ConfigOptions {
     public static final combustion combustion = new combustion(SERVER_BUILDER);
     public static final crucible crucible = new crucible(SERVER_BUILDER);
     public static fluidDropper fluidDropper = new fluidDropper(SERVER_BUILDER);
-    public static guide guide = new guide(CLIENT_BUILDER);
     public static rockGrinder rockGrinder = new rockGrinder(SERVER_BUILDER);
 
     public static class general {
@@ -132,23 +131,6 @@ public class ConfigOptions {
             fluidDropperCapacity = builder
                     .translation("Fluid Dropper Capacity")
                     .defineInRange("fluidDropperCapacity", 1000, 1, Integer.MAX_VALUE);
-        }
-    }
-
-    public static class guide {
-        public final ForgeConfigSpec.BooleanValue rememberGuide;
-        public final ForgeConfigSpec.BooleanValue allowGuide;
-
-        guide(ForgeConfigSpec.Builder builder) {
-            builder.comment("Config options for the guide").push("guide");
-
-            rememberGuide = builder
-                    .translation("Remember Current Guide Page")
-                    .define("rememberGuide", true);
-
-            allowGuide = builder
-                    .translation("Allow guide to be opened")
-                    .define("allowGuide", true);
         }
     }
 

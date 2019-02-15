@@ -32,7 +32,7 @@ public class ItemRockGrinder extends ItemPickaxe {
     private ItemTier toolMaterial;
 
     public ItemRockGrinder(ItemTier material, String name) {
-        super(material, (int) material.getAttackDamage(), material.getAttackDamage(), new Item.Builder().addToolType(ToolType.get("rockGrinder"), material.getHarvestLevel()).defaultMaxDamage((int) (material.getMaxUses() * ConfigOptions.rockGrinder.rockGrinderBaseDurability.get())).maxStackSize(1).group(ModItemGroups.tabTech));
+        super(material, (int) material.getAttackDamage(), material.getAttackDamage(), new Item.Properties().addToolType(ToolType.get("rockGrinder"), material.getHarvestLevel()).defaultMaxDamage((int) (material.getMaxUses() * ConfigOptions.rockGrinder.rockGrinderBaseDurability.get())).maxStackSize(1).group(ModItemGroups.tabTech));
         toolMaterial = material;
         this.damageVsEntity = (float) (ConfigOptions.rockGrinder.rockGrinderBaseDamage.get() + material.getAttackDamage());
         setRegistryName(name);

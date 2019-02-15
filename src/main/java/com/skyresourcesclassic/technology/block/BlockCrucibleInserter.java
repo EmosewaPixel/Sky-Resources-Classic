@@ -15,7 +15,7 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 public class BlockCrucibleInserter extends BlockContainer {
     public BlockCrucibleInserter(String name, float hardness,
                                  float resistance) {
-        super(Block.Builder.create(Material.ROCK).hardnessAndResistance(hardness, resistance));
+        super(Block.Properties.create(Material.ROCK).hardnessAndResistance(hardness, resistance));
         this.setRegistryName(name);
     }
 

@@ -3,19 +3,15 @@ package com.skyresourcesclassic.registry;
 import com.skyresourcesclassic.References;
 import com.skyresourcesclassic.alchemy.render.CrucibleTESR;
 import com.skyresourcesclassic.alchemy.tile.CrucibleTile;
-import com.skyresourcesclassic.base.entity.EntityHeavyExplosiveSnowball;
-import com.skyresourcesclassic.base.entity.EntityHeavySnowball;
-import com.skyresourcesclassic.base.entity.RenderEntityItem;
 import com.skyresourcesclassic.base.item.ItemWaterExtractor;
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.ItemMeshDefinition;
-import net.minecraft.client.renderer.block.model.ModelBakery;
-import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.client.renderer.block.statemap.StateMapperBase;
 import net.minecraft.client.renderer.color.IItemColor;
-import net.minecraft.client.renderer.entity.RenderManager;
+import net.minecraft.client.renderer.model.ModelBakery;
+import net.minecraft.client.renderer.model.ModelResourceLocation;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -23,8 +19,6 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fml.client.registry.ClientRegistry;
-import net.minecraftforge.fml.client.registry.IRenderFactory;
-import net.minecraftforge.fml.client.registry.RenderingRegistry;
 
 import javax.annotation.Nonnull;
 
@@ -42,59 +36,6 @@ public class ModRenderers {
         for (Item gem : ModItems.dirtyGem) {
             registerItemRenderer(gem, new ResourceLocation("skyresourcesclassic:dirty_gem"));
         }
-
-        for (Item component : ModItems.itemComponent) {
-            registerItemRenderer(component);
-        }
-        registerItemRenderer(ModItems.cactusFruit);
-        registerItemRenderer(ModItems.fleshySnowNugget);
-        registerItemRenderer(ModItems.heavySnowball);
-        registerItemRenderer(ModItems.heavyExpSnowball);
-        registerItemRenderer(ModItems.cactusKnife);
-        registerItemRenderer(ModItems.stoneKnife);
-        registerItemRenderer(ModItems.ironKnife);
-        registerItemRenderer(ModItems.diamondKnife);
-        registerItemRenderer(ModItems.stoneGrinder);
-        registerItemRenderer(ModItems.ironGrinder);
-        registerItemRenderer(ModItems.diamondGrinder);
-        registerItemRenderer(ModItems.alchemicalInfusionStone);
-        registerItemRenderer(ModItems.healthGem);
-        registerItemRenderer(ModItems.survivalistFishingRod);
-        registerItemRenderer(Item.getItemFromBlock(ModBlocks.cactusFruitNeedle));
-        registerItemRenderer(Item.getItemFromBlock(ModBlocks.compressedCoalBlock));
-        registerItemRenderer(Item.getItemFromBlock(ModBlocks.coalInfusedBlock));
-        registerItemRenderer(Item.getItemFromBlock(ModBlocks.sandyNetherrack));
-        registerItemRenderer(Item.getItemFromBlock(ModBlocks.darkMatterBlock));
-        registerItemRenderer(Item.getItemFromBlock(ModBlocks.heavySnow));
-        registerItemRenderer(Item.getItemFromBlock(ModBlocks.heavySnow2));
-        registerItemRenderer(Item.getItemFromBlock(ModBlocks.dryCactus));
-        registerItemRenderer(Item.getItemFromBlock(ModBlocks.miniFreezer));
-        registerItemRenderer(Item.getItemFromBlock(ModBlocks.ironFreezer));
-        registerItemRenderer(Item.getItemFromBlock(ModBlocks.crucible));
-        registerItemRenderer(Item.getItemFromBlock(ModBlocks.fluidDropper));
-        registerItemRenderer(Item.getItemFromBlock(ModBlocks.blazePowderBlock));
-        registerItemRenderer(Item.getItemFromBlock(ModBlocks.dirtFurnace));
-        registerItemRenderer(Item.getItemFromBlock(ModBlocks.darkMatterWarper));
-        registerItemRenderer(Item.getItemFromBlock(ModBlocks.endPortalCore));
-        registerItemRenderer(Item.getItemFromBlock(ModBlocks.lifeInfuser));
-        registerItemRenderer(Item.getItemFromBlock(ModBlocks.lifeInjector));
-        registerItemRenderer(Item.getItemFromBlock(ModBlocks.crucibleInserter));
-        registerItemRenderer(Item.getItemFromBlock(ModBlocks.rockCrusher));
-        registerItemRenderer(Item.getItemFromBlock(ModBlocks.rockCleaner));
-        registerItemRenderer(Item.getItemFromBlock(ModBlocks.combustionCollector));
-        registerItemRenderer(Item.getItemFromBlock(ModBlocks.quickDropper));
-        registerItemRenderer(Item.getItemFromBlock(ModBlocks.aqueousConcentrator));
-        registerItemRenderer(Item.getItemFromBlock(ModBlocks.aqueousDeconcentrator));
-        registerItemRenderer(Item.getItemFromBlock(ModBlocks.wildlifeAttractor));
-        for (int i = 0; i < ModBlocks.alchemicalCondenser.length; i++) {
-            registerItemRenderer(Item.getItemFromBlock(ModBlocks.alchemicalCondenser[i]));
-            registerItemRenderer(Item.getItemFromBlock(ModBlocks.crystallizer[i]));
-            registerItemRenderer(Item.getItemFromBlock(ModBlocks.combustionHeater[i]));
-            registerItemRenderer(Item.getItemFromBlock(ModBlocks.heatProvider[i]));
-        }
-
-        registerItemRenderer(ModItems.sandstoneInfusionStone);
-        registerItemRenderer(ModItems.redSandstoneInfusionStone);
 
         ModelBakery.registerItemVariants(ModItems.waterExtractor,
                 new ModelResourceLocation("skyresourcesclassic:water_extractor.empty", "inventory"),
@@ -126,22 +67,6 @@ public class ModRenderers {
                         "inventory");
             }
         });
-
-        RenderingRegistry.registerEntityRenderingHandler(EntityHeavySnowball.class,
-                new IRenderFactory<EntityHeavySnowball>() {
-                    @Override
-                    public RenderEntityItem createRenderFor(RenderManager manager) {
-                        return new RenderEntityItem(manager, new ItemStack(ModItems.heavySnowball));
-                    }
-                });
-
-        RenderingRegistry.registerEntityRenderingHandler(EntityHeavyExplosiveSnowball.class,
-                new IRenderFactory<EntityHeavyExplosiveSnowball>() {
-                    @Override
-                    public RenderEntityItem createRenderFor(RenderManager manager) {
-                        return new RenderEntityItem(manager, new ItemStack(ModItems.heavyExpSnowball));
-                    }
-                });
     }
 
     public static void init() {

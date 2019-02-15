@@ -26,7 +26,7 @@ public class ItemHealthGem extends Item implements IHealthBoostItem {
     private final int maxHealth = ConfigOptions.health.healthGemMaxHealth.get();
 
     public ItemHealthGem() {
-        super(new Item.Builder().group(ModItemGroups.tabAlchemy).maxStackSize(1));
+        super(new Item.Properties().group(ModItemGroups.tabAlchemy).maxStackSize(1));
 
         setRegistryName("Item_health_gem");
     }

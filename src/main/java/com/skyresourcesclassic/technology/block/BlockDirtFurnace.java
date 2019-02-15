@@ -40,7 +40,7 @@ public class BlockDirtFurnace extends BlockContainer {
     public static final BooleanProperty BURNING = BooleanProperty.create("burning");
 
     public BlockDirtFurnace(String name, float hardness, float resistance) {
-        super(Block.Builder.create(Material.GROUND).hardnessAndResistance(hardness, resistance));
+        super(Block.Properties.create(Material.GROUND).hardnessAndResistance(hardness, resistance));
         this.setRegistryName(name);
         this.setDefaultState(
                 this.stateContainer.getBaseState().with(FACING, EnumFacing.NORTH).with(BURNING, false));

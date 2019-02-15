@@ -42,7 +42,7 @@ public class ItemWaterExtractor extends Item implements IFluidHandler {
             "full6"};
 
     public ItemWaterExtractor() {
-        super(new Item.Builder().maxStackSize(1).group(ModItemGroups.tabMain));
+        super(new Item.Properties().maxStackSize(1).group(ModItemGroups.tabMain));
         tank = new FluidTank(new FluidStack(Fluids.WATER, 0), maxAmount);
         setRegistryName("water_extractor");
     }

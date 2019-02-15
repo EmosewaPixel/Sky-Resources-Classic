@@ -7,7 +7,7 @@ import net.minecraft.item.ItemFood;
 public class ModItemFood extends ItemFood {
 
     public ModItemFood(int amount, float saturation, boolean isWolfFood, String name) {
-        super(amount, saturation, isWolfFood, new Item.Builder().group(ModItemGroups.tabMain));
+        super(amount, saturation, isWolfFood, new Item.Properties().group(ModItemGroups.tabMain));
         setRegistryName(name);
     }
 

@@ -147,7 +147,7 @@ public class ModBlocks {
 
     public static Block registerBlock(Block block, String name) {
         GameData.register_impl(block.setRegistryName(new ResourceLocation(References.ModID, name)));
-        GameData.register_impl(new ItemBlock(block, new Item.Builder()).setRegistryName(new ResourceLocation(References.ModID, name)));
+        GameData.register_impl(new ItemBlock(block, new Item.Properties()).setRegistryName(new ResourceLocation(References.ModID, name)));
 
         return block;
     }
@@ -160,7 +160,7 @@ public class ModBlocks {
 
     public static Block registerBlock(Block block, ItemGroup group) {
         GameData.register_impl(block);
-        GameData.register_impl(new ItemBlock(block, new Item.Builder().group(group)).setRegistryName(block.getRegistryName()));
+        GameData.register_impl(new ItemBlock(block, new Item.Properties()).setRegistryName(block.getRegistryName()));
 
         return block;
     }

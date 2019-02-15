@@ -1,6 +1,5 @@
 package com.skyresourcesclassic.plugin.forestry;
 
-import com.skyresourcesclassic.base.guide.SkyResourcesGuide;
 import com.skyresourcesclassic.plugin.IModPlugin;
 import com.skyresourcesclassic.plugin.forestry.block.BlockBeeAttractor;
 import com.skyresourcesclassic.registry.ModBlocks;
@@ -26,9 +25,6 @@ public class ForestryPlugin implements IModPlugin {
                 new ItemStack(beeAttractor),
                 new Object[]{"XXX", "XYX", "ZZZ", Character.valueOf('X'), "plankWood", Character.valueOf('Y'),
                         ModuleCore.items.impregnatedCasing, Character.valueOf('Z'), "ingotBronze"});
-
-        SkyResourcesGuide.addPage("forestry", "guide.skyresourcesclassic.misc",
-                new ItemStack(ModuleApiculture.getItems().beeQueenGE));
     }
 
     public void initRenderers() {

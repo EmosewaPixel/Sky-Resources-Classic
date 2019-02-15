@@ -14,7 +14,7 @@ import net.minecraft.world.World;
 
 public class ItemHeavySnowball extends Item {
     public ItemHeavySnowball(String name) {
-        super(new Item.Builder().maxStackSize(8).group(ModItemGroups.tabMain));
+        super(new Item.Properties().maxStackSize(8).group(ModItemGroups.tabMain));
         setRegistryName(name);
     }
 

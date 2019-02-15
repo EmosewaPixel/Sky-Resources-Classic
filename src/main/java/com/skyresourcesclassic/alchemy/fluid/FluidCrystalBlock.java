@@ -17,7 +17,7 @@ public class FluidCrystalBlock extends BlockFlowingFluid {
 
     public FluidCrystalBlock(FlowingFluid fluid, Material material,
                              String registryName) {
-        super(fluid, Block.Builder.create(material));
+        super(fluid, Block.Properties.create(material));
         this.setRegistryName(registryName);
     }
 

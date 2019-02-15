@@ -30,7 +30,7 @@ public class BlockQuickDropper extends BlockContainer {
 
     public BlockQuickDropper(String name, float hardness,
                              float resistance) {
-        super(Block.Builder.create(Material.IRON).hardnessAndResistance(hardness, resistance));
+        super(Block.Properties.create(Material.IRON).hardnessAndResistance(hardness, resistance));
         this.setRegistryName(name);
     }
 

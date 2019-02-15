@@ -6,7 +6,6 @@ import com.skyresourcesclassic.alchemy.gui.container.ContainerLifeInfuser;
 import com.skyresourcesclassic.alchemy.gui.container.ContainerLifeInjector;
 import com.skyresourcesclassic.alchemy.tile.LifeInfuserTile;
 import com.skyresourcesclassic.alchemy.tile.LifeInjectorTile;
-import com.skyresourcesclassic.base.guide.gui.GuideGUI;
 import com.skyresourcesclassic.plugin.forestry.gui.GuiBeeAttractor;
 import com.skyresourcesclassic.plugin.forestry.gui.container.ContainerBeeAttractor;
 import com.skyresourcesclassic.plugin.forestry.tile.TileBeeAttractor;
@@ -34,7 +33,6 @@ public class ModGuiHandler implements IGuiHandler {
     public static final int BeeAttractorGUI = 15;
     public static final int WildlifeAttractorGUI = 20;
     public static final int HeaterGUI = 21;
-    public static final int GuideGUI = 25;
 
     @Override
     public Object getServerGuiElement(int id, EntityPlayer player, World world, int x, int y, int z) {
@@ -128,8 +126,6 @@ public class ModGuiHandler implements IGuiHandler {
             case HeaterGUI:
                 return new GuiHeater(player.inventory,
                         (TileHeater) world.getTileEntity(new BlockPos(x, y, z)));
-            case GuideGUI:
-                return new GuideGUI();
             default:
                 return null;
         }

@@ -16,10 +16,10 @@ public class CondenserRecipeMaker {
         ArrayList<CondenserRecipeJEI> recipes = new ArrayList<CondenserRecipeJEI>();
 
         for (int i = 0; i < ModFluids.crystalFluids.size(); i++) {
-            if (OreDictionary.getOres("ingot" + RandomHelper.capatilizeString(ModFluids.crystalFluidInfos()[i].name))
+            if (OreDictionary.getOres("ingot" + RandomHelper.capitalizeString(ModFluids.crystalFluidInfos()[i].name))
                     .size() > 0) {
                 ItemStack ingot = OreDictionary
-                        .getOres("ingot" + RandomHelper.capatilizeString(ModFluids.crystalFluidInfos()[i].name)).get(0)
+                        .getOres("ingot" + RandomHelper.capitalizeString(ModFluids.crystalFluidInfos()[i].name)).get(0)
                         .copy();
                 ingot.setCount(1);
                 CondenserRecipeJEI addRecipe = new CondenserRecipeJEI(ingot,

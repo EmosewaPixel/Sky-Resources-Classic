@@ -1,7 +1,7 @@
 package com.skyresourcesclassic.technology.block;
 
-import com.skyresourcesclassic.SkyResourcesClassic;
-import com.skyresourcesclassic.registry.ModGuiHandler;
+import com.skyresourcesclassic.registry.ModBlocks;
+import com.skyresourcesclassic.technology.gui.container.ContainerCombustionHeater;
 import com.skyresourcesclassic.technology.tile.TileCombustionHeater;
 import com.skyresourcesclassic.technology.tile.TilePoweredCombustionHeater;
 import net.minecraft.block.Block;
@@ -10,6 +10,9 @@ import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.EntityPlayerMP;
+import net.minecraft.entity.player.InventoryPlayer;
+import net.minecraft.inventory.Container;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumBlockRenderType;
@@ -18,11 +21,14 @@ import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TextComponentString;
+import net.minecraft.util.text.TextComponentTranslation;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.world.IBlockReader;
+import net.minecraft.world.IInteractionObject;
 import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
+import net.minecraftforge.fml.network.NetworkHooks;
 
 import javax.annotation.Nullable;
 import java.util.ArrayList;
@@ -30,7 +36,7 @@ import java.util.List;
 
 public class BlockCombustionHeater extends BlockContainer {
     public BlockCombustionHeater(String material, float hardness, float resistance, int tier) {
-        super(Block.Builder.create(Material.WOOD).hardnessAndResistance(hardness, resistance));
+        super(Block.Properties.create(Material.WOOD).hardnessAndResistance(hardness, resistance));
         this.setRegistryName(material + "_combustion_heater");
         this.tier = tier;
     }
@@ -105,10 +111,9 @@ public class BlockCombustionHeater extends BlockContainer {
     public boolean onBlockActivated(IBlockState state, World world, BlockPos pos, EntityPlayer player, EnumHand hand,
                                     EnumFacing side, float hitX, float hitY, float hitZ) {
         if (!world.isRemote) {
-            if (tier < 3) {
-                player.openGui(SkyResourcesClassic.instance, ModGuiHandler.CombustionHeaterGUI, world, pos.getX(), pos.getY(),
-                        pos.getZ());
-            } else {
+            if (tier < 3)
+                NetworkHooks.openGui((EntityPlayerMP) player, new CombustionHeaterInterface(pos, this.tier), null);
+            else {
                 if (player.getHeldItemMainhand().isEmpty() && !player.isSneaking()) {
                     List<ITextComponent> toSend = new ArrayList();
 
@@ -130,5 +135,41 @@ public class BlockCombustionHeater extends BlockContainer {
             }
         }
         return true;
+    }
+
+    public class CombustionHeaterInterface implements IInteractionObject {
+        private BlockPos pos;
+        private int tier;
+
+        private CombustionHeaterInterface(BlockPos pos, int tier) {
+            this.pos = pos;
+            this.tier = tier;
+        }
+
+        @Override
+        public Container createContainer(InventoryPlayer playerInventory, EntityPlayer playerIn) {
+            return new ContainerCombustionHeater(playerInventory, (TileCombustionHeater) playerIn.world.getTileEntity(pos));
+        }
+
+        @Override
+        public String getGuiID() {
+            return "skyresourcesclassic:combustion_heater_gui";
+        }
+
+        @Override
+        public ITextComponent getName() {
+            return new TextComponentTranslation(ModBlocks.combustionHeater[tier].getTranslationKey() + ".name", new Object[0]);
+        }
+
+        @Override
+        public boolean hasCustomName() {
+            return false;
+        }
+
+        @javax.annotation.Nullable
+        @Override
+        public ITextComponent getCustomName() {
+            return null;
+        }
     }
 }

@@ -31,7 +31,7 @@ public class BlockDarkMatterWarper extends BlockContainer {
     private static final VoxelShape shape = Block.makeCuboidShape(0.125D, 0.125D, 0.125D, 0.875D, 0.875D, 0.875D);
 
     public BlockDarkMatterWarper(String name, float hardness, float resistance) {
-        super(Block.Builder.create(Material.IRON).hardnessAndResistance(hardness, resistance));
+        super(Block.Properties.create(Material.IRON).hardnessAndResistance(hardness, resistance));
         this.setRegistryName(name);
     }
 

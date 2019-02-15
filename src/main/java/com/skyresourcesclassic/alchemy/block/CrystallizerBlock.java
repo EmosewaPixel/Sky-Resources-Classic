@@ -11,7 +11,7 @@ import net.minecraft.world.IBlockReader;
 
 public class CrystallizerBlock extends BlockContainer {
     public CrystallizerBlock(String material, float hardness, float resistance, int tier) {
-        super(Block.Builder.create(Material.ROCK).hardnessAndResistance(hardness, resistance));
+        super(Block.Properties.create(Material.ROCK).hardnessAndResistance(hardness, resistance));
         this.setRegistryName(material + "_crystallizer");
         this.tier = tier;
     }

@@ -20,7 +20,7 @@ import net.minecraftforge.items.IItemHandler;
 import org.lwjgl.opengl.GL11;
 
 public class RandomHelper {
-    public static String capatilizeString(String s) {
+    public static String capitalizeString(String s) {
         return s.substring(0, 1).toUpperCase() + s.substring(1);
     }
 
@@ -29,11 +29,6 @@ public class RandomHelper {
         Entity entity = new EntityItem(world, pos.getX() + 0.5F,
                 pos.getY() + 0.5F, pos.getZ() + 0.5F, stack);
         world.spawnEntity(entity);
-    }
-
-    public static float pointDistancePlane(double x1, double y1, double x2,
-                                           double y2) {
-        return (float) Math.hypot(x1 - x2, y1 - y2);
     }
 
     public static void renderFluidCuboid(FluidStack fluid, BlockPos pos,
@@ -257,10 +252,7 @@ public class RandomHelper {
         if (!stack1.isItemEqual(stack2)) {
             return false;
         }
-        if (!ItemStack.areItemStackTagsEqual(stack1, stack2)) {
-            return false;
-        }
-        return true;
+        return ItemStack.areItemStackTagsEqual(stack1, stack2);
 
     }
 

@@ -1,7 +1,7 @@
 package com.skyresourcesclassic.technology.tile;
 
-import com.skyresourcesclassic.base.tile.TileItemInventory;
 import com.skyresourcesclassic.ConfigOptions;
+import com.skyresourcesclassic.base.tile.TileItemInventory;
 import com.skyresourcesclassic.registry.ModBlocks;
 import com.skyresourcesclassic.registry.ModEntities;
 import net.minecraft.entity.monster.EntitySilverfish;
@@ -11,9 +11,13 @@ import net.minecraft.init.Enchantments;
 import net.minecraft.init.Items;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.ItemStack;
+import net.minecraft.profiler.Profiler;
 import net.minecraft.util.ITickable;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.Teleporter;
+import net.minecraft.world.WorldServer;
+import net.minecraft.world.dimension.DimensionType;
 
 import java.util.List;
 
@@ -37,8 +41,8 @@ public class TileEndPortalCore extends TileItemInventory implements ITickable {
                         if (!getInventory().getStackInSlot(0).isEmpty()
                                 && getInventory().getStackInSlot(0).isItemEqual(new ItemStack(Items.ENDER_EYE))
                                 && getInventory().getStackInSlot(0).getCount() >= 16) {
-                            if (player.dimension == 0) {
-                                player.changeDimension(1);
+                            if (player.dimension == DimensionType.OVERWORLD) {
+                                player.changeDimension(DimensionType.THE_END, new Teleporter(new WorldServer(world.getServer(), world.getSaveHandler(), world.getMapStorage(), world.getWorldInfo(), DimensionType.THE_END, new Profiler())));
                                 getInventory().getStackInSlot(0).shrink(16);
                                 if (getInventory().getStackInSlot(0).getCount() == 0)
                                     getInventory().setStackInSlot(0, ItemStack.EMPTY);

@@ -31,7 +31,7 @@ public class ItemKnife extends Item {
     private IItemTier toolMaterial;
 
     public ItemKnife(IItemTier material, String name) {
-        super(new Item.Builder().group(ModItemGroups.tabMain).maxStackSize(1).setNoRepair().addToolType(ToolType.get("knife"), material.getHarvestLevel()).defaultMaxDamage((int) (material.getMaxUses() * ConfigOptions.knife.knifeBaseDurability.get())));
+        super(new Item.Properties().group(ModItemGroups.tabMain).maxStackSize(1).setNoRepair().addToolType(ToolType.get("knife"), material.getHarvestLevel()).defaultMaxDamage((int) (material.getMaxUses() * ConfigOptions.knife.knifeBaseDurability.get())));
         toolMaterial = material;
         this.damageVsEntity = (float) (ConfigOptions.knife.knifeBaseDamage.get() + material.getAttackDamage());
         setRegistryName(name);

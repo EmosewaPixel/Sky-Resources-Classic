@@ -37,7 +37,7 @@ public class BlockHeater extends BlockContainer {
     public static final BooleanProperty RUNNING = BooleanProperty.create("running");
 
     public BlockHeater(String material, float hardness, float resistance, int tier) {
-        super(Block.Builder.create(Material.IRON).hardnessAndResistance(hardness, resistance));
+        super(Block.Properties.create(Material.IRON).hardnessAndResistance(hardness, resistance));
         this.setRegistryName(material + "_heater");
         this.setDefaultState(this.stateContainer.getBaseState().with(RUNNING, false));
         this.tier = tier;

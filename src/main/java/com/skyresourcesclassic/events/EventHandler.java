@@ -1,11 +1,8 @@
 package com.skyresourcesclassic.events;
 
-import com.skyresourcesclassic.ConfigOptions;
 import com.skyresourcesclassic.RandomHelper;
 import com.skyresourcesclassic.References;
 import com.skyresourcesclassic.alchemy.effects.IHealthBoostItem;
-import com.skyresourcesclassic.base.ModKeyBindings;
-import com.skyresourcesclassic.base.guide.gui.GuideGUI;
 import com.skyresourcesclassic.recipe.ProcessRecipe;
 import com.skyresourcesclassic.recipe.ProcessRecipeManager;
 import com.skyresourcesclassic.registry.ModBlocks;
@@ -13,8 +10,6 @@ import com.skyresourcesclassic.registry.ModItems;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockCauldron;
 import net.minecraft.block.BlockSnowLayer;
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.entity.EntityPlayerSP;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
@@ -28,7 +23,6 @@ import net.minecraftforge.event.entity.player.PlayerInteractEvent.RightClickBloc
 import net.minecraftforge.event.furnace.FurnaceFuelBurnTimeEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.common.gameevent.InputEvent.KeyInputEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent.PlayerTickEvent;
 
 import java.util.List;
@@ -128,15 +122,6 @@ public class EventHandler {
                 player.setHealth(player.getMaxHealth());
         }
 
-    }
-
-    @SubscribeEvent
-    public void onKeyInput(KeyInputEvent event) {
-        if (ModKeyBindings.guideKey.isPressed() && ConfigOptions.guide.allowGuide.get()) {
-            EntityPlayerSP player = Minecraft.getInstance().player;
-            if (player.world.isRemote)
-                Minecraft.getInstance().displayGuiScreen(new GuideGUI());
-        }
     }
 
     @SubscribeEvent

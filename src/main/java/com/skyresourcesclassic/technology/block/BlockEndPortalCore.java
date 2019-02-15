@@ -32,7 +32,7 @@ import javax.annotation.Nullable;
 
 public class BlockEndPortalCore extends BlockContainer {
     public BlockEndPortalCore(String name, float hardness, float resistance) {
-        super(Block.Builder.create(Material.ROCK).hardnessAndResistance(hardness, resistance));
+        super(Block.Properties.create(Material.ROCK).hardnessAndResistance(hardness, resistance));
         this.setRegistryName(name);
     }
 

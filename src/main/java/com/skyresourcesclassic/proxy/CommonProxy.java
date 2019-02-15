@@ -1,7 +1,6 @@
 package com.skyresourcesclassic.proxy;
 
 import com.skyresourcesclassic.base.HeatSources;
-import com.skyresourcesclassic.base.guide.SkyResourcesGuide;
 import com.skyresourcesclassic.events.EventHandler;
 import com.skyresourcesclassic.events.ModBucketHandler;
 import com.skyresourcesclassic.plugin.ModPlugins;
@@ -27,9 +26,7 @@ public class CommonProxy implements IModProxy {
         ModPlugins.preInit();
 
         new HeatSources();
-        new SkyResourcesGuide();
 
-        ModGuidePages.init();
         new ModGuiHandler();
     }
 

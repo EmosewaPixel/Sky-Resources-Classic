@@ -1,6 +1,5 @@
 package com.skyresourcesclassic.plugin.integdyn;
 
-import com.skyresourcesclassic.base.guide.SkyResourcesGuide;
 import com.skyresourcesclassic.plugin.IModPlugin;
 import com.skyresourcesclassic.recipe.ProcessRecipeManager;
 import net.minecraft.init.Blocks;
@@ -23,11 +22,9 @@ public class IntegratedDynamicsPlugin implements IModPlugin {
         Item sapling = Item.REGISTRY.get(new ResourceLocation("integrateddynamics", "menril_sapling"));
 
         ProcessRecipeManager.infusionRecipes.addRecipe(new ItemStack(berries, 1), 12,
-                new ArrayList<Object>(Arrays.asList(new ItemStack(Items.DYE, 4, 12), new ItemStack(Blocks.RED_MUSHROOM))));
+                new ArrayList<Object>(Arrays.asList(new ItemStack(Items.LIGHT_BLUE_DYE, 4), new ItemStack(Blocks.RED_MUSHROOM))));
         ProcessRecipeManager.infusionRecipes.addRecipe(new ItemStack(sapling, 1), 12,
-                new ArrayList<Object>(Arrays.asList(new ItemStack(berries, 4), new ItemStack(Blocks.SAPLING, 1, 2))));
-
-        SkyResourcesGuide.addPage("integdyn", "guide.skyresourcesclassic.misc", new ItemStack(sapling, 1));
+                new ArrayList<Object>(Arrays.asList(new ItemStack(berries, 4), new ItemStack(Blocks.BIRCH_SAPLING, 1))));
     }
 
     public void initRenderers() {

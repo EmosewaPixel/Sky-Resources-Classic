@@ -20,7 +20,7 @@ import java.util.List;
 
 public class ItemComponent extends Item {
     public ItemComponent(String name, ItemGroup tab) {
-        super(new Item.Builder().group(tab));
+        super(new Item.Properties().group(tab));
     }
 
     public EnumActionResult onItemUse(ItemUseContext context) {

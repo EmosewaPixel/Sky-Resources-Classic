@@ -1,6 +1,5 @@
 package com.skyresourcesclassic.plugin.actuallyadditions;
 
-import com.skyresourcesclassic.base.guide.SkyResourcesGuide;
 import com.skyresourcesclassic.plugin.IModPlugin;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -24,8 +23,6 @@ public class ActAddPlugin implements IModPlugin {
         MinecraftForge.addGrassSeed(new ItemStack(coffee), 10);
         MinecraftForge.addGrassSeed(new ItemStack(flax), 10);
         MinecraftForge.addGrassSeed(new ItemStack(rice), 10);
-
-        SkyResourcesGuide.addPage("actadd", "guide.skyresourcesclassic.misc", new ItemStack(misc, 1, 5));
     }
 
     public void postInit() {
