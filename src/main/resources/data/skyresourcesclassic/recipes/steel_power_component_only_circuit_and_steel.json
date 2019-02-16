@@ -1,17 +1,17 @@
 {
   "conditions": [
     {
-        "type": "tag_condition",
+        "type": "skyresourcesclassic:tag_condition",
       "tag": "forge:ingots/steel"
     },
     {
-        "type": "tag_condition",
+        "type": "skyresourcesclassic:tag_condition",
       "tag": "forge:circuits/basic"
     },
     {
       "type": "forge:not",
       "value": {
-        "type": "tag_condition",
+        "type": "skyresourcesclassic:tag_condition",
         "tag": "forge:dusts/coal"
       }
     }

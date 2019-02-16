@@ -3,14 +3,18 @@ package com.skyresourcesclassic;
 import com.skyresourcesclassic.proxy.ClientProxy;
 import com.skyresourcesclassic.proxy.CommonProxy;
 import com.skyresourcesclassic.proxy.IModProxy;
+import com.skyresourcesclassic.recipe.TagCondition;
 import com.skyresourcesclassic.registry.ModEntities;
+import com.skyresourcesclassic.registry.ModGuiHandler;
 import net.minecraft.entity.EntityType;
 import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.common.crafting.CraftingHelper;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fml.DistExecutor;
+import net.minecraftforge.fml.ExtensionPoint;
 import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.config.ModConfig;
@@ -35,10 +39,10 @@ public class SkyResourcesClassic {
     public void commonSetup(final FMLCommonSetupEvent event) {
         CommonProxy.setup();
         logger = LogManager.getLogger(References.ModID);
+        CraftingHelper.register(new ResourceLocation(References.ModID, "tag_condition"), new TagCondition());
     }
 
     public void clientSetup(final FMLClientSetupEvent event) {
-        CommonProxy.setup();
         ClientProxy.clientSetup();
     }
 
@@ -57,7 +61,10 @@ public class SkyResourcesClassic {
         FMLJavaModLoadingContext.get().getModEventBus().addListener(this::process);
 
         ModLoadingContext.get().registerConfig(ModConfig.Type.CLIENT, ConfigOptions.client_spec);
-        ModLoadingContext.get().registerConfig(ModConfig.Type.SERVER, ConfigOptions.server_spec);
+        ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, ConfigOptions.common_spec);
+        FMLJavaModLoadingContext.get().getModEventBus().register(ConfigOptions.class);
+
+        ModLoadingContext.get().registerExtensionPoint(ExtensionPoint.GUIFACTORY, () -> ModGuiHandler::modGUis);
 
         FluidRegistry.enableUniversalBucket();
     }

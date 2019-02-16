@@ -3,7 +3,7 @@
     {
       "type": "forge:not",
       "value": {
-        "type": "tag_condition",
+        "type": "skyresourcesclassic:tag_condition",
         "ore": "ingotSteel"
       }
     }

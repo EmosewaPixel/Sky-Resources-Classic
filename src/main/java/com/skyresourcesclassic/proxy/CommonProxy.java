@@ -35,7 +35,6 @@ public class CommonProxy implements IModProxy {
         FMLJavaModLoadingContext.get().getModEventBus().register(events);
         FMLJavaModLoadingContext.get().getModEventBus().register(new ModBucketHandler());
         ModCrafting.init();
-        ModLoadingContext.get().registerExtensionPoint(ExtensionPoint.GUIFACTORY, () -> (Function<FMLPlayMessages.OpenContainer, GuiScreen>) new ModGuiHandler());
         ModPlugins.init();
     }
 

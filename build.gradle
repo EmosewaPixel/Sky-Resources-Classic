@@ -43,17 +43,14 @@ dependencies {
     minecraft 'net.minecraftforge:forge:1.13.2-25.0.10'
 }
 
-processResources {
-    inputs.property 'version', project.version
-    inputs.property 'mcversion', '1.13'
-
-    from(sourceSets.main.resources.srcDirs) {
-        include 'META_INF/mods.toml'
-
-        expand 'version':project.version, 'mcversion':'1.13'
-    }
-
-    from(sourceSets.main.resources.srcDirs) {
-        exclude 'META_INF/mods.toml'
+jar {
+    manifest {
+        attributes(["Specification-Title": "skyresourcesclassic",
+                    "Specification-Vendor": "TheEmosewaPixel",
+                    "Specification-Version": "24.0",
+                    "Implementation-Title": project.name,
+                    "Implementation-Version": "${version}",
+                    "Implementation-Vendor" :"TheEmosewaPixel",
+                    "Implementation-Timestamp": new Date().format("yyyy-MM-dd'T'HH:mm:ssZ")],)
     }
 }

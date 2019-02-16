@@ -14,27 +14,27 @@ import net.minecraftforge.fml.ModList;
 import java.util.ArrayList;
 
 public class ModPlugins {
-    public static ArrayList<IModPlugin> plugins = new ArrayList<IModPlugin>();
+    private static ArrayList<IModPlugin> plugins = new ArrayList<>();
 
     public static void preInit() {
         if (ModList.get().isLoaded("forestry"))
             plugins.add(new ForestryPlugin());
-        if (ModList.get().isLoaded(("tconstruct"))
-        plugins.add(new TConPlugin());
-        if (ModList.get().isLoaded(("techreborn"))
-        plugins.add(new TechRebornPlugin());
-        if (ModList.get().isLoaded(("armorplus"))
-        plugins.add(new ArmorPlusPlugin());
-        if (ModList.get().isLoaded(("integrateddynamics"))
-        plugins.add(new IntegratedDynamicsPlugin());
-        if (ModList.get().isLoaded(("bigreactors"))
-        plugins.add(new ExtremeReactorsPlugin());
-        if (ModList.get().isLoaded(("actuallyadditions"))
-        plugins.add(new ActAddPlugin());
-        if (ModList.get().isLoaded(("crafttweaker"))
-        plugins.add(new CraftTweakerPlugin());
-        if (ModList.get().isLoaded(("theoneprobe"))
-        plugins.add(new TOPPlugin());
+        if (ModList.get().isLoaded("tconstruct"))
+            plugins.add(new TConPlugin());
+        if (ModList.get().isLoaded("techreborn"))
+            plugins.add(new TechRebornPlugin());
+        if (ModList.get().isLoaded("armorplus"))
+            plugins.add(new ArmorPlusPlugin());
+        if (ModList.get().isLoaded("integrateddynamics"))
+            plugins.add(new IntegratedDynamicsPlugin());
+        if (ModList.get().isLoaded("bigreactors"))
+            plugins.add(new ExtremeReactorsPlugin());
+        if (ModList.get().isLoaded("actuallyadditions"))
+            plugins.add(new ActAddPlugin());
+        if (ModList.get().isLoaded("crafttweaker"))
+            plugins.add(new CraftTweakerPlugin());
+        if (ModList.get().isLoaded("theoneprobe"))
+            plugins.add(new TOPPlugin());
 
         for (IModPlugin p : plugins) {
             p.preInit();

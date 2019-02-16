@@ -4,16 +4,16 @@ import net.minecraftforge.common.ForgeConfigSpec;
 
 public class ConfigOptions {
     private static final ForgeConfigSpec.Builder CLIENT_BUILDER = new ForgeConfigSpec.Builder();
-    private static final ForgeConfigSpec.Builder SERVER_BUILDER = new ForgeConfigSpec.Builder();
+    private static final ForgeConfigSpec.Builder COMMON_BUILDER = new ForgeConfigSpec.Builder();
 
-    public static final general general = new general(SERVER_BUILDER);
-    public static final health health = new health(SERVER_BUILDER);
-    public static final condenser condenser = new condenser(SERVER_BUILDER);
-    public static final knife knife = new knife(SERVER_BUILDER);
-    public static final combustion combustion = new combustion(SERVER_BUILDER);
-    public static final crucible crucible = new crucible(SERVER_BUILDER);
-    public static fluidDropper fluidDropper = new fluidDropper(SERVER_BUILDER);
-    public static rockGrinder rockGrinder = new rockGrinder(SERVER_BUILDER);
+    public static final general general = new general(COMMON_BUILDER);
+    public static final health health = new health(COMMON_BUILDER);
+    public static final condenser condenser = new condenser(COMMON_BUILDER);
+    public static final knife knife = new knife(COMMON_BUILDER);
+    public static final combustion combustion = new combustion(COMMON_BUILDER);
+    public static final crucible crucible = new crucible(COMMON_BUILDER);
+    public static fluidDropper fluidDropper = new fluidDropper(COMMON_BUILDER);
+    public static rockGrinder rockGrinder = new rockGrinder(COMMON_BUILDER);
 
     public static class general {
         public final ForgeConfigSpec.BooleanValue endWussMode;
@@ -152,6 +152,5 @@ public class ConfigOptions {
     }
 
     public static final ForgeConfigSpec client_spec = CLIENT_BUILDER.build();
-    public static final ForgeConfigSpec server_spec = SERVER_BUILDER.build();
-
+    public static final ForgeConfigSpec common_spec = COMMON_BUILDER.build();
 }
