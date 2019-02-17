@@ -9,7 +9,6 @@ import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.ItemMeshDefinition;
 import net.minecraft.client.renderer.block.statemap.StateMapperBase;
-import net.minecraft.client.renderer.color.IItemColor;
 import net.minecraft.client.renderer.model.ModelBakery;
 import net.minecraft.client.renderer.model.ModelResourceLocation;
 import net.minecraft.item.Item;
@@ -71,32 +70,24 @@ public class ModRenderers {
 
     public static void init() {
         for (Item crystal : ModItems.metalCrystal)
-            Minecraft.getInstance().getItemColors().registerItemColorHandler(new IItemColor() {
-
-                @Override
-                public int colorMultiplier(ItemStack stack, int tintIndex) {
-                    int i;
-                    for (i = 0; i < ModItems.metalCrystal.length; i++)
-                        if (stack.getItem() == ModItems.metalCrystal[i]) {
-                            break;
-                        }
-                    return ModFluids.getFluidInfo(i).color;
-                }
+            Minecraft.getInstance().getItemColors().register((ItemStack stack, int tintIndex) -> {
+                int i;
+                for (i = 0; i < ModItems.metalCrystal.length; i++)
+                    if (stack.getItem() == ModItems.metalCrystal[i]) {
+                        break;
+                    }
+                return ModFluids.getFluidInfo(i).color;
 
             }, crystal);
 
         for (Item gem : ModItems.dirtyGem)
-            Minecraft.getInstance().getItemColors().registerItemColorHandler(new IItemColor() {
-
-                @Override
-                public int colorMultiplier(ItemStack stack, int tintIndex) {
-                    int i;
-                    for (i = 0; i < ModItems.dirtyGem.length; i++)
-                        if (stack.getItem() == ModItems.dirtyGem[i]) {
-                            break;
-                        }
-                    return ModItems.gemList.get(i).color;
-                }
+            Minecraft.getInstance().getItemColors().register((ItemStack stack, int tintIndex) -> {
+                int i;
+                for (i = 0; i < ModItems.dirtyGem.length; i++)
+                    if (stack.getItem() == ModItems.dirtyGem[i]) {
+                        break;
+                    }
+                return ModItems.gemList.get(i).color;
 
             }, gem);
 

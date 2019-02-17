@@ -1,7 +1,6 @@
 package com.skyresourcesclassic.proxy;
 
 import com.skyresourcesclassic.References;
-import com.skyresourcesclassic.base.ModKeyBindings;
 import com.skyresourcesclassic.plugin.ModPlugins;
 import com.skyresourcesclassic.registry.ModRenderers;
 import net.minecraftforge.client.model.obj.OBJLoader;
@@ -21,7 +20,6 @@ public class ClientProxy extends CommonProxy {
 
     @Override
     public void enque(InterModEnqueueEvent e) {
-        new ModKeyBindings();
         super.enque(e);
         ModRenderers.init();
     }
