@@ -6,8 +6,10 @@ import com.skyresourcesclassic.events.ModBucketHandler;
 import com.skyresourcesclassic.plugin.ModPlugins;
 import com.skyresourcesclassic.registry.*;
 import net.minecraft.client.gui.GuiScreen;
+import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.fml.ExtensionPoint;
 import net.minecraftforge.fml.ModLoadingContext;
+import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.InterModEnqueueEvent;
 import net.minecraftforge.fml.event.lifecycle.InterModProcessEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
@@ -15,7 +17,8 @@ import net.minecraftforge.fml.network.FMLPlayMessages;
 
 import java.util.function.Function;
 
-public class CommonProxy implements IModProxy {
+@Mod.EventBusSubscriber(Dist.DEDICATED_SERVER)
+public class ServerProxy implements IModProxy {
     private EventHandler events = new EventHandler();
 
     public static void setup() {

@@ -7,16 +7,16 @@
 modLoader="javafml" #mandatory
 # A version range to match for said mod loader - for regular FML @Mod it will be the minecraft version (without the 1.)
 loaderVersion="[25,)" #mandatory
-# A URL to refer people to when problems occur with this mod
-issueTrackerURL="https://github.com/EmosewaPixel/Sky-Resources-Classic/issues" #optional
-# A URL for the "homepage" for this mod, displayed in the mod UI
-authors="TheEmosewaPixel" #optional
 # A list of mods - how many allowed here is determined by the individual mod loader
 [[mods]] #mandatory
 # The modid of the mod
 modId="skyresourcesclassic" #mandatory
 # The version number of the mod - there's a few well known ${} variables useable here or just hardcode it
 version="${minecraft_version}-${mod_version}" #mandatory
+# A URL to refer people to when problems occur with this mod
+issueTrackerURL="https://github.com/EmosewaPixel/Sky-Resources-Classic/issues" #optional
+# A URL for the "homepage" for this mod, displayed in the mod UI
+authors="TheEmosewaPixel" #optional
  # A display name for the mod
 displayName="Sky Resources Classic" #mandatory
 # The description text for the mod (multi line!) (#mandatory)

@@ -1,6 +1,5 @@
 package com.skyresourcesclassic.registry;
 
-import com.skyresourcesclassic.References;
 import com.skyresourcesclassic.alchemy.block.*;
 import com.skyresourcesclassic.alchemy.fluid.FluidCrystalBlock;
 import com.skyresourcesclassic.alchemy.fluid.FluidRegisterInfo.CrystalFluidType;
@@ -16,7 +15,6 @@ import net.minecraft.block.material.Material;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemGroup;
-import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.registries.GameData;
 
 import java.util.ArrayList;
@@ -139,19 +137,6 @@ public class ModBlocks {
         }
     }
 
-    public static Block registerBlockOnly(Block block, String name) {
-        GameData.register_impl(block.setRegistryName(new ResourceLocation(References.ModID, name)));
-
-        return block;
-    }
-
-    public static Block registerBlock(Block block, String name) {
-        GameData.register_impl(block.setRegistryName(new ResourceLocation(References.ModID, name)));
-        GameData.register_impl(new ItemBlock(block, new Item.Properties()).setRegistryName(new ResourceLocation(References.ModID, name)));
-
-        return block;
-    }
-
     private static Block registerBlockOnly(Block block) {
         GameData.register_impl(block);
 
@@ -160,7 +145,7 @@ public class ModBlocks {
 
     public static Block registerBlock(Block block, ItemGroup group) {
         GameData.register_impl(block);
-        GameData.register_impl(new ItemBlock(block, new Item.Properties()).setRegistryName(block.getRegistryName()));
+        GameData.register_impl(new ItemBlock(block, new Item.Properties().group(group)).setRegistryName(block.getRegistryName()));
 
         return block;
     }

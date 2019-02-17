@@ -51,9 +51,6 @@ public class FreezerTile extends MiniFreezerTile implements ITickable {
         if (state.getProperties().add(BlockFreezer.FACING) != stateUp.getProperties().add(BlockFreezer.FACING))
             return false;
 
-        if (state.get(BlockFreezer.PART) != BlockFreezer.EnumPartType.BOTTOM
-                || stateUp.get(BlockFreezer.PART) != BlockFreezer.EnumPartType.TOP)
-            return false;
-        return true;
+        return state.get(BlockFreezer.PART) == BlockFreezer.EnumPartType.BOTTOM && stateUp.get(BlockFreezer.PART) == BlockFreezer.EnumPartType.TOP;
     }
 }

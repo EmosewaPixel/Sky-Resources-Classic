@@ -1,8 +1,8 @@
 package com.skyresourcesclassic;
 
 import com.skyresourcesclassic.proxy.ClientProxy;
-import com.skyresourcesclassic.proxy.CommonProxy;
 import com.skyresourcesclassic.proxy.IModProxy;
+import com.skyresourcesclassic.proxy.ServerProxy;
 import com.skyresourcesclassic.recipe.TagCondition;
 import com.skyresourcesclassic.registry.ModEntities;
 import com.skyresourcesclassic.registry.ModGuiHandler;
@@ -29,21 +29,20 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 @Mod(References.ModID)
+@Mod.EventBusSubscriber(modid = References.ModID, bus = Mod.EventBusSubscriber.Bus.MOD)
 public class SkyResourcesClassic {
-    public static IModProxy proxy = DistExecutor.runForDist(() -> () -> new ClientProxy(), () -> () -> new CommonProxy());
-
-    public static SkyResourcesClassic instance;
+    public static IModProxy proxy = DistExecutor.runForDist(() -> () -> new ClientProxy(), () -> () -> new ServerProxy());
 
     public static Logger logger;
 
     public void commonSetup(final FMLCommonSetupEvent event) {
-        CommonProxy.setup();
+        ServerProxy.setup();
         logger = LogManager.getLogger(References.ModID);
         CraftingHelper.register(new ResourceLocation(References.ModID, "tag_condition"), new TagCondition());
     }
 
     public void clientSetup(final FMLClientSetupEvent event) {
-        ClientProxy.clientSetup();
+        ClientProxy.setup();
     }
 
     public void enque(InterModEnqueueEvent event) {
