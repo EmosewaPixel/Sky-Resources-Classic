@@ -59,7 +59,7 @@ public class BlockFreezer extends BlockContainer {
                                     EnumFacing side, float hitX, float hitY, float hitZ) {
         if (!world.isRemote) {
             BlockPos bottomPos = state.get(PART) == EnumPartType.BOTTOM ? pos : pos.down();
-            NetworkHooks.openGui((EntityPlayerMP) player, new FreezerInterface(bottomPos), null);
+            NetworkHooks.openGui((EntityPlayerMP) player, new FreezerInterface(bottomPos));
         }
         return true;
     }

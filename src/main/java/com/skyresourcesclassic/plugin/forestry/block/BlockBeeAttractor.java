@@ -77,7 +77,7 @@ public class BlockBeeAttractor extends BlockContainer {
                 return true;
             }
 
-            NetworkHooks.openGui((EntityPlayerMP) player, new BeeAttractorInterface(pos), null);
+            NetworkHooks.openGui((EntityPlayerMP) player, new BeeAttractorInterface(pos));
         }
         return true;
     }

@@ -67,7 +67,7 @@ public class LifeInfuserBlock extends BlockContainer {
     public boolean onBlockActivated(IBlockState state, World world, BlockPos pos, EntityPlayer player,
                                     EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
         if (!world.isRemote)
-            NetworkHooks.openGui((EntityPlayerMP) player, new LifeInfuserInterface(pos), null);
+            NetworkHooks.openGui((EntityPlayerMP) player, new LifeInfuserInterface(pos));
         return true;
     }
 

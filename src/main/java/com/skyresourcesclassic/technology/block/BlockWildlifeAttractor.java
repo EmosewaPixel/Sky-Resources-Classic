@@ -71,7 +71,7 @@ public class BlockWildlifeAttractor extends BlockContainer {
                 return true;
             }
 
-            NetworkHooks.openGui((EntityPlayerMP) player, new WildlifeAttractorInterface(pos), null);
+            NetworkHooks.openGui((EntityPlayerMP) player, new WildlifeAttractorInterface(pos));
         }
         return true;
     }

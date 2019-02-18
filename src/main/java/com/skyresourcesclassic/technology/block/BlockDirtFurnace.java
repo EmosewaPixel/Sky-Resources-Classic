@@ -120,7 +120,7 @@ public class BlockDirtFurnace extends BlockContainer {
     public boolean onBlockActivated(IBlockState state, World world, BlockPos pos, EntityPlayer player, EnumHand hand,
                                     EnumFacing side, float hitX, float hitY, float hitZ) {
         if (!world.isRemote)
-            NetworkHooks.openGui((EntityPlayerMP) player, new DirtFurnaceInterface(pos), null);
+            NetworkHooks.openGui((EntityPlayerMP) player, new DirtFurnaceInterface(pos));
 
         return true;
     }

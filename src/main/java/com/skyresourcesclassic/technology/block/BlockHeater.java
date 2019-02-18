@@ -84,7 +84,7 @@ public class BlockHeater extends BlockContainer {
         if (!world.isRemote) {
 
             if (tier < 3)
-                NetworkHooks.openGui((EntityPlayerMP) player, new HeaterInterface(pos, tier), null);
+                NetworkHooks.openGui((EntityPlayerMP) player, new HeaterInterface(pos, tier));
             else {
                 if (player.getHeldItemMainhand().isEmpty() && !player.isSneaking()) {
                     List<ITextComponent> toSend = new ArrayList();

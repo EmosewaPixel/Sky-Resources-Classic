@@ -134,7 +134,7 @@ public class BlockAqueousConcentrator extends BlockContainer {
                 return true;
             }
 
-            NetworkHooks.openGui((EntityPlayerMP) player, new AqueousMachineInterface(pos), null);
+            NetworkHooks.openGui((EntityPlayerMP) player, new AqueousMachineInterface(pos));
 
         }
         return true;

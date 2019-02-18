@@ -112,7 +112,7 @@ public class BlockCombustionHeater extends BlockContainer {
                                     EnumFacing side, float hitX, float hitY, float hitZ) {
         if (!world.isRemote) {
             if (tier < 3)
-                NetworkHooks.openGui((EntityPlayerMP) player, new CombustionHeaterInterface(pos, this.tier), null);
+                NetworkHooks.openGui((EntityPlayerMP) player, new CombustionHeaterInterface(pos, this.tier));
             else {
                 if (player.getHeldItemMainhand().isEmpty() && !player.isSneaking()) {
                     List<ITextComponent> toSend = new ArrayList();

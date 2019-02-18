@@ -138,7 +138,7 @@ public class BlockRockCleaner extends BlockContainer {
                 return true;
             }
 
-            NetworkHooks.openGui((EntityPlayerMP) player, new RockCleanerInterface(pos), null);
+            NetworkHooks.openGui((EntityPlayerMP) player, new RockCleanerInterface(pos));
         }
         return true;
     }
