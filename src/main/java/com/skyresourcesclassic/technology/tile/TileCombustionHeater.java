@@ -152,15 +152,15 @@ public class TileCombustionHeater extends TileItemInventory implements ITickable
         }
     }
 
-    private TileCombustionCollector getCollector() {
+    private BlockPos getSpawnPos() {
         BlockPos[] poses = new BlockPos[]{pos.add(-1, 1, 0), pos.add(1, 1, 0), pos.add(0, 1, -1), pos.add(0, 1, 1),
                 pos.add(0, 2, 0)};
         for (BlockPos p : poses) {
             TileEntity t = world.getTileEntity(p);
             if (t instanceof TileCombustionCollector)
-                return (TileCombustionCollector) t;
+                return p;
         }
-        return null;
+        return pos;
     }
 
     public boolean hasValidMultiblock() {
@@ -225,17 +225,9 @@ public class TileCombustionHeater extends TileItemInventory implements ITickable
 
                     ItemStack stack = recipe.getOutputs().get(0).copy();
 
-                    TileCombustionCollector collector = getCollector();
-                    if (collector != null) {
-                        for (int i = 0; i < 5; i++) {
-                            if (!stack.isEmpty())
-                                stack = collector.getInventory().insertItem(i, stack, false);
-                            else
-                                break;
-                        }
-                    }
                     if (!stack.isEmpty()) {
-                        Entity entity = new EntityItem(world, pos.getX() + 0.5F, pos.getY() + 0.5F, pos.getZ() + 0.5F,
+                        BlockPos p = getSpawnPos();
+                        Entity entity = new EntityItem(world, p.getX() + 0.5F, p.getY() + 0.5F, p.getZ() + 0.5F,
                                 stack);
                         world.spawnEntity(entity);
                     }
@@ -254,9 +246,7 @@ public class TileCombustionHeater extends TileItemInventory implements ITickable
             items.add(i.getItem());
         }
 
-        ProcessRecipe recipe = ProcessRecipeManager.combustionRecipes.getMultiRecipe(items, currentHeatValue, true,
+        return ProcessRecipeManager.combustionRecipes.getMultiRecipe(items, currentHeatValue, true,
                 true);
-
-        return recipe;
     }
 }

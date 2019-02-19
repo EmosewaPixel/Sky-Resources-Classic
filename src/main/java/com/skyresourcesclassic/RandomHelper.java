@@ -20,10 +20,6 @@ import net.minecraftforge.items.IItemHandler;
 import org.lwjgl.opengl.GL11;
 
 public class RandomHelper {
-    public static String capitalizeString(String s) {
-        return s.substring(0, 1).toUpperCase() + s.substring(1);
-    }
-
     public static void spawnItemInWorld(World world, ItemStack stack,
                                         BlockPos pos) {
         Entity entity = new EntityItem(world, pos.getX() + 0.5F,

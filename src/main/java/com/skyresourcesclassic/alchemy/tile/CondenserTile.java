@@ -1,7 +1,6 @@
 package com.skyresourcesclassic.alchemy.tile;
 
 import com.skyresourcesclassic.ConfigOptions;
-import com.skyresourcesclassic.RandomHelper;
 import com.skyresourcesclassic.alchemy.fluid.FluidCrystalBlock;
 import com.skyresourcesclassic.alchemy.fluid.FluidRegisterInfo;
 import com.skyresourcesclassic.base.HeatSources;
@@ -17,8 +16,11 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tags.ItemTags;
+import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ITickable;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.math.BlockPos;
+import net.minecraftforge.items.CapabilityItemHandler;
 
 import java.util.Random;
 
@@ -46,7 +48,7 @@ public class CondenserTile extends TileBase implements ITickable {
             FluidRegisterInfo.CrystalFluidType fluidType = ModFluids.crystalFluidInfos()[ModBlocks.crystalFluidBlocks
                     .indexOf(crystalBlock)].type;
 
-            String tagCheck = "forge:ingot" + RandomHelper.capitalizeString(type);
+            String tagCheck = "forge:ingots/" + type;
 
             if ((tier != 1 || fluidType == FluidRegisterInfo.CrystalFluidType.NORMAL) && crystalBlock.getFluidState(getBlockAbove().getDefaultState()).isSource()
                     && crystalBlock.isNotFlowing(world, pos.up(), world.getBlockState(pos.up()))
@@ -62,11 +64,23 @@ public class CondenserTile extends TileBase implements ITickable {
             if (timeCondense >= getTimeToCondense(crystalBlock)) {
                 world.removeBlock(pos.up());
                 Item item = new ItemTags.Wrapper(new ResourceLocation(tagCheck)).getAllElements().iterator().next();
-                Entity entity = new EntityItem(world, pos.getX() + 0.5F, pos.getY() + 1.5F, pos.getZ() + 0.5F, new ItemStack(item));
+                BlockPos p = getSpawnPos();
+                Entity entity = new EntityItem(world, p.getX() + 0.5F, p.getY() + 0.5F, p.getZ() + 0.5F, new ItemStack(item));
                 world.spawnEntity(entity);
                 timeCondense = 0;
             }
         }
+    }
+
+
+    private BlockPos getSpawnPos() {
+        BlockPos[] poses = new BlockPos[]{pos.add(-1, 0, 0), pos.add(1, 0, 0), pos.add(0, 0, -1), pos.add(0, 0, 1)};
+        for (BlockPos p : poses) {
+            TileEntity t = world.getTileEntity(p);
+            if (t.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY).isPresent())
+                return p;
+        }
+        return pos.add(0, 1, 0);
     }
 
     private int getTimeToCondense(FluidCrystalBlock block) {
