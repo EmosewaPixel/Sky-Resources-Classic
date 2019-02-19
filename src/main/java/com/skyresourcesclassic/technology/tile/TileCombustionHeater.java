@@ -152,15 +152,15 @@ public class TileCombustionHeater extends TileItemInventory implements ITickable
         }
     }
 
-    private BlockPos getSpawnPos() {
+    private TileCombustionCollector getCollector() {
         BlockPos[] poses = new BlockPos[]{pos.add(-1, 1, 0), pos.add(1, 1, 0), pos.add(0, 1, -1), pos.add(0, 1, 1),
                 pos.add(0, 2, 0)};
         for (BlockPos p : poses) {
             TileEntity t = world.getTileEntity(p);
             if (t instanceof TileCombustionCollector)
-                return p;
+                return (TileCombustionCollector) t;
         }
-        return pos;
+        return null;
     }
 
     public boolean hasValidMultiblock() {
@@ -225,9 +225,18 @@ public class TileCombustionHeater extends TileItemInventory implements ITickable
 
                     ItemStack stack = recipe.getOutputs().get(0).copy();
 
+                    TileCombustionCollector collector = getCollector();
+                    if (collector != null) {
+                        for (int i = 0; i < 5; i++) {
+                            if (!stack.isEmpty())
+                                stack = collector.getInventory().insertItem(i, stack, false);
+                            else
+                                break;
+                        }
+                    }
                     if (!stack.isEmpty()) {
-                        BlockPos p = getSpawnPos();
-                        Entity entity = new EntityItem(world, p.getX() + 0.5F, p.getY() + 0.5F, p.getZ() + 0.5F,
+
+                        Entity entity = new EntityItem(world, pos.getX() + 0.5F, pos.getY() + 0.5F, pos.getZ() + 0.5F,
                                 stack);
                         world.spawnEntity(entity);
                     }
