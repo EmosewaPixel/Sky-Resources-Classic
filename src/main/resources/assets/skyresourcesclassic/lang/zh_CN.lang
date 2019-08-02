@@ -125,7 +125,7 @@ jei.skyresourcesclassic.recipe.cauldronclean=通过炼药锅洗涤
 jei.skyresourcesclassic.recipe.waterextractor=抽水器
 jei.skyresourcesclassic.recipe.knife=切割小刀
 
-container.skyresourcesclassic.combustion_heater=燃烧点火器
+container.skyresourcesclassic.combustion_heater=氧化加热器
 container.skyresourcesclassic.concentrator=注入器
 container.skyresourcesclassic.crucible_inserter=坩埚供料器
 container.skyresourcesclassic.freezer=冰箱
